@@ -1,0 +1,65 @@
+SQL> 
+SQL> -- Anonymous block to cleanup the lab files.
+SQL> BEGIN
+  2    FOR i IN (SELECT    object_name
+  3  		 ,	   object_type
+  4  		 ,	   last_ddl_time
+  5  		 FROM	   user_objects
+  6  		 ORDER BY object_name ASC) LOOP
+  7  
+  8  	 /* Drop types in descending order. */
+  9  	 IF i.object_type = 'TYPE' THEN
+ 10  
+ 11  	   /* Print the executed statement. */
+ 12  	   dbms_output.put_line('DROP '||i.object_type||' '||i.object_name||';');
+ 13  	   /* Drop type and force operation because dependencies may exist. Oracle 12c
+ 14  	      also fails to remove object types with dependents in pluggable databases
+ 15  	      (at least in release 12.1). Type evolution works in container database
+ 16  	      schemas. */
+ 17  	   EXECUTE IMMEDIATE 'DROP '||i.object_type||' '||i.object_name||' FORCE';
+ 18  
+ 19  	 /* Drop table tables in descending order. */
+ 20  	 ELSIF i.object_type = 'TABLE' THEN
+ 21  
+ 22  	   /* Print the executed statement. */
+ 23  	   dbms_output.put_line('DROP '||i.object_type||' '||i.object_name||';');
+ 24  	   /* Drop table with cascading constraints to ensure foreign key constraints
+ 25  	      don't prevent the action. */
+ 26  	   EXECUTE IMMEDIATE 'DROP '||i.object_type||' '||i.object_name||' CASCADE CONSTRAINTS PURGE';
+ 27  
+ 28  	   /* Oracle 12c ONLY: Purge the recyclebin to dispose of system-generated
+ 29  	      sequence values because dropping the table doesn't automatically
+ 30  	      remove them from the active session.
+ 31  	      CRITICAL: Remark out the following when working in Oracle Database 11g. */
+ 32  	   EXECUTE IMMEDIATE 'PURGE RECYCLEBIN';
+ 33  
+ 34  	 ELSIF i.object_type = 'LOB' OR i.object_type = 'INDEX' THEN
+ 35  
+ 36  	   /* Print the executed statement. */
+ 37  	   dbms_output.put_line('DROP '||i.object_type||' '||i.object_name||';');
+ 38  	   /* A system generated LOB column or INDEX will cause a failure in a
+ 39  	      generic drop of a table because it is listed in the cursor but removed
+ 40  	      by the drop of its table. This NULL block ensures there is no attempt
+ 41  	      to drop an implicit LOB data type or index because the dropping the
+ 42  	      table takes care of it. */
+ 43  	   NULL;
+ 44  
+ 45  	 ELSE
+ 46  
+ 47  	   IF i.object_type NOT IN ('TRIGGER') THEN
+ 48  	     /* Print the executed statement. */
+ 49  	     dbms_output.put_line('DROP '||i.object_type||' '||i.object_name||';');
+ 50  	     /* Drop any other objects, like sequences, functions, procedures, and packages. */
+ 51  	     EXECUTE IMMEDIATE 'DROP '||i.object_type||' '||i.object_name;
+ 52  	   END IF;
+ 53  
+ 54  	 END IF;
+ 55    END LOOP;
+ 56  END;
+ 57  /
+
+PL/SQL procedure successfully completed.
+
+SQL> 
+SQL> -- Close the log file.
+SQL> SPOOL OFF

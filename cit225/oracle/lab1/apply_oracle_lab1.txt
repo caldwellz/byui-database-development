@@ -1,0 +1,23 @@
+SQL> -- ------------------------------------------------------------------
+SQL> --   Cleanup prior installations and run previous lab scripts.
+SQL> -- ------------------------------------------------------------------
+SQL> @@/home/student/Data/cit225/oracle/lib1/utility/cleanup_oracle.sql
+SQL> -- ------------------------------------------------------------------
+SQL> --  Program Name:	 cleanup_oracle.sql
+SQL> --  Lab Assignment: N/A
+SQL> --  Program Author: Michael McLaughlin
+SQL> --  Creation Date:  02-Mar-2010
+SQL> -- ------------------------------------------------------------------
+SQL> --  Change Log:
+SQL> -- ------------------------------------------------------------------
+SQL> --  Change Date	Change Reason
+SQL> -- -------------  ---------------------------------------------------
+SQL> --  08-Jun-2014	Update lab for weekly deliverables.
+SQL> --  23-Aug-2018	Update script to work with APEX 18.1.
+SQL> -- ------------------------------------------------------------------
+SQL> -- This creates tables, sequences, indexes, and constraints necessary
+SQL> -- to begin lesson #3. Demonstrates proper process and syntax.
+SQL> -- ------------------------------------------------------------------
+SQL> 
+SQL> -- Open log file.
+SQL> SPOOL cleanup_oracle.txt
