@@ -16,7 +16,6 @@
 --   with a session-level bind variable. 
 -- ------------------------------------------------------------------
 
-SPOOL apply_oracle_lab1.txt
 -- ------------------------------------------------------------------
 --   Cleanup prior installations and run previous lab scripts.
 -- ------------------------------------------------------------------
@@ -26,6 +25,7 @@ SPOOL apply_oracle_lab1.txt
 -- ------------------------------------------------------------------
 --   Set SQL*Plus environmnet variables.
 -- ------------------------------------------------------------------
+SPOOL apply_oracle_lab1.txt
 SET ECHO ON
 SET FEEDBACK ON
 SET NULL '<Null>'

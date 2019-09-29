@@ -38,7 +38,7 @@ SET SERVEROUTPUT ON
 -- ------------------------------------------------------------------
 --  Cleanup prior installations and run previous lab scripts.
 -- ------------------------------------------------------------------
-@/home/student/Data/cit225/oracle/lab1/apply_oracle_lab1.sql
+@@/home/student/Data/cit225/oracle/lab1/apply_oracle_lab1.sql
 
 -- ------------------------------------------------------------------
 --  Call scripts to create tables.
