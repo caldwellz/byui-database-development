@@ -74,11 +74,11 @@ CREATE TABLE common_lookup_lab
 -- Display the table organization.
 SET NULL ''
 COLUMN table_name   FORMAT A16
-COLUMN column_lab_id    FORMAT 9999
+COLUMN column_id    FORMAT 9999
 COLUMN column_name  FORMAT A22
 COLUMN data_type    FORMAT A12
 SELECT   table_name
-,        column_lab_id
+,        column_id
 ,        column_name
 ,        CASE
            WHEN nullable = 'N' THEN 'NOT NULL'
@@ -151,7 +151,7 @@ ORDER BY ui.index_name
 
 -- Add a constraint to the SYSTEM_USER table dependent on the COMMON_LOOKUP table.
 ALTER TABLE system_user
-ADD CONSTRAINT fk_system_user_lab_3 FOREIGN KEY(system_user_group_lab_id)
+ADD CONSTRAINT fk_system_user_lab_3 FOREIGN KEY(system_user_group_id)
     REFERENCES common_lookup_lab(common_lookup_lab_id);
 
 ALTER TABLE system_user

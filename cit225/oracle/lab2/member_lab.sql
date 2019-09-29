@@ -77,11 +77,11 @@ CREATE TABLE member_lab
 -- Display the table organization.
 SET NULL ''
 COLUMN table_name   FORMAT A16
-COLUMN column_lab_id    FORMAT 9999
+COLUMN column_id    FORMAT 9999
 COLUMN column_name  FORMAT A22
 COLUMN data_type    FORMAT A12
 SELECT   table_name
-,        column_lab_id
+,        column_id
 ,        column_name
 ,        CASE
            WHEN nullable = 'N' THEN 'NOT NULL'
