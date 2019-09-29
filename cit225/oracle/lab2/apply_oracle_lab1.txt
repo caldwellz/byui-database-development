@@ -1,0 +1,37 @@
+SQL> SET ECHO ON
+SQL> SET FEEDBACK ON
+SQL> SET NULL '<Null>'
+SQL> SET PAGESIZE 999
+SQL> SET SERVEROUTPUT ON
+SQL> 
+SQL> -- ------------------------------------------------------------------
+SQL> --   Open the log file for writing.
+SQL> -- ------------------------------------------------------------------
+SQL> 
+SQL> -- Declare a session-level bind variable.
+SQL> VARIABLE bind_variable VARCHAR2(30)
+SQL> 
+SQL> -- Assign a value to the session-level bind variable.
+SQL> BEGIN
+  2    :bind_variable := 'Lab 1 is complete!';
+  3  END;
+  4  /
+
+PL/SQL procedure successfully completed.
+
+SQL> 
+SQL> -- Query the value of the session-level bind variable.
+SQL> COLUMN bvariable FORMAT A30 HEADING "Session-level Bind Variable"
+SQL> SELECT :bind_variable AS bvariable FROM dual;
+
+Session-level Bind Variable                                                     
+------------------------------                                                  
+Lab 1 is complete!                                                              
+
+1 row selected.
+
+SQL> 
+SQL> -- ------------------------------------------------------------------
+SQL> --   Close the log file for writing.
+SQL> -- ------------------------------------------------------------------
+SQL> SPOOL OFF
