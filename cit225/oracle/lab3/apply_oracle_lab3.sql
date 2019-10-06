@@ -42,10 +42,10 @@ SPOOL apply_oracle_lab3.txt
 -- --------------------------------------------------------
 
 ALTER TABLE system_user_lab
-  DISABLE CONSTRAINT fk_system_user_lab_3;
+  DISABLE CONSTRAINT fk_system_user_lab_1;
 
 ALTER TABLE system_user_lab
-  DISABLE CONSTRAINT fk_system_user_lab_4;
+  DISABLE CONSTRAINT fk_system_user_lab_2;
 
 
 COL table_name       FORMAT A14  HEADING "Table Name"
@@ -130,7 +130,7 @@ INSERT INTO system_user_lab
 , last_updated_by
 , last_update_date)
 VALUES
-( 1            -- system_user_id
+( 1            -- system_user_lab_id
 ,'SYSADMIN'    -- system_user_name
 , null         -- system_user_group_id            
 , null         -- system_user_type
@@ -186,7 +186,7 @@ ORDER BY CASE
 --  Insert data set for preseeded common_lookup table.
 -- --------------------------------------------------------
 INSERT INTO common_lookup_lab
-( common_lookup_id
+( common_lookup_lab_id
 , common_lookup_context
 , common_lookup_type
 , common_lookup_meaning
@@ -195,7 +195,7 @@ INSERT INTO common_lookup_lab
 , last_updated_by
 , last_update_date )
  VALUES
-( 1                           -- common_lookup_id
+( 1                           -- common_lookup_lab_id
 ,'SYSTEM_USER_LAB'            -- common_lookup_context
 ,'SYSTEM_ADMIN'               -- common_lookup_type
 ,'System Administrator'       -- common_lookup_meaning
@@ -206,7 +206,7 @@ INSERT INTO common_lookup_lab
 );
 
 INSERT INTO common_lookup_lab
-( common_lookup_id
+( common_lookup_lab_id
 , common_lookup_context
 , common_lookup_type
 , common_lookup_meaning
@@ -215,7 +215,7 @@ INSERT INTO common_lookup_lab
 , last_updated_by
 , last_update_date )
 VALUES
-( 2                           -- common_lookup_id
+( 2                           -- common_lookup_lab_id
 ,'SYSTEM_USER_LAB'            -- common_lookup_context
 ,'DBA'                        -- common_lookup_type
 ,'Database Administrator'     -- common_lookup_meaning
@@ -226,7 +226,7 @@ VALUES
 );
 
 INSERT INTO common_lookup_lab
-( common_lookup_id
+( common_lookup_lab_id
 , common_lookup_context
 , common_lookup_type
 , common_lookup_meaning
@@ -235,7 +235,7 @@ INSERT INTO common_lookup_lab
 , last_updated_by
 , last_update_date )
  VALUES
-( 3                           -- common_lookup_id
+( 3                           -- common_lookup_lab_id
 ,'SYSTEM_USER_LAB'            -- common_lookup_context
 ,'SYSTEM_GROUP'               -- common_lookup_type
 ,'System Group'               -- common_lookup_meaning
@@ -246,7 +246,7 @@ INSERT INTO common_lookup_lab
 );
 
 INSERT INTO common_lookup_lab
-( common_lookup_id
+( common_lookup_lab_id
 , common_lookup_context
 , common_lookup_type
 , common_lookup_meaning
@@ -255,7 +255,7 @@ INSERT INTO common_lookup_lab
 , last_updated_by
 , last_update_date )
  VALUES
-( 4                           -- common_lookup_id
+( 4                           -- common_lookup_lab_id
 ,'SYSTEM_USER_LAB'            -- common_lookup_context
 ,'COST_CENTER'                -- common_lookup_type
 ,'Cost Center'                -- common_lookup_meaning
@@ -266,7 +266,7 @@ INSERT INTO common_lookup_lab
 );
 
 INSERT INTO common_lookup_lab
-( common_lookup_id
+( common_lookup_lab_id
 , common_lookup_context
 , common_lookup_type
 , common_lookup_meaning
@@ -275,7 +275,7 @@ INSERT INTO common_lookup_lab
 , last_updated_by
 , last_update_date )
  VALUES
-( 5                           -- common_lookup_id
+( 5                           -- common_lookup_lab_id
 ,'SYSTEM_USER_LAB'            -- common_lookup_context
 ,'INDIVIDUAL'                 -- common_lookup_type
 ,'Individual'                 -- common_lookup_meaning
@@ -286,7 +286,7 @@ INSERT INTO common_lookup_lab
 );
 
 INSERT INTO common_lookup_lab
-( common_lookup_id
+( common_lookup_lab_id
 , common_lookup_context
 , common_lookup_type
 , common_lookup_meaning
@@ -295,7 +295,7 @@ INSERT INTO common_lookup_lab
 , last_updated_by
 , last_update_date )
 VALUES
-( common_lookup_lab_s1.nextval    -- common_lookup_id (1001)
+( common_lookup_lab_s1.nextval    -- common_lookup_lab_id (1001)
 ,'CONTACT_LAB'                -- common_lookup_context
 ,'EMPLOYEE'                   -- common_lookup_type
 ,'Employee'                   -- common_lookup_meaning
@@ -306,7 +306,7 @@ VALUES
 );
 
 INSERT INTO common_lookup_lab
-( common_lookup_id
+( common_lookup_lab_id
 , common_lookup_context
 , common_lookup_type
 , common_lookup_meaning
@@ -315,7 +315,7 @@ INSERT INTO common_lookup_lab
 , last_updated_by
 , last_update_date )
 VALUES
-( common_lookup_lab_s1.nextval    -- common_lookup_id (1002)
+( common_lookup_lab_s1.nextval    -- common_lookup_lab_id (1002)
 ,'CONTACT_LAB'                -- common_lookup_context
 ,'CUSTOMER'                   -- common_lookup_type
 ,'Customer'                   -- common_lookup_meaning
@@ -326,7 +326,7 @@ VALUES
 );
 
 INSERT INTO common_lookup_lab
-( common_lookup_id
+( common_lookup_lab_id
 , common_lookup_context
 , common_lookup_type
 , common_lookup_meaning
@@ -335,7 +335,7 @@ INSERT INTO common_lookup_lab
 , last_updated_by
 , last_update_date )
 VALUES
-( common_lookup_lab_s1.nextval    -- common_lookup_id (1003)
+( common_lookup_lab_s1.nextval    -- common_lookup_lab_id (1003)
 ,'MEMBER_LAB'                 -- common_lookup_context
 ,'INDIVIDUAL'                 -- common_lookup_type
 ,'Individual Membership'      -- common_lookup_meaning
@@ -346,7 +346,7 @@ VALUES
 );
 
 INSERT INTO common_lookup_lab
-( common_lookup_id
+( common_lookup_lab_id
 , common_lookup_context
 , common_lookup_type
 , common_lookup_meaning
@@ -355,7 +355,7 @@ INSERT INTO common_lookup_lab
 , last_updated_by
 , last_update_date )
 VALUES
-( common_lookup_lab_s1.nextval    -- common_lookup_id (1004)
+( common_lookup_lab_s1.nextval    -- common_lookup_lab_id (1004)
 ,'MEMBER_LAB'                 -- common_lookup_context
 ,'GROUP'                      -- common_lookup_type
 ,'Group Membership'           -- common_lookup_meaning
@@ -366,7 +366,7 @@ VALUES
 );
 
 INSERT INTO common_lookup_lab
-( common_lookup_id
+( common_lookup_lab_id
 , common_lookup_context
 , common_lookup_type
 , common_lookup_meaning
@@ -375,7 +375,7 @@ INSERT INTO common_lookup_lab
 , last_updated_by
 , last_update_date )
 VALUES
-( common_lookup_lab_s1.nextval    -- common_lookup_id (1005)
+( common_lookup_lab_s1.nextval    -- common_lookup_lab_id (1005)
 ,'MEMBER_LAB'                 -- common_lookup_context
 ,'DISCOVER_CARD'              -- common_lookup_type
 ,'Discover Card'              -- common_lookup_meaning
@@ -386,7 +386,7 @@ VALUES
 );
 
 INSERT INTO common_lookup_lab
-( common_lookup_id
+( common_lookup_lab_id
 , common_lookup_context
 , common_lookup_type
 , common_lookup_meaning
@@ -395,7 +395,7 @@ INSERT INTO common_lookup_lab
 , last_updated_by
 , last_update_date )
 VALUES
-( common_lookup_lab_s1.nextval    -- common_lookup_id (1006)
+( common_lookup_lab_s1.nextval    -- common_lookup_lab_id (1006)
 ,'MEMBER_LAB'                 -- common_lookup_context
 ,'MASTER_CARD'                -- common_lookup_type
 ,'Master Card'                -- common_lookup_meaning
@@ -406,7 +406,7 @@ VALUES
 );
 
 INSERT INTO common_lookup_lab
-( common_lookup_id
+( common_lookup_lab_id
 , common_lookup_context
 , common_lookup_type
 , common_lookup_meaning
@@ -415,7 +415,7 @@ INSERT INTO common_lookup_lab
 , last_updated_by
 , last_update_date )
 VALUES
-( common_lookup_lab_s1.nextval    -- common_lookup_id (1007)
+( common_lookup_lab_s1.nextval    -- common_lookup_lab_id (1007)
 ,'MEMBER_LAB'                 -- common_lookup_context
 ,'VISA_CARD'                  -- common_lookup_type
 ,'VISA Card'                  -- common_lookup_meaning
@@ -426,7 +426,7 @@ VALUES
 );
 
 INSERT INTO common_lookup_lab
-( common_lookup_id
+( common_lookup_lab_id
 , common_lookup_context
 , common_lookup_type
 , common_lookup_meaning
@@ -435,7 +435,7 @@ INSERT INTO common_lookup_lab
 , last_updated_by
 , last_update_date )
 VALUES
-( common_lookup_lab_s1.nextval    -- common_lookup_id (1008)
+( common_lookup_lab_s1.nextval    -- common_lookup_lab_id (1008)
 ,'MULTIPLE'                   -- common_lookup_context
 ,'HOME'                       -- common_lookup_type
 ,'Home'                       -- common_lookup_meaning
@@ -446,7 +446,7 @@ VALUES
 );
 
 INSERT INTO common_lookup_lab
-( common_lookup_id
+( common_lookup_lab_id
 , common_lookup_context
 , common_lookup_type
 , common_lookup_meaning
@@ -455,7 +455,7 @@ INSERT INTO common_lookup_lab
 , last_updated_by
 , last_update_date )
 VALUES
-( common_lookup_lab_s1.nextval    -- common_lookup_id (1009)
+( common_lookup_lab_s1.nextval    -- common_lookup_lab_id (1009)
 ,'MULTIPLE'                   -- common_lookup_context
 ,'WORK'                       -- common_lookup_type
 ,'Work'                       -- common_lookup_meaning
@@ -466,7 +466,7 @@ VALUES
 );
 
 INSERT INTO common_lookup_lab
-( common_lookup_id
+( common_lookup_lab_id
 , common_lookup_context
 , common_lookup_type
 , common_lookup_meaning
@@ -475,7 +475,7 @@ INSERT INTO common_lookup_lab
 , last_updated_by
 , last_update_date )
 VALUES
-( common_lookup_lab_s1.nextval    -- common_lookup_id (1010)
+( common_lookup_lab_s1.nextval    -- common_lookup_lab_id (1010)
 ,'ITEM_LAB'                   -- common_lookup_context
 ,'DVD_FULL_SCREEN'            -- common_lookup_type
 ,'DVD: Full Screen'           -- common_lookup_meaning
@@ -486,7 +486,7 @@ VALUES
 );
 
 INSERT INTO common_lookup_lab
-( common_lookup_id
+( common_lookup_lab_id
 , common_lookup_context
 , common_lookup_type
 , common_lookup_meaning
@@ -495,7 +495,7 @@ INSERT INTO common_lookup_lab
 , last_updated_by
 , last_update_date )
 VALUES
-( common_lookup_lab_s1.nextval    -- common_lookup_id (1011)
+( common_lookup_lab_s1.nextval    -- common_lookup_lab_id (1011)
 ,'ITEM_LAB'                   -- common_lookup_context
 ,'DVD_WIDE_SCREEN'            -- common_lookup_type
 ,'DVD: Wide Screen'           -- common_lookup_meaning
@@ -506,7 +506,7 @@ VALUES
 );
 
 INSERT INTO common_lookup_lab
-( common_lookup_id
+( common_lookup_lab_id
 , common_lookup_context
 , common_lookup_type
 , common_lookup_meaning
@@ -515,7 +515,7 @@ INSERT INTO common_lookup_lab
 , last_updated_by
 , last_update_date )
 VALUES
-( common_lookup_lab_s1.nextval    -- common_lookup_id (1012)
+( common_lookup_lab_s1.nextval    -- common_lookup_lab_id (1012)
 ,'ITEM_LAB'                   -- common_lookup_context
 ,'NINTENDO_GAMECUBE'          -- common_lookup_type
 ,'Nintendo Gamecube'          -- common_lookup_meaning
@@ -526,7 +526,7 @@ VALUES
 );
 
 INSERT INTO common_lookup_lab
-( common_lookup_id
+( common_lookup_lab_id
 , common_lookup_context
 , common_lookup_type
 , common_lookup_meaning
@@ -535,7 +535,7 @@ INSERT INTO common_lookup_lab
 , last_updated_by
 , last_update_date )
 VALUES
-( common_lookup_lab_s1.nextval    -- common_lookup_id (1013)
+( common_lookup_lab_s1.nextval    -- common_lookup_lab_id (1013)
 ,'ITEM_LAB'                   -- common_lookup_context
 ,'PLAYSTATION2'               -- common_lookup_type
 ,'Playstation2'               -- common_lookup_meaning
@@ -546,7 +546,7 @@ VALUES
 );
 
 INSERT INTO common_lookup_lab
-( common_lookup_id
+( common_lookup_lab_id
 , common_lookup_context
 , common_lookup_type
 , common_lookup_meaning
@@ -555,7 +555,7 @@ INSERT INTO common_lookup_lab
 , last_updated_by
 , last_update_date )
 VALUES
-( common_lookup_lab_s1.nextval    -- common_lookup_id (1014)
+( common_lookup_lab_s1.nextval    -- common_lookup_lab_id (1014)
 ,'ITEM_LAB'                   -- common_lookup_context
 ,'XBOX'                       -- common_lookup_type
 ,'XBox'                       -- common_lookup_meaning
@@ -566,7 +566,7 @@ VALUES
 );
 
 INSERT INTO common_lookup_lab
-( common_lookup_id
+( common_lookup_lab_id
 , common_lookup_context
 , common_lookup_type
 , common_lookup_meaning
@@ -575,7 +575,7 @@ INSERT INTO common_lookup_lab
 , last_updated_by
 , last_update_date )
 VALUES
-( common_lookup_lab_s1.nextval    -- common_lookup_id (1011)
+( common_lookup_lab_s1.nextval    -- common_lookup_lab_id (1011)
 ,'ITEM_LAB'                   -- common_lookup_context
 ,'BLU-RAY'                    -- common_lookup_type
 ,'Blu-ray'                    -- common_lookup_meaning
@@ -633,7 +633,7 @@ SET    system_user_group_id =
           FROM     common_lookup_lab
           WHERE    common_lookup_context = 'SYSTEM_USER_LAB'
           AND      common_lookup_type = 'SYSTEM_ADMIN')
-WHERE  system_user_id = 1;
+WHERE  system_user_lab_id = 1;
 
 
 -- Display results.
@@ -656,7 +656,7 @@ SET    system_user_type =
           FROM     common_lookup_lab
           WHERE    common_lookup_context = 'SYSTEM_USER_LAB'
           AND      common_lookup_type = 'SYSTEM_GROUP')
-WHERE  system_user_id = 1;
+WHERE  system_user_lab_id = 1;
 
 -- Display results.
 SET NULL '<Null>'
@@ -679,11 +679,11 @@ WHERE    system_user_lab_id = 1;
 
 -- Insert ALTER statement #1.
 ALTER TABLE system_user_lab
-  ENABLE CONSTRAINT fk_system_user_lab_3;
+  ENABLE CONSTRAINT fk_system_user_lab_1;
 
 -- Insert ALTER statement #2.
 ALTER TABLE system_user_lab
-  ENABLE CONSTRAINT fk_system_user_lab_4;
+  ENABLE CONSTRAINT fk_system_user_lab_2;
 
 -- Display system_user table constraints.
 COL table_name       FORMAT A14  HEADING "Table Name"
