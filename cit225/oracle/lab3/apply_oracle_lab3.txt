@@ -1,0 +1,421 @@
+
+Table altered.
+
+
+Table altered.
+
+
+Table Name     Constraint Name          Constraint T Status                     
+-------------- ------------------------ ------------ --------                   
+SYSTEM_USER_LA PK_SYSTEM_USER_LAB_1     PRIMARY KEY  ENABLED                    
+B                                                                               
+                                                                                
+SYSTEM_USER_LA NN_SYSTEM_USER_LAB_1     NOT NULL     ENABLED                    
+B                                                                               
+                                                                                
+SYSTEM_USER_LA NN_SYSTEM_USER_LAB_2     NOT NULL     ENABLED                    
+B                                                                               
+                                                                                
+SYSTEM_USER_LA NN_SYSTEM_USER_LAB_3     NOT NULL     ENABLED                    
+B                                                                               
+
+Table Name     Constraint Name          Constraint T Status                     
+-------------- ------------------------ ------------ --------                   
+                                                                                
+SYSTEM_USER_LA NN_SYSTEM_USER_LAB_4     NOT NULL     ENABLED                    
+B                                                                               
+                                                                                
+SYSTEM_USER_LA NN_SYSTEM_USER_LAB_5     NOT NULL     ENABLED                    
+B                                                                               
+                                                                                
+SYSTEM_USER_LA NN_SYSTEM_USER_LAB_6     NOT NULL     ENABLED                    
+B                                                                               
+                                                                                
+SYSTEM_USER_LA NN_SYSTEM_USER_LAB_7     NOT NULL     ENABLED                    
+
+Table Name     Constraint Name          Constraint T Status                     
+-------------- ------------------------ ------------ --------                   
+B                                                                               
+                                                                                
+SYSTEM_USER_LA FK_SYSTEM_USER_LAB_1     FOREIGN KEY  DISABLED                   
+B                                                                               
+                                                                                
+SYSTEM_USER_LA FK_SYSTEM_USER_LAB_2     FOREIGN KEY  DISABLED                   
+B                                                                               
+                                                                                
+
+10 rows selected.
+
+
+Table altered.
+
+
+Table altered.
+
+
+Table Name     Constraint Name          Constraint T Status                     
+-------------- ------------------------ ------------ --------                   
+SYSTEM_USER_LA PK_SYSTEM_USER_LAB_1     PRIMARY KEY  ENABLED                    
+B                                                                               
+                                                                                
+SYSTEM_USER_LA NN_SYSTEM_USER_LAB_1     NOT NULL     ENABLED                    
+B                                                                               
+                                                                                
+SYSTEM_USER_LA NN_SYSTEM_USER_LAB_4     NOT NULL     ENABLED                    
+B                                                                               
+                                                                                
+SYSTEM_USER_LA NN_SYSTEM_USER_LAB_5     NOT NULL     ENABLED                    
+B                                                                               
+
+Table Name     Constraint Name          Constraint T Status                     
+-------------- ------------------------ ------------ --------                   
+                                                                                
+SYSTEM_USER_LA NN_SYSTEM_USER_LAB_6     NOT NULL     ENABLED                    
+B                                                                               
+                                                                                
+SYSTEM_USER_LA NN_SYSTEM_USER_LAB_7     NOT NULL     ENABLED                    
+B                                                                               
+                                                                                
+SYSTEM_USER_LA FK_SYSTEM_USER_LAB_1     FOREIGN KEY  DISABLED                   
+B                                                                               
+                                                                                
+SYSTEM_USER_LA FK_SYSTEM_USER_LAB_2     FOREIGN KEY  DISABLED                   
+
+Table Name     Constraint Name          Constraint T Status                     
+-------------- ------------------------ ------------ --------                   
+B                                                                               
+                                                                                
+
+8 rows selected.
+
+
+1 row created.
+
+
+Table altered.
+
+
+Table altered.
+
+
+Table Name     Constraint Name          Constraint T Status                     
+-------------- ------------------------ ------------ --------                   
+COMMON_LOOKUP_ PK_CLOOKUP_LAB_1         PRIMARY KEY  ENABLED                    
+LAB                                                                             
+                                                                                
+COMMON_LOOKUP_ NN_CLOOKUP_LAB_1         NOT NULL     ENABLED                    
+LAB                                                                             
+                                                                                
+COMMON_LOOKUP_ NN_CLOOKUP_LAB_2         NOT NULL     ENABLED                    
+LAB                                                                             
+                                                                                
+COMMON_LOOKUP_ NN_CLOOKUP_LAB_3         NOT NULL     ENABLED                    
+LAB                                                                             
+
+Table Name     Constraint Name          Constraint T Status                     
+-------------- ------------------------ ------------ --------                   
+                                                                                
+COMMON_LOOKUP_ NN_CLOOKUP_LAB_4         NOT NULL     ENABLED                    
+LAB                                                                             
+                                                                                
+COMMON_LOOKUP_ NN_CLOOKUP_LAB_5         NOT NULL     ENABLED                    
+LAB                                                                             
+                                                                                
+COMMON_LOOKUP_ NN_CLOOKUP_LAB_6         NOT NULL     ENABLED                    
+LAB                                                                             
+                                                                                
+COMMON_LOOKUP_ NN_CLOOKUP_LAB_7         NOT NULL     ENABLED                    
+
+Table Name     Constraint Name          Constraint T Status                     
+-------------- ------------------------ ------------ --------                   
+LAB                                                                             
+                                                                                
+COMMON_LOOKUP_ FK_CLOOKUP_LAB_1         FOREIGN KEY  DISABLED                   
+LAB                                                                             
+                                                                                
+COMMON_LOOKUP_ FK_CLOOKUP_LAB_2         FOREIGN KEY  DISABLED                   
+LAB                                                                             
+                                                                                
+
+10 rows selected.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+COMMON_LOOKUP_LAB_ID COMMON_LOOKUP_CONTEXT  COMMON_LOOKUP_TY                    
+-------------------- ---------------------- ----------------                    
+                   1 SYSTEM_USER_LAB        SYSTEM_ADMIN                        
+                   2 SYSTEM_USER_LAB        DBA                                 
+                   3 SYSTEM_USER_LAB        SYSTEM_GROUP                        
+                   4 SYSTEM_USER_LAB        COST_CENTER                         
+                   5 SYSTEM_USER_LAB        INDIVIDUAL                          
+                1001 CONTACT_LAB            EMPLOYEE                            
+                1002 CONTACT_LAB            CUSTOMER                            
+                1003 MEMBER_LAB             INDIVIDUAL                          
+                1004 MEMBER_LAB             GROUP                               
+                1005 MEMBER_LAB             DISCOVER_CARD                       
+                1006 MEMBER_LAB             MASTER_CARD                         
+
+COMMON_LOOKUP_LAB_ID COMMON_LOOKUP_CONTEXT  COMMON_LOOKUP_TY                    
+-------------------- ---------------------- ----------------                    
+                1007 MEMBER_LAB             VISA_CARD                           
+                1008 MULTIPLE               HOME                                
+                1009 MULTIPLE               WORK                                
+                1010 ITEM_LAB               DVD_FULL_SCREEN                     
+                1011 ITEM_LAB               DVD_WIDE_SCREEN                     
+                1012 ITEM_LAB               NINTENDO_GAMECUB                    
+                                            E                                   
+                                                                                
+                1013 ITEM_LAB               PLAYSTATION2                        
+                1014 ITEM_LAB               XBOX                                
+                1015 ITEM_LAB               BLU-RAY                             
+
+20 rows selected.
+
+
+COMMON_LOOKUP_LAB_ID                                                            
+--------------------                                                            
+                   3                                                            
+
+
+COMMON_LOOKUP_LAB_ID                                                            
+--------------------                                                            
+                   1                                                            
+
+
+1 row updated.
+
+
+                    System                                                      
+ System System        User  System                                              
+   User User         Group    User                                              
+   ID # Name          ID #    Type                                              
+------- ---------- ------- -------                                              
+      1 SYSADMIN         1 <Null>                                               
+
+
+1 row updated.
+
+
+                    System                                                      
+ System System        User  System                                              
+   User User         Group    User                                              
+   ID # Name          ID #    Type                                              
+------- ---------- ------- -------                                              
+      1 SYSADMIN         1       3                                              
+
+
+Table altered.
+
+
+Table altered.
+
+
+Table Name     Constraint Name          Constraint T Status                     
+-------------- ------------------------ ------------ --------                   
+SYSTEM_USER_LA PK_SYSTEM_USER_LAB_1     PRIMARY KEY  ENABLED                    
+B                                                                               
+                                                                                
+SYSTEM_USER_LA NN_SYSTEM_USER_LAB_1     NOT NULL     ENABLED                    
+B                                                                               
+                                                                                
+SYSTEM_USER_LA NN_SYSTEM_USER_LAB_4     NOT NULL     ENABLED                    
+B                                                                               
+                                                                                
+SYSTEM_USER_LA NN_SYSTEM_USER_LAB_5     NOT NULL     ENABLED                    
+B                                                                               
+
+Table Name     Constraint Name          Constraint T Status                     
+-------------- ------------------------ ------------ --------                   
+                                                                                
+SYSTEM_USER_LA NN_SYSTEM_USER_LAB_6     NOT NULL     ENABLED                    
+B                                                                               
+                                                                                
+SYSTEM_USER_LA NN_SYSTEM_USER_LAB_7     NOT NULL     ENABLED                    
+B                                                                               
+                                                                                
+SYSTEM_USER_LA FK_SYSTEM_USER_LAB_1     FOREIGN KEY  ENABLED                    
+B                                                                               
+                                                                                
+SYSTEM_USER_LA FK_SYSTEM_USER_LAB_2     FOREIGN KEY  ENABLED                    
+
+Table Name     Constraint Name          Constraint T Status                     
+-------------- ------------------------ ------------ --------                   
+B                                                                               
+                                                                                
+
+8 rows selected.
+
+
+Table altered.
+
+
+Table altered.
+
+
+Table Name     Constraint Name          Constraint T Status                     
+-------------- ------------------------ ------------ --------                   
+COMMON_LOOKUP_ PK_CLOOKUP_LAB_1         PRIMARY KEY  ENABLED                    
+LAB                                                                             
+                                                                                
+COMMON_LOOKUP_ NN_CLOOKUP_LAB_1         NOT NULL     ENABLED                    
+LAB                                                                             
+                                                                                
+COMMON_LOOKUP_ NN_CLOOKUP_LAB_2         NOT NULL     ENABLED                    
+LAB                                                                             
+                                                                                
+COMMON_LOOKUP_ NN_CLOOKUP_LAB_3         NOT NULL     ENABLED                    
+LAB                                                                             
+
+Table Name     Constraint Name          Constraint T Status                     
+-------------- ------------------------ ------------ --------                   
+                                                                                
+COMMON_LOOKUP_ NN_CLOOKUP_LAB_4         NOT NULL     ENABLED                    
+LAB                                                                             
+                                                                                
+COMMON_LOOKUP_ NN_CLOOKUP_LAB_5         NOT NULL     ENABLED                    
+LAB                                                                             
+                                                                                
+COMMON_LOOKUP_ NN_CLOOKUP_LAB_6         NOT NULL     ENABLED                    
+LAB                                                                             
+                                                                                
+COMMON_LOOKUP_ NN_CLOOKUP_LAB_7         NOT NULL     ENABLED                    
+
+Table Name     Constraint Name          Constraint T Status                     
+-------------- ------------------------ ------------ --------                   
+LAB                                                                             
+                                                                                
+COMMON_LOOKUP_ FK_CLOOKUP_LAB_1         FOREIGN KEY  ENABLED                    
+LAB                                                                             
+                                                                                
+COMMON_LOOKUP_ FK_CLOOKUP_LAB_2         FOREIGN KEY  ENABLED                    
+LAB                                                                             
+                                                                                
+
+10 rows selected.
+
+
+Table altered.
+
+
+Table altered.
+
+
+Table Name     Constraint Name          Constraint T Status                     
+-------------- ------------------------ ------------ --------                   
+SYSTEM_USER_LA PK_SYSTEM_USER_LAB_1     PRIMARY KEY  ENABLED                    
+B                                                                               
+                                                                                
+SYSTEM_USER_LA NN_SYSTEM_USER_LAB_1     NOT NULL     ENABLED                    
+B                                                                               
+                                                                                
+SYSTEM_USER_LA NN_SYSTEM_USER_LAB_2     NOT NULL     ENABLED                    
+B                                                                               
+                                                                                
+SYSTEM_USER_LA NN_SYSTEM_USER_LAB_3     NOT NULL     ENABLED                    
+B                                                                               
+
+Table Name     Constraint Name          Constraint T Status                     
+-------------- ------------------------ ------------ --------                   
+                                                                                
+SYSTEM_USER_LA NN_SYSTEM_USER_LAB_4     NOT NULL     ENABLED                    
+B                                                                               
+                                                                                
+SYSTEM_USER_LA NN_SYSTEM_USER_LAB_5     NOT NULL     ENABLED                    
+B                                                                               
+                                                                                
+SYSTEM_USER_LA NN_SYSTEM_USER_LAB_6     NOT NULL     ENABLED                    
+B                                                                               
+                                                                                
+SYSTEM_USER_LA NN_SYSTEM_USER_LAB_7     NOT NULL     ENABLED                    
+
+Table Name     Constraint Name          Constraint T Status                     
+-------------- ------------------------ ------------ --------                   
+B                                                                               
+                                                                                
+SYSTEM_USER_LA FK_SYSTEM_USER_LAB_1     FOREIGN KEY  ENABLED                    
+B                                                                               
+                                                                                
+SYSTEM_USER_LA FK_SYSTEM_USER_LAB_2     FOREIGN KEY  ENABLED                    
+B                                                                               
+                                                                                
+
+10 rows selected.
+
+
+1 row created.
+
+
+1 row created.
+
+
+       System                                                                   
+System   User System System                                                     
+  User  Group   User User                                                       
+  ID #   ID #   Type Name       FULL_USER_NAME                                  
+------ ------ ------ ---------- ------------------------------                  
+     1      1      3 SYSADMIN   <Null>                                          
+  1001      2      3 DBA1       Phineas, Phineas Phineas                        
+  1002      2      3 DBA2       Fogg, Phineas                                   
+
+
+Commit complete.
+
