@@ -1,0 +1,122 @@
+SQL> 
+SQL> -- ------------------------------------------------------------------
+SQL> --   Query to verify seven rows of chained inserts to the five
+SQL> --   dependent tables.
+SQL> -- ------------------------------------------------------------------
+SQL> --    1. MEMBER
+SQL> --    2. CONTACT
+SQL> --    3. ADDRESS
+SQL> --    4. STREET_ADDRESS
+SQL> --    5. TELEPHONE
+SQL> -- ------------------------------------------------------------------
+SQL> 
+SQL> COL member_id	 FORMAT 9999 HEADING "Acct|ID #"
+SQL> COL account_number  FORMAT A10  HEADING "Account|Number"
+SQL> COL full_name	 FORMAT A16  HEADING "Name|(Last, First MI)"
+SQL> COL city		 FORMAT A12  HEADING "City"
+SQL> COL state_province  FORMAT A10  HEADING "State"
+SQL> COL telephone	 FORMAT A18  HEADING "Telephone"
+SQL> SELECT   m.member_id
+  2  ,	      m.account_number
+  3  ,	      c.last_name || ', ' || c.first_name
+  4  ||       CASE
+  5  		WHEN c.middle_name IS NOT NULL THEN ' ' || SUBSTR(c.middle_name,1,1)
+  6  	      END AS full_name
+  7  ,	      a.city
+  8  ,	      a.state_province
+  9  ,	      t.country_code || '-(' || t.area_code || ') ' || t.telephone_number AS telephone
+ 10  FROM     member m INNER JOIN contact c ON m.member_id = c.member_id INNER JOIN
+ 11  	      address a ON c.contact_id = a.contact_id INNER JOIN
+ 12  	      street_address sa ON a.address_id = sa.address_id INNER JOIN
+ 13  	      telephone t ON c.contact_id = t.contact_id AND a.address_id = t.address_id
+ 14  WHERE    last_name IN ('Sweeney','Vizquel','Winn');
+
+ Acct Account    Name                                                           
+ ID # Number     (Last, First MI) City         State      Telephone             
+----- ---------- ---------------- ------------ ---------- ------------------    
+ 1001 B293-71445 Winn, Randi      San Jose     CA         001-(408) 111-1111    
+ 1001 B293-71445 Winn, Brian      San Jose     CA         001-(408) 111-1111    
+ 1002 B293-71446 Vizquel, Oscar   San Jose     CA         USA-(408) 222-2222    
+ 1002 B293-71446 Vizquel, Doreen  San Jose     CA         USA-(408) 222-2222    
+ 1003 B293-71447 Sweeney, Meaghan San Jose     CA         USA-(408) 333-3333    
+ 1003 B293-71447 Sweeney, Matthew San Jose     CA         USA-(408) 333-3333    
+ 1003 B293-71447 Sweeney, Ian M   San Jose     CA         USA-(408) 333-3333    
+
+7 rows selected.
+
+SQL> 
+SQL> -- ------------------------------------------------------------------
+SQL> --  Display the 21 inserts into the item table.
+SQL> -- ------------------------------------------------------------------
+SQL> SET PAGESIZE 99
+SQL> COL item_id		FORMAT 9999  HEADING "Item|ID #"
+SQL> COL common_lookup_meaning	FORMAT A20  HEADING "Item Description"
+SQL> COL item_title		FORMAT A30  HEADING "Item Title"
+SQL> COL item_release_date	FORMAT A11  HEADING "Item|Release|Date"
+SQL> SELECT   i.item_id
+  2  ,	      cl.common_lookup_meaning
+  3  ,	      i.item_title
+  4  ,	      i.item_release_date
+  5  FROM     item i INNER JOIN common_lookup cl ON i.item_type = cl.common_lookup_id;
+
+no rows selected
+
+SQL> 
+SQL> -- ------------------------------------------------------------------
+SQL> --   Query to verify five individual rows of chained inserts through
+SQL> --   a procedure into the five dependent tables.
+SQL> -- ------------------------------------------------------------------
+SQL> COL account_number  FORMAT A10  HEADING "Account|Number"
+SQL> COL full_name	 FORMAT A20  HEADING "Name|(Last, First MI)"
+SQL> COL city		 FORMAT A12  HEADING "City"
+SQL> COL state_province  FORMAT A10  HEADING "State"
+SQL> COL telephone	 FORMAT A18  HEADING "Telephone"
+SQL> SELECT   m.account_number
+  2  ,	      c.last_name || ', ' || c.first_name
+  3  ||       CASE
+  4  		WHEN c.middle_name IS NOT NULL THEN ' ' || SUBSTR(c.middle_name,1,1)
+  5  	      END AS full_name
+  6  ,	      a.city
+  7  ,	      a.state_province
+  8  ,	      t.country_code || '-(' || t.area_code || ') ' || t.telephone_number AS telephone
+  9  FROM     member m INNER JOIN contact c ON m.member_id = c.member_id INNER JOIN
+ 10  	      address a ON c.contact_id = a.contact_id INNER JOIN
+ 11  	      street_address sa ON a.address_id = sa.address_id INNER JOIN
+ 12  	      telephone t ON c.contact_id = t.contact_id AND a.address_id = t.address_id
+ 13  WHERE    m.member_type = (SELECT common_lookup_id
+ 14  			       FROM   common_lookup
+ 15  			       WHERE  common_lookup_context = 'MEMBER'
+ 16  			       AND    common_lookup_type = 'INDIVIDUAL');
+
+no rows selected
+
+SQL> 
+SQL> -- ------------------------------------------------------------------
+SQL> --   Query to verify nine rental agreements, some with one and some
+SQL> --   with more than one rental item.
+SQL> -- ------------------------------------------------------------------
+SQL> COL member_id	 FORMAT 9999 HEADING "Member|ID #"
+SQL> COL account_number  FORMAT A10  HEADING "Account|Number"
+SQL> COL full_name	 FORMAT A20  HEADING "Name|(Last, First MI)"
+SQL> COL rental_id	 FORMAT 9999 HEADING "Rent|ID #"
+SQL> COL rental_item_id  FORMAT 9999 HEADING "Rent|Item|ID #"
+SQL> COL item_title	 FORMAT A26  HEADING "Item Title"
+SQL> SELECT   m.member_id
+  2  ,	      m.account_number
+  3  ,	      c.last_name || ', ' || c.first_name
+  4  ||       CASE
+  5  		WHEN c.middle_name IS NOT NULL THEN ' ' || SUBSTR(c.middle_name,1,1)
+  6  	      END AS full_name
+  7  ,	      r.rental_id
+  8  ,	      ri.rental_item_id
+  9  ,	      i.item_title
+ 10  FROM     member m INNER JOIN contact c ON m.member_id = c.member_id INNER JOIN
+ 11  	      rental r ON c.contact_id = r.customer_id INNER JOIN
+ 12  	      rental_item ri ON r.rental_id = ri.rental_id INNER JOIN
+ 13  	      item i ON ri.item_id = i.item_id
+ 14  ORDER BY r.rental_id;
+
+no rows selected
+
+SQL> 
+SQL> SPOOL OFF

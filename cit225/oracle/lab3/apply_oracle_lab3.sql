@@ -28,8 +28,8 @@
 -- ------------------------------------------------------------------
 
 -- Run the prior lab script.
--- @/home/student/Data/cit225/oracle/lab2/apply_oracle_lab2.sql
--- @/home/student/Data/cit225/oracle/lib1/preseed/preseed_oracle_store.sql
+@/home/student/Data/cit225/oracle/lab2/apply_oracle_lab2.sql
+@/home/student/Data/cit225/oracle/lib1/preseed/preseed_oracle_store.sql
  
 -- ... insert calls to other code script files here ...
  
