@@ -39,7 +39,7 @@ SET    member_type =
 
 -- Modify the MEMBER table to add a NOT NULL constraint to the MEMBER_TYPE column.
 ALTER TABLE member_lab
-  MODIFY (member_type  NUMBER  CONSTRAINT nn_member_1  NOT NULL);
+  MODIFY (member_type  NUMBER  CONSTRAINT nn_member_lab_1  NOT NULL);
 
 -- Use SQL*Plus report formatting commands.
 COLUMN member_lab_id          FORMAT 999999 HEADING "MEMBER|ID"
