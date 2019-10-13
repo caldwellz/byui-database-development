@@ -113,7 +113,7 @@ FROM     member_lab m INNER JOIN contact_lab c ON m.member_lab_id = c.member_lab
          telephone_lab t ON c.contact_lab_id = t.contact_lab_id AND a.address_lab_id = t.address_lab_id
 WHERE    m.member_type = (SELECT common_lookup_lab_id
                           FROM   common_lookup_lab
-                          WHERE  common_lookup_context = 'MEMBER'
+                          WHERE  common_lookup_context = 'MEMBER_LAB'
                           AND    common_lookup_type = 'INDIVIDUAL');
 
 -- ------------------------------------------------------------------

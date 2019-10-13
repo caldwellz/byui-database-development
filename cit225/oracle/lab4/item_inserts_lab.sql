@@ -37,7 +37,7 @@ VALUES
 ,'9736-05640-4'
 ,(SELECT   common_lookup_lab_id
   FROM     common_lookup_lab
-  WHERE    common_lookup_context = 'ITEM'
+  WHERE    common_lookup_context = 'ITEM_LAB'
   AND      common_lookup_type = 'DVD_WIDE_SCREEN')
 ,'The Hunt for Red October'
 ,'Special Collector''s Edition'
@@ -65,7 +65,7 @@ VALUES
 ,'24543-02392'
 ,(SELECT   common_lookup_lab_id
   FROM     common_lookup_lab
-  WHERE    common_lookup_context = 'ITEM'
+  WHERE    common_lookup_context = 'ITEM_LAB'
   AND      common_lookup_type = 'DVD_WIDE_SCREEN')
 ,'Star Wars I'
 ,'Phantom Menace'
@@ -93,7 +93,7 @@ VALUES
 ,'24543-5615'
 ,(SELECT   common_lookup_lab_id
   FROM     common_lookup_lab
-  WHERE    common_lookup_context = 'ITEM'
+  WHERE    common_lookup_context = 'ITEM_LAB'
   AND      common_lookup_type = 'DVD_FULL_SCREEN')
 ,'Star Wars II'
 ,'Attack of the Clones'
@@ -121,7 +121,7 @@ VALUES
 ,'24543-05539'
 ,(SELECT   common_lookup_lab_id
   FROM     common_lookup_lab
-  WHERE    common_lookup_context = 'ITEM'
+  WHERE    common_lookup_context = 'ITEM_LAB'
   AND      common_lookup_type = 'DVD_WIDE_SCREEN')
 ,'Star Wars II'
 ,'Attack of the Clones'
@@ -149,7 +149,7 @@ VALUES
 ,'24543-20309'
 ,(SELECT   common_lookup_lab_id
   FROM     common_lookup_lab
-  WHERE    common_lookup_context = 'ITEM'
+  WHERE    common_lookup_context = 'ITEM_LAB'
   AND      common_lookup_type = 'DVD_WIDE_SCREEN')
 ,'Star Wars III'
 ,'Revenge of the Sith'
@@ -177,7 +177,7 @@ VALUES
 ,'86936-70380'
 ,(SELECT   common_lookup_lab_id
   FROM     common_lookup_lab
-  WHERE    common_lookup_context = 'ITEM'
+  WHERE    common_lookup_context = 'ITEM_LAB'
   AND      common_lookup_type = 'DVD_WIDE_SCREEN')
 ,'The Chronicles of Narnia'
 ,'The Lion, the Witch and the Wardrobe','PG'
@@ -204,7 +204,7 @@ VALUES
 ,'91493-06475'
 ,(SELECT   common_lookup_lab_id
   FROM     common_lookup_lab
-  WHERE    common_lookup_context = 'ITEM'
+  WHERE    common_lookup_context = 'ITEM_LAB'
   AND      common_lookup_type = 'XBOX')
 ,'RoboCop'
 ,''
@@ -232,7 +232,7 @@ VALUES
 ,'93155-11810'
 ,(SELECT   common_lookup_lab_id
   FROM     common_lookup_lab
-  WHERE    common_lookup_context = 'ITEM'
+  WHERE    common_lookup_context = 'ITEM_LAB'
   AND      common_lookup_type = 'XBOX')
 ,'Pirates of the Caribbean'
 ,''
@@ -260,7 +260,7 @@ VALUES
 ,'12725-00173'
 ,(SELECT   common_lookup_lab_id
   FROM     common_lookup_lab
-  WHERE    common_lookup_context = 'ITEM'
+  WHERE    common_lookup_context = 'ITEM_LAB'
   AND      common_lookup_type = 'XBOX')
 ,'The Chronicles of Narnia'
 ,'The Lion, the Witch and the Wardrobe'
@@ -288,7 +288,7 @@ VALUES
 ,'45496-96128'
 ,(SELECT   common_lookup_lab_id
   FROM     common_lookup_lab
-  WHERE    common_lookup_context = 'ITEM'
+  WHERE    common_lookup_context = 'ITEM_LAB'
   AND      common_lookup_type = 'NINTENDO_GAMECUBE')
 ,'MarioKart'
 ,'Double Dash'
@@ -316,7 +316,7 @@ VALUES
 ,'08888-32214'
 ,(SELECT   common_lookup_lab_id
   FROM     common_lookup_lab
-  WHERE    common_lookup_context = 'ITEM'
+  WHERE    common_lookup_context = 'ITEM_LAB'
   AND      common_lookup_type = 'PLAYSTATION2')
 ,'Splinter Cell'
 ,'Chaos Theory'
@@ -344,7 +344,7 @@ VALUES
 ,'14633-14821'
 ,(SELECT   common_lookup_lab_id
   FROM     common_lookup_lab
-  WHERE    common_lookup_context = 'ITEM'
+  WHERE    common_lookup_context = 'ITEM_LAB'
   AND      common_lookup_type = 'PLAYSTATION2')
 ,'Need for Speed'
 ,'Most Wanted'
@@ -372,7 +372,7 @@ VALUES
 ,'10425-29944'
 ,(SELECT   common_lookup_lab_id
   FROM     common_lookup_lab
-  WHERE    common_lookup_context = 'ITEM'
+  WHERE    common_lookup_context = 'ITEM_LAB'
   AND      common_lookup_type = 'XBOX')
 ,'The DaVinci Code'
 ,''
@@ -400,7 +400,7 @@ VALUES
 ,'52919-52057'
 ,(SELECT   common_lookup_lab_id
   FROM     common_lookup_lab
-  WHERE    common_lookup_context = 'ITEM'
+  WHERE    common_lookup_context = 'ITEM_LAB'
   AND      common_lookup_type = 'XBOX')
 ,'Cars'
 ,''
@@ -428,7 +428,7 @@ VALUES
 ,'9689-80547-3'
 ,(SELECT   common_lookup_lab_id
   FROM     common_lookup_lab
-  WHERE    common_lookup_context = 'ITEM'
+  WHERE    common_lookup_context = 'ITEM_LAB'
   AND      common_lookup_type = 'BLU-RAY')
 ,'Beau Geste'
 ,''
@@ -456,7 +456,7 @@ VALUES
 ,'53939-64103'
 ,(SELECT   common_lookup_lab_id
   FROM     common_lookup_lab
-  WHERE    common_lookup_context = 'ITEM'
+  WHERE    common_lookup_context = 'ITEM_LAB'
   AND      common_lookup_type = 'BLU-RAY')
 ,'I Remember Mama'
 ,''
@@ -484,7 +484,7 @@ VALUES
 ,'24543-01292'
 ,(SELECT   common_lookup_lab_id
   FROM     common_lookup_lab
-  WHERE    common_lookup_context = 'ITEM'
+  WHERE    common_lookup_context = 'ITEM_LAB'
   AND      common_lookup_type = 'BLU-RAY')
 ,'Tora! Tora! Tora!'
 ,'The Attack on Pearl Harbor'
@@ -512,7 +512,7 @@ VALUES
 ,'43396-60047'
 ,(SELECT   common_lookup_lab_id
   FROM     common_lookup_lab
-  WHERE    common_lookup_context = 'ITEM'
+  WHERE    common_lookup_context = 'ITEM_LAB'
   AND      common_lookup_type = 'BLU-RAY')
 ,'A Man for All Seasons'
 ,''
@@ -540,7 +540,7 @@ VALUES
 ,'43396-70603'
 ,(SELECT   common_lookup_lab_id
   FROM     common_lookup_lab
-  WHERE    common_lookup_context = 'ITEM'
+  WHERE    common_lookup_context = 'ITEM_LAB'
   AND      common_lookup_type = 'BLU-RAY')
 ,'Hook'
 ,''
@@ -568,7 +568,7 @@ VALUES
 ,'85391-13213'
 ,(SELECT   common_lookup_lab_id
   FROM     common_lookup_lab
-  WHERE    common_lookup_context = 'ITEM'
+  WHERE    common_lookup_context = 'ITEM_LAB'
   AND      common_lookup_type = 'BLU-RAY')
 ,'Around the World in 80 Days'
 ,''
@@ -596,7 +596,7 @@ VALUES
 ,'85391-10843'
 ,(SELECT   common_lookup_lab_id
   FROM     common_lookup_lab
-  WHERE    common_lookup_context = 'ITEM'
+  WHERE    common_lookup_context = 'ITEM_LAB'
   AND      common_lookup_type = 'BLU-RAY')
 ,'Camelot'
 ,''
@@ -622,7 +622,7 @@ SELECT   i.item_lab_id
 FROM     item_lab i INNER JOIN common_lookup_lab cl ON i.item_type = cl.common_lookup_lab_id;
 
 -- Commit changes.
--- COMMIT;
+COMMIT;
 
 -- ------------------------------------------------------------------
 --  Close log file.

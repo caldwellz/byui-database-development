@@ -25,7 +25,7 @@ UPDATE member_lab m
 SET    member_type =
         (SELECT   common_lookup_lab_id
          FROM     common_lookup_lab
-         WHERE    common_lookup_context = 'MEMBER'
+         WHERE    common_lookup_context = 'MEMBER_LAB'
          AND      common_lookup_type =
                    (SELECT  dt.member_type
                     FROM   (SELECT   c.member_lab_id
@@ -62,7 +62,7 @@ GROUP BY m.member_lab_id
 ORDER BY m.member_lab_id;
 
 -- Commit changes.
--- COMMIT;
+COMMIT;
 
 -- ------------------------------------------------------------------
 --  Close log file.

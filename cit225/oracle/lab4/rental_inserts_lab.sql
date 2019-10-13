@@ -417,7 +417,7 @@ FROM     member_lab m INNER JOIN contact_lab c ON m.member_lab_id = c.member_lab
 ORDER BY r.rental_lab_id;
 
 -- Commit changes.
--- COMMIT;
+COMMIT;
 
 -- ------------------------------------------------------------------
 --  Close log file.

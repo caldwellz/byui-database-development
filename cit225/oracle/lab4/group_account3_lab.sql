@@ -52,7 +52,7 @@ VALUES
 ,'3333-4444-5555-6666'                            -- credit_card_number
 ,(SELECT   common_lookup_lab_id
   FROM     common_lookup_lab
-  WHERE    common_lookup_context = 'MEMBER'
+  WHERE    common_lookup_context = 'MEMBER_LAB'
   AND      common_lookup_type = 'DISCOVER_CARD')  -- credit_card_type
 ,(SELECT   system_user_lab_id
   FROM     system_user_lab
@@ -82,7 +82,7 @@ VALUES
 , member_lab_s1.currval                               -- member_lab_id
 ,(SELECT   common_lookup_lab_id
   FROM     common_lookup_lab
-  WHERE    common_lookup_context = 'CONTACT'
+  WHERE    common_lookup_context = 'CONTACT_LAB'
   AND      common_lookup_type = 'CUSTOMER')       -- contact_type
 ,'Meaghan'                                        -- first_name
 ,'Sweeney'                                        -- last_name
@@ -199,7 +199,7 @@ VALUES
 , member_lab_s1.currval                               -- member_lab_id
 ,(SELECT   common_lookup_lab_id
   FROM     common_lookup_lab
-  WHERE    common_lookup_context = 'CONTACT'
+  WHERE    common_lookup_context = 'CONTACT_LAB'
   AND      common_lookup_type = 'CUSTOMER')       -- contact_type
 ,'Matthew'                                         -- first_name
 ,'Sweeney'                                        -- last_name
@@ -318,7 +318,7 @@ VALUES
 , member_lab_s1.currval                               -- member_lab_id
 ,(SELECT   common_lookup_lab_id
   FROM     common_lookup_lab
-  WHERE    common_lookup_context = 'CONTACT'
+  WHERE    common_lookup_context = 'CONTACT_LAB'
   AND      common_lookup_type = 'CUSTOMER')       -- contact_type
 ,'Ian'                                            -- first_name
 ,'M'                                              -- middle_name
