@@ -28,9 +28,8 @@
 -- ------------------------------------------------------------------
 
 -- Run the prior lab script.
--- @/home/student/Data/cit225/oracle/lab3/apply_oracle_lab3.sql
--- @/home/student/Data/cit225/oracle/lib1/seed/seeding.sql
-SAVEPOINT lab4_start;
+@/home/student/Data/cit225/oracle/lab3/apply_oracle_lab3.sql
+@/home/student/Data/cit225/oracle/lib1/seed/seeding.sql
 
 
 @@group_account1_lab.sql
@@ -137,7 +136,7 @@ SELECT   m.member_lab_id
 ,        ri.rental_item_lab_id
 ,        i.item_title
 FROM     member_lab m INNER JOIN contact_lab c ON m.member_lab_id = c.member_lab_id INNER JOIN
-         rental_lab r ON c.contact_lab_id = r.customer_id INNER JOIN
+         rental_lab r ON c.contact_lab_id = r.customer_lab_id INNER JOIN
          rental_item_lab ri ON r.rental_lab_id = ri.rental_lab_id INNER JOIN
          item_lab i ON ri.item_lab_id = i.item_lab_id
 ORDER BY r.rental_lab_id;

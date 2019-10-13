@@ -63,7 +63,7 @@ CREATE OR REPLACE VIEW current_rental_lab AS
   ,        r.check_out_date
   ,        r.return_date
   FROM   member_lab m INNER JOIN contact_lab c ON m.member_lab_id = c.member_lab_id INNER JOIN
-         rental_lab r ON c.contact_lab_id = r.customer_id INNER JOIN
+         rental_lab r ON c.contact_lab_id = r.customer_lab_id INNER JOIN
          rental_item_lab ri ON r.rental_lab_id = ri.rental_lab_id INNER JOIN
          item_lab i ON ri.item_lab_id = i.item_lab_id INNER JOIN
          common_lookup_lab cl ON i.item_type = cl.common_lookup_lab_id
@@ -84,7 +84,7 @@ SELECT   cr.full_name
 ,        cr.title
 ,        cr.check_out_date
 ,        cr.return_date
-FROM     current_rental_lab cr;
+FROM     current_rental cr;
 
 -- ------------------------------------------------------------------
 --  Close log file.
