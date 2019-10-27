@@ -1,0 +1,79 @@
+SQL> 
+SQL> -- Transaction Management Example.
+SQL> CREATE OR REPLACE PROCEDURE insert_rental
+  2  ( pv_customer_id	      NUMBER
+  3  , pv_item_id	      NUMBER
+  4  , pv_return_date	      DATE
+  5  , pv_check_out_date      DATE     := TRUNC(SYSDATE)
+  6  , pv_created_by	      NUMBER   := NULL
+  7  , pv_creation_date       DATE     := SYSDATE
+  8  , pv_last_updated_by     NUMBER   := NULL
+  9  , pv_last_update_date    DATE     := SYSDATE) IS
+ 10  id_created_by	      NUMBER   := pv_created_by;
+ 11  id_last_updated_by       NUMBER   := pv_last_updated_by;
+ 12  BEGIN
+ 13  
+ 14    /* Create a SAVEPOINT as a starting point. */
+ 15    SAVEPOINT starting_point;
+ 16  
+ 17    -- Default to sysadmin if no user ids given
+ 18    IF pv_created_by IS NULL THEN
+ 19  	 SELECT   system_user_id
+ 20  	 INTO	  id_created_by
+ 21  	 FROM	  system_user
+ 22  	 WHERE	  system_user_name = 'SYSADMIN';
+ 23    END IF;
+ 24  
+ 25    IF pv_last_updated_by IS NULL THEN
+ 26  	 SELECT   system_user_id
+ 27  	 INTO	  id_last_updated_by
+ 28  	 FROM	  system_user
+ 29  	 WHERE	  system_user_name = 'SYSADMIN';
+ 30    END IF;
+ 31  
+ 32    /* Insert into the rental table. */
+ 33    INSERT INTO rental
+ 34    VALUES
+ 35    ( rental_s1.nextval
+ 36    , pv_customer_id
+ 37    , pv_check_out_date
+ 38    , pv_return_date
+ 39    , id_created_by
+ 40    , pv_creation_date
+ 41    , id_last_updated_by
+ 42    , pv_last_update_date );
+ 43  
+ 44    /* Insert into the rental_item table. */
+ 45    INSERT INTO rental_item
+ 46    ( rental_item_id
+ 47    , rental_id
+ 48    , item_id
+ 49    , created_by
+ 50    , creation_date
+ 51    , last_updated_by
+ 52    , last_update_date)
+ 53    VALUES
+ 54    ( rental_item_s1.nextval
+ 55    , rental_s1.currval
+ 56    , pv_item_id
+ 57    , id_created_by
+ 58    , pv_creation_date
+ 59    , id_last_updated_by
+ 60    , pv_last_update_date );
+ 61  
+ 62    /* Commit the series of inserts. */
+ 63    COMMIT;
+ 64  EXCEPTION
+ 65    WHEN OTHERS THEN
+ 66  	 ROLLBACK TO starting_point;
+ 67  	 RETURN;
+ 68  END insert_rental;
+ 69  /
+
+Procedure created.
+
+SQL> 
+SQL> -- ------------------------------------------------------------------
+SQL> --  Close log file.
+SQL> -- ------------------------------------------------------------------
+SQL> SPOOL OFF

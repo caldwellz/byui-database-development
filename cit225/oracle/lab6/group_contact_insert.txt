@@ -1,0 +1,121 @@
+SQL> 
+SQL> -- Transaction Management Example.
+SQL> CREATE OR REPLACE PROCEDURE group_contact_insert
+  2  ( pv_first_name	      VARCHAR2
+  3  , pv_middle_name	      VARCHAR2 := ''
+  4  , pv_last_name	      VARCHAR2
+  5  , pv_contact_type	      VARCHAR2
+  6  , pv_address_type	      VARCHAR2
+  7  , pv_city		      VARCHAR2
+  8  , pv_state_province      VARCHAR2
+  9  , pv_postal_code	      VARCHAR2
+ 10  , pv_street_address      VARCHAR2
+ 11  , pv_telephone_type      VARCHAR2
+ 12  , pv_country_code	      VARCHAR2
+ 13  , pv_area_code	      VARCHAR2
+ 14  , pv_telephone_number    VARCHAR2
+ 15  , pv_created_by	      NUMBER   := NULL
+ 16  , pv_creation_date       DATE     := SYSDATE
+ 17  , pv_last_updated_by     NUMBER   := NULL
+ 18  , pv_last_update_date    DATE     := SYSDATE) IS
+ 19  id_created_by	      NUMBER   := pv_created_by;
+ 20  id_last_updated_by       NUMBER   := pv_last_updated_by;
+ 21  BEGIN
+ 22  
+ 23    /* Create a SAVEPOINT as a starting point. */
+ 24    SAVEPOINT starting_point;
+ 25  
+ 26    -- Default to sysadmin if no user ids given
+ 27    IF pv_created_by IS NULL THEN
+ 28  	 SELECT   system_user_id
+ 29  	 INTO	  id_created_by
+ 30  	 FROM	  system_user
+ 31  	 WHERE	  system_user_name = 'SYSADMIN';
+ 32    END IF;
+ 33  
+ 34    IF pv_last_updated_by IS NULL THEN
+ 35  	 SELECT   system_user_id
+ 36  	 INTO	  id_last_updated_by
+ 37  	 FROM	  system_user
+ 38  	 WHERE	  system_user_name = 'SYSADMIN';
+ 39    END IF;
+ 40  
+ 41    /* Insert into the contact table. */
+ 42    INSERT INTO contact
+ 43    VALUES
+ 44    ( contact_s1.NEXTVAL
+ 45    , member_s1.CURRVAL
+ 46    ,(SELECT   common_lookup_id
+ 47  	 FROM	  common_lookup
+ 48  	 WHERE	  common_lookup_context = 'CONTACT'
+ 49  	 AND	  common_lookup_type = pv_contact_type)
+ 50    , pv_first_name
+ 51    , pv_middle_name
+ 52    , pv_last_name
+ 53    , id_created_by
+ 54    , pv_creation_date
+ 55    , id_last_updated_by
+ 56    , pv_last_update_date );
+ 57  
+ 58    /* Insert into the address table. */
+ 59    INSERT INTO address
+ 60    VALUES
+ 61    ( address_s1.NEXTVAL
+ 62    , contact_s1.CURRVAL
+ 63    ,(SELECT   common_lookup_id
+ 64  	 FROM	  common_lookup
+ 65  	 WHERE	  common_lookup_context = 'MULTIPLE'
+ 66  	 AND	  common_lookup_type = pv_address_type)
+ 67    , pv_city
+ 68    , pv_state_province
+ 69    , pv_postal_code
+ 70    , id_created_by
+ 71    , pv_creation_date
+ 72    , id_last_updated_by
+ 73    , pv_last_update_date );
+ 74  
+ 75    /* Insert into the street_address table. */
+ 76    INSERT INTO street_address
+ 77    VALUES
+ 78    ( street_address_s1.NEXTVAL
+ 79    , address_s1.CURRVAL
+ 80    , pv_street_address
+ 81    , id_created_by
+ 82    , pv_creation_date
+ 83    , id_last_updated_by
+ 84    , pv_last_update_date );
+ 85  
+ 86    /* Insert into the telephone table. */
+ 87    INSERT INTO telephone
+ 88    VALUES
+ 89    ( telephone_s1.NEXTVAL				   -- TELEPHONE_ID
+ 90    , contact_s1.CURRVAL				   -- CONTACT_ID
+ 91    , address_s1.CURRVAL				   -- ADDRESS_ID
+ 92    ,(SELECT   common_lookup_id			   -- ADDRESS_TYPE
+ 93  	 FROM	  common_lookup
+ 94  	 WHERE	  common_lookup_context = 'MULTIPLE'
+ 95  	 AND	  common_lookup_type = pv_telephone_type)
+ 96    , pv_country_code				   -- COUNTRY_CODE
+ 97    , pv_area_code					   -- AREA_CODE
+ 98    , pv_telephone_number				   -- TELEPHONE_NUMBER
+ 99    , id_created_by					   -- CREATED_BY
+100    , pv_creation_date				   -- CREATION_DATE
+101    , id_last_updated_by				   -- LAST_UPDATED_BY
+102    , pv_last_update_date);				   -- LAST_UPDATE_DATE
+103  
+104    /* Commit the series of inserts. */
+105    COMMIT;
+106  EXCEPTION
+107    WHEN OTHERS THEN
+108  	 ROLLBACK TO starting_point;
+109  	 RETURN;
+110  END group_contact_insert;
+111  /
+
+Procedure created.
+
+SQL> 
+SQL> -- ------------------------------------------------------------------
+SQL> --  Close log file.
+SQL> -- ------------------------------------------------------------------
+SQL> SPOOL OFF
