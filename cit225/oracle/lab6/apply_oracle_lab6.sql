@@ -20,6 +20,8 @@
 
 -- Call library files.
 @/home/student/Data/cit225/oracle/lab5/apply_oracle_lab5.sql
+@/home/student/Data/cit225/oracle/lab6/group_contact_insert.sql
+@/home/student/Data/cit225/oracle/lab6/create_insert_rental.sql
 
 -- Open log file.
 SPOOL apply_oracle_lab6.txt
@@ -43,8 +45,9 @@ SELECT  'Step #1' AS "Step Number" FROM dual;
 -- --------------------------------------------------
 --  Step 1: Write the ALTER statement.
 -- --------------------------------------------------
-
-
+ALTER TABLE rental_item
+  ADD (rental_item_price NUMBER)
+  ADD (rental_item_type  NUMBER);
 
 
 -- ----------------------------------------------------------------------
@@ -98,15 +101,24 @@ END;
 -- --------------------------------------------------
 --  Step 1: Write the CREATE TABLE statement.
 -- --------------------------------------------------
-
-
+CREATE TABLE price
+( price_id          NUMBER      PRIMARY KEY
+, item_id           NUMBER      FOREIGN KEY   NOT NULL  REFERENCES item(item_id)
+, price_type        NUMBER      FOREIGN KEY             REFERENCES common_lookup(common_lookup_id)
+, active_flag       VARCHAR2(1)               NOT NULL  CONSTRAINT yn_price CHECK(active_flag IN ('Y','N'))
+, start_date        DATE                      NOT NULL
+, end_date          DATE
+, amount            NUMBER                    NOT NULL
+, created_by        NUMBER      FOREIGN KEY   NOT NULL  REFERENCES system_user(system_user_id)
+, creation_date     DATE                      NOT NULL
+, last_updated_by   NUMBER      FOREIGN KEY   NOT NULL  REFERENCES system_user(system_user_id)
+, last_update_date  NUMBER                    NOT NULL);
 
 
 -- --------------------------------------------------
 --  Step 2: Write the CREATE SEQUENCE statement.
 -- --------------------------------------------------
-
-
+CREATE SEQUENCE price_s1 START WITH 1001;
 
 
 -- ----------------------------------------------------------------------
@@ -162,8 +174,8 @@ AND      uc.constraint_type = 'C';
 -- ----------------------------------------------------------------------
 --  Step #3a: Rename ITEM_RELEASE_DATE Column.
 -- ----------------------------------------------------------------------
-
-
+ALTER TABLE item
+  RENAME COLUMN item_release_date TO release_date;
 
 
 -- ----------------------------------------------------------------------
@@ -187,11 +199,93 @@ FROM     user_tab_columns
 WHERE    TABLE_NAME = 'ITEM'
 ORDER BY 2;
 
+
 -- ----------------------------------------------------------------------
 --  Step #3b: Insert three rows in the ITEM table.
 -- ----------------------------------------------------------------------
+INSERT INTO item
+( item_id
+, item_barcode
+, item_type
+, item_title
+, item_subtitle
+, item_rating
+, item_release_date
+, created_by
+, creation_date
+, last_updated_by
+, last_update_date )
+VALUES
+( item_s1.nextval
+,'69011-12203'
+,(SELECT   common_lookup_id
+  FROM     common_lookup
+  WHERE    common_lookup_context = 'ITEM'
+  AND      common_lookup_type = 'DVD_FULL_SCREEN')
+,'Knights of the Old Republic II'
+,''
+,'PG'
+,(TRUNC(SYSDATE) - 1)
+, 1001
+, SYSDATE
+, 1001
+, SYSDATE);
 
+INSERT INTO item
+( item_id
+, item_barcode
+, item_type
+, item_title
+, item_subtitle
+, item_rating
+, item_release_date
+, created_by
+, creation_date
+, last_updated_by
+, last_update_date )
+VALUES
+( item_s1.nextval
+,'48213-09002'
+,(SELECT   common_lookup_id
+  FROM     common_lookup
+  WHERE    common_lookup_context = 'ITEM'
+  AND      common_lookup_type = 'DVD_FULL_SCREEN')
+,'Quidditch Through the Ages'
+,'A Documentary'
+,'PG'
+,(TRUNC(SYSDATE) - 1)
+, 1001
+, SYSDATE
+, 1001
+, SYSDATE);
 
+INSERT INTO item
+( item_id
+, item_barcode
+, item_type
+, item_title
+, item_subtitle
+, item_rating
+, item_release_date
+, created_by
+, creation_date
+, last_updated_by
+, last_update_date )
+VALUES
+( item_s1.nextval
+,'10903-34811'
+,(SELECT   common_lookup_id
+  FROM     common_lookup
+  WHERE    common_lookup_context = 'ITEM'
+  AND      common_lookup_type = 'DVD_WIDE_SCREEN')
+,'Inception 2'
+,''
+,'PG'
+,(TRUNC(SYSDATE) - 1)
+, 1001
+, SYSDATE
+, 1001
+, SYSDATE);
 
 
 -- ----------------------------------------------------------------------
@@ -210,8 +304,66 @@ WHERE   (SYSDATE - i.release_date) < 31;
 --  Step #3c: Insert three new rows in the MEMBER, CONTACT, ADDRESS,
 --            STREET_ADDRESS, and TELEPHONE tables.
 -- ----------------------------------------------------------------------
+BEGIN
+  -- Call the contact_insert procedure, creating everything at once
+  contact_insert(
+      pv_member_type        => 'GROUP'
+    , pv_account_number     => 'US00011'
+    , pv_credit_card_number => '6011-0000-0000-0078'
+    , pv_credit_card_type   => 'DISCOVER_CARD'
+    , pv_first_name         => 'Harry'
+    , pv_last_name          => 'Potter'
+    , pv_contact_type       => 'CUSTOMER'
+    , pv_address_type       => 'HOME'
+    , pv_city               => 'Provo'
+    , pv_state_province     => 'Utah'
+    , pv_postal_code        => '84606'
+    , pv_street_address     => '900 E 300 N'
+    , pv_telephone_type     => 'HOME'
+    , pv_country_code       => '001'
+    , pv_area_code          => '801'
+    , pv_telephone_number   => '333-3333' );
+END;
+/
 
+-- Use a custom procedure to add other contacts to the current member
+-- group, reducing verbose and error-prone individual inserts.
+BEGIN
+  -- Insert Ginny's contact info
+  group_contact_insert(
+      pv_first_name         => 'Ginny'
+    , pv_last_name          => 'Potter'
+    , pv_contact_type       => 'CUSTOMER'
+    , pv_address_type       => 'HOME'
+    , pv_city               => 'Provo'
+    , pv_state_province     => 'Utah'
+    , pv_postal_code        => '84606'
+    , pv_street_address     => '900 E 300 N'
+    , pv_telephone_type     => 'HOME'
+    , pv_country_code       => '001'
+    , pv_area_code          => '801'
+    , pv_telephone_number   => '333-3333' );
+END;
+/
 
+BEGIN
+  -- Insert Lily's contact info
+  group_contact_insert(
+      pv_first_name         => 'Lily'
+    , pv_middle_name        => 'Luna'
+    , pv_last_name          => 'Potter'
+    , pv_contact_type       => 'CUSTOMER'
+    , pv_address_type       => 'HOME'
+    , pv_city               => 'Provo'
+    , pv_state_province     => 'Utah'
+    , pv_postal_code        => '84606'
+    , pv_street_address     => '900 E 300 N'
+    , pv_telephone_type     => 'HOME'
+    , pv_country_code       => '001'
+    , pv_area_code          => '801'
+    , pv_telephone_number   => '333-3333' );
+END;
+/
 
 
 -- ----------------------------------------------------------------------
@@ -233,10 +385,77 @@ ON       c.contact_id = t.contact_id
 WHERE    c.last_name = 'Potter';
 
 -- ----------------------------------------------------------------------
---  Step #3d: Insert three new RENTAL and RENTAL_ITEM table rows..
+--  Step #3d: Insert three new RENTAL and RENTAL_ITEM table rows.
 -- ----------------------------------------------------------------------
+-- Insert Harry's rental and first rental_item
+BEGIN
+  insert_rental(
+      pv_customer_id => (SELECT   contact_id
+                         FROM     contact
+                         WHERE    last_name = 'Potter'
+                         AND      first_name = 'Harry')
+    , pv_item_id     => (SELECT   i.item_id
+                         FROM     item i, common_lookup cl
+                         WHERE    i.item_title = 'Star Wars I'
+                         AND      i.item_subtitle = 'Phantom Menace'
+                         AND      i.item_type = cl.common_lookup_id
+                         AND      cl.common_lookup_type = 'DVD_WIDE_SCREEN')
+    , pv_return_date => (TRUNC(SYSDATE) + 1));
+END;
+/
 
+-- Insert Harry's second rental_item
+INSERT INTO rental_item
+( rental_item_id
+, rental_id
+, item_id
+, created_by
+, creation_date
+, last_updated_by
+, last_update_date)
+VALUES
+( rental_item_s1.nextval
+, rental_s1.currval
+,(SELECT   item_id
+  FROM     item
+  WHERE    item_barcode = '69011-12203')
+,(SELECT   system_user_id
+    FROM     system_user
+    WHERE    system_user_name = 'SYSADMIN')
+, SYSDATE
+,(SELECT   system_user_id
+    FROM     system_user
+    WHERE    system_user_name = 'SYSADMIN')
+, SYSDATE);
 
+-- Insert Ginny's rental and rental_item
+BEGIN
+  insert_rental(
+      pv_customer_id => (SELECT   contact_id
+                         FROM     contact
+                         WHERE    last_name = 'Potter'
+                         AND      first_name = 'Ginny')
+    , pv_item_id     => (SELECT   item_id
+                         FROM     item
+                         WHERE    item_barcode = '48213-09002')
+    , pv_return_date => (TRUNC(SYSDATE) + 3));
+END;
+/
+
+-- Insert Lily's rental and rental_item
+BEGIN
+  insert_rental(
+      pv_customer_id => (SELECT   contact_id
+                         FROM     contact
+                         WHERE    last_name = 'Potter'
+                         AND      first_name = 'Lily'
+                         AND      middle_name = 'Luna')
+    , pv_item_id     => (SELECT   item_id
+                         FROM     item
+                         WHERE    item_barcode = '10903-34811')
+    , pv_return_date => (TRUNC(SYSDATE) + 5));
+END;
+/
 
 
 -- ----------------------------------------------------------------------
@@ -272,8 +491,8 @@ ORDER BY 2;
 -- ----------------------------------------------------------------------
 --  Step #4a: Drop Indexes.
 -- ----------------------------------------------------------------------
-
-
+DROP INDEX common_lookup_n1;
+DROP INDEX common_lookup_u2;
 
 
 -- ----------------------------------------------------------------------
@@ -289,8 +508,10 @@ WHERE    table_name = 'COMMON_LOOKUP';
 -- ----------------------------------------------------------------------
 --  Step #4b: Add three new columns.
 -- ----------------------------------------------------------------------
-
-
+ALTER TABLE common_lookup
+  ADD (common_lookup_table VARCHAR2(30))
+  ADD (common_lookup_column VARCHAR2(30))
+  ADD (common_lookup_code VARCHAR2(1));
 
 
 -- ----------------------------------------------------------------------
@@ -342,8 +563,9 @@ ORDER BY 1, 2, 3;
 -- ----------------------------------------------------------------------
 --  Step #4c(2): Update the records.
 -- ----------------------------------------------------------------------
-
-
+UPDATE   common_lookup
+SET      common_lookup_table = common_lookup_context
+WHERE    common_lookup_context != 'MULTIPLE';
 
 
 -- ----------------------------------------------------------------------
@@ -367,8 +589,9 @@ ORDER BY 1, 2, 3;
 -- ----------------------------------------------------------------------
 --  Step #4c(3): Update the records.
 -- ----------------------------------------------------------------------
-
-
+UPDATE   common_lookup
+SET      common_lookup_table = 'ADDRESS'
+WHERE    common_lookup_context = 'MULTIPLE';
 
 
 -- ----------------------------------------------------------------------
@@ -391,8 +614,9 @@ ORDER BY 1, 2, 3;
 -- ----------------------------------------------------------------------
 --  Step #4c(4): Update the type records.
 -- ----------------------------------------------------------------------
-
-
+UPDATE   common_lookup
+SET      common_lookup_column = common_lookup_context || '_TYPE'
+WHERE    common_lookup_context != 'MULTIPLE';
 
 
 -- ----------------------------------------------------------------------
@@ -418,8 +642,9 @@ ORDER BY 1, 2, 3;
 -- ----------------------------------------------------------------------
 --  Step #4c(4): Update the ADDRESS table type records.
 -- ----------------------------------------------------------------------
-
-
+UPDATE   common_lookup
+SET      common_lookup_column = 'ADDRESS_TYPE'
+WHERE    common_lookup_context = 'MULTIPLE';
 
 
 -- ----------------------------------------------------------------------
@@ -445,8 +670,8 @@ ORDER BY 1, 2, 3;
 -- ----------------------------------------------------------------------
 --  Step #4c(4): Alter the table and remove the unused column.
 -- ----------------------------------------------------------------------
-
-
+ALTER TABLE common_lookup
+  DROP (common_lookup_context);
 
 
 -- ----------------------------------------------------------------------
@@ -477,8 +702,55 @@ ORDER BY 2;
 -- ----------------------------------------------------------------------
 --  Step #4c(6): Insert new rows for the TELEPHONE table.
 -- ----------------------------------------------------------------------
+INSERT INTO common_lookup
+( common_lookup_id
+, common_lookup_table
+, common_lookup_column
+, common_lookup_type
+, common_lookup_meaning
+, created_by
+, creation_date
+, last_updated_by
+, last_update_date )
+VALUES
+( common_lookup_s1.nextval
+, 'TELEPHONE'
+, 'TELEPHONE_TYPE'
+, 'HOME'
+, 'Home'
+,(SELECT   system_user_id
+    FROM     system_user
+    WHERE    system_user_name = 'SYSADMIN')
+, SYSDATE
+,(SELECT   system_user_id
+    FROM     system_user
+    WHERE    system_user_name = 'SYSADMIN')
+, SYSDATE);
 
-
+INSERT INTO common_lookup
+( common_lookup_id
+, common_lookup_table
+, common_lookup_column
+, common_lookup_type
+, common_lookup_meaning
+, created_by
+, creation_date
+, last_updated_by
+, last_update_date )
+VALUES
+( common_lookup_s1.nextval
+, 'TELEPHONE'
+, 'TELEPHONE_TYPE'
+, 'WORK'
+, 'Work'
+,(SELECT   system_user_id
+    FROM     system_user
+    WHERE    system_user_name = 'SYSADMIN')
+, SYSDATE
+,(SELECT   system_user_id
+    FROM     system_user
+    WHERE    system_user_name = 'SYSADMIN')
+, SYSDATE);
 
 
 -- ----------------------------------------------------------------------
@@ -501,8 +773,9 @@ ORDER BY 1, 2, 3;
 -- ----------------------------------------------------------------------
 --  Step #4d: Alter the table structure.
 -- ----------------------------------------------------------------------
-
-
+ALTER TABLE common_lookup
+  MODIFY (common_lookup_table  VARCHAR2(30) CONSTRAINT nn_clookup_8 NOT NULL )
+  MODIFY (common_lookup_column VARCHAR2(30) CONSTRAINT nn_clookup_9 NOT NULL );
 
 
 -- ----------------------------------------------------------------------
@@ -548,8 +821,10 @@ ORDER BY uc.constraint_type DESC
 -- ----------------------------------------------------------------------
 --  Step #4d: Add unique index.
 -- ----------------------------------------------------------------------
-
-
+CREATE UNIQUE INDEX common_lookup_nuidx
+ON common_lookup ( common_lookup_table
+                 , common_lookup_column
+                 , common_lookup_type);
 
 
 -- ----------------------------------------------------------------------
@@ -571,8 +846,25 @@ ORDER BY ui.index_name
 -- ----------------------------------------------------------------------
 --  Step #4d: Update the foreign keys of the TELEPHONE table.
 -- ----------------------------------------------------------------------
+UPDATE telephone
+SET   telephone_type = (SELECT common_lookup_id
+                        FROM   common_lookup
+                        WHERE  common_lookup_table = 'TELEPHONE'
+                        AND    common_lookup_type = 'HOME')
+WHERE telephone_type = (SELECT common_lookup_id
+                        FROM   common_lookup
+                        WHERE  common_lookup_table = 'ADDRESS'
+                        AND    common_lookup_type = 'HOME');
 
-
+UPDATE telephone
+SET   telephone_type = (SELECT common_lookup_id
+                        FROM   common_lookup
+                        WHERE  common_lookup_table = 'TELEPHONE'
+                        AND    common_lookup_type = 'WORK')
+WHERE telephone_type = (SELECT common_lookup_id
+                        FROM   common_lookup
+                        WHERE  common_lookup_table = 'ADDRESS'
+                        AND    common_lookup_type = 'WORK');
 
 
 -- ----------------------------------------------------------------------
