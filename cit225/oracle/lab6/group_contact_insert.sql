@@ -33,7 +33,8 @@ CREATE OR REPLACE PROCEDURE group_contact_insert
 , pv_creation_date       DATE     := SYSDATE
 , pv_last_updated_by     NUMBER   := NULL
 , pv_last_update_date    DATE     := SYSDATE) IS
-
+  id_created_by          NUMBER   := pv_created_by
+, id_last_updated_by     NUMBER   := pv_last_updated_by;
 BEGIN
  
   /* Create a SAVEPOINT as a starting point. */
@@ -42,14 +43,14 @@ BEGIN
   -- Default to sysadmin if no user ids given
   IF pv_created_by IS NULL THEN
     SELECT   system_user_id
-    INTO     pv_created_by
+    INTO     id_created_by
     FROM     system_user
     WHERE    system_user_name = 'SYSADMIN'
   END IF;
 
   IF pv_last_updated_by IS NULL THEN
     SELECT   system_user_id
-    INTO     pv_last_updated_by
+    INTO     id_last_updated_by
     FROM     system_user
     WHERE    system_user_name = 'SYSADMIN'
   END IF;
@@ -66,9 +67,9 @@ BEGIN
   , pv_first_name
   , pv_middle_name
   , pv_last_name
-  , pv_created_by
+  , id_created_by
   , pv_creation_date
-  , pv_last_updated_by
+  , id_last_updated_by
   , pv_last_update_date );  
 
   /* Insert into the address table. */
@@ -83,9 +84,9 @@ BEGIN
   , pv_city
   , pv_state_province
   , pv_postal_code
-  , pv_created_by
+  , id_created_by
   , pv_creation_date
-  , pv_last_updated_by
+  , id_last_updated_by
   , pv_last_update_date );  
 
   /* Insert into the street_address table. */
@@ -94,9 +95,9 @@ BEGIN
   ( street_address_s1.NEXTVAL
   , address_s1.CURRVAL
   , pv_street_address
-  , pv_created_by
+  , id_created_by
   , pv_creation_date
-  , pv_last_updated_by
+  , id_last_updated_by
   , pv_last_update_date );  
 
   /* Insert into the telephone table. */
@@ -112,9 +113,9 @@ BEGIN
   , pv_country_code                                   -- COUNTRY_CODE
   , pv_area_code                                      -- AREA_CODE
   , pv_telephone_number                               -- TELEPHONE_NUMBER
-  , pv_created_by                                     -- CREATED_BY
+  , id_created_by                                     -- CREATED_BY
   , pv_creation_date                                  -- CREATION_DATE
-  , pv_last_updated_by                                -- LAST_UPDATED_BY
+  , id_last_updated_by                                -- LAST_UPDATED_BY
   , pv_last_update_date);                             -- LAST_UPDATE_DATE
 
   /* Commit the series of inserts. */
