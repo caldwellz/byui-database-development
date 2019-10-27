@@ -394,19 +394,28 @@ WHERE    c.last_name = 'Potter';
 --  Step #3d: Insert three new RENTAL and RENTAL_ITEM table rows.
 -- ----------------------------------------------------------------------
 -- Insert Harry's rental and first rental_item
+DECLARE
+  p_customer_id NUMBER;
+  p_item_id     NUMBER;
 BEGIN
+  SELECT   contact_id
+  INTO     p_customer_id
+  FROM     contact
+  WHERE    last_name = 'Potter'
+  AND      first_name = 'Harry';
+
+  SELECT   i.item_id
+  INTO     p_item_id
+  FROM     item i, common_lookup cl
+  WHERE    i.item_title = 'Star Wars I'
+  AND      i.item_subtitle = 'Phantom Menace'
+  AND      i.item_type = cl.common_lookup_id
+  AND      cl.common_lookup_type = 'DVD_WIDE_SCREEN';
+  
   insert_rental(
-      pv_customer_id => (SELECT   contact_id
-                         FROM     contact
-                         WHERE    last_name = 'Potter'
-                         AND      first_name = 'Harry')
-    , pv_item_id     => (SELECT   i.item_id
-                         FROM     item i, common_lookup cl
-                         WHERE    i.item_title = 'Star Wars I'
-                         AND      i.item_subtitle = 'Phantom Menace'
-                         AND      i.item_type = cl.common_lookup_id
-                         AND      cl.common_lookup_type = 'DVD_WIDE_SCREEN')
-    , pv_return_date => (TRUNC(SYSDATE) + 1));
+    pv_customer_id => p_customer_id
+  , pv_item_id     => p_item_id
+  , pv_return_date => (TRUNC(SYSDATE) + 1));
 END;
 /
 
@@ -435,30 +444,48 @@ VALUES
 , SYSDATE);
 
 -- Insert Ginny's rental and rental_item
+DECLARE
+  p_customer_id NUMBER;
+  p_item_id     NUMBER;
 BEGIN
+  SELECT   contact_id
+  INTO     p_customer_id
+  FROM     contact
+  WHERE    last_name = 'Potter'
+  AND      first_name = 'Ginny';
+
+  SELECT   item_id
+  INTO     p_item_id
+  FROM     item
+  WHERE    item_barcode = '48213-09002';
+
   insert_rental(
-      pv_customer_id => (SELECT   contact_id
-                         FROM     contact
-                         WHERE    last_name = 'Potter'
-                         AND      first_name = 'Ginny')
-    , pv_item_id     => (SELECT   item_id
-                         FROM     item
-                         WHERE    item_barcode = '48213-09002')
-    , pv_return_date => (TRUNC(SYSDATE) + 3));
+    pv_customer_id => p_customer_id
+  , pv_item_id     => p_item_id
+  , pv_return_date => (TRUNC(SYSDATE) + 3));
 END;
 /
 
 -- Insert Lily's rental and rental_item
+DECLARE
+  p_customer_id NUMBER;
+  p_item_id     NUMBER;
 BEGIN
+  SELECT   contact_id
+  INTO     p_customer_id
+  FROM     contact
+  WHERE    last_name = 'Potter'
+  AND      first_name = 'Lily'
+  AND      middle_name = 'Luna';
+
+  SELECT   item_id
+  INTO     p_item_id
+  FROM     item
+  WHERE    item_barcode = '10903-34811';
+
   insert_rental(
-      pv_customer_id => (SELECT   contact_id
-                         FROM     contact
-                         WHERE    last_name = 'Potter'
-                         AND      first_name = 'Lily'
-                         AND      middle_name = 'Luna')
-    , pv_item_id     => (SELECT   item_id
-                         FROM     item
-                         WHERE    item_barcode = '10903-34811')
+      pv_customer_id => p_customer_id
+    , pv_item_id     => p_item_id
     , pv_return_date => (TRUNC(SYSDATE) + 5));
 END;
 /
