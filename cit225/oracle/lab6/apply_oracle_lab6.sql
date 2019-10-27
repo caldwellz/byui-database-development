@@ -102,17 +102,23 @@ END;
 --  Step 1: Write the CREATE TABLE statement.
 -- --------------------------------------------------
 CREATE TABLE price
-( price_id          NUMBER      PRIMARY KEY
-, item_id           NUMBER      FOREIGN KEY   NOT NULL  REFERENCES item(item_id)
-, price_type        NUMBER      FOREIGN KEY             REFERENCES common_lookup(common_lookup_id)
-, active_flag       VARCHAR2(1)               NOT NULL  CONSTRAINT yn_price CHECK(active_flag IN ('Y','N'))
-, start_date        DATE                      NOT NULL
+( price_id          NUMBER
+, item_id           NUMBER       NOT NULL  
+, price_type        NUMBER
+, active_flag       VARCHAR2(1)  NOT NULL  CONSTRAINT yn_price CHECK(active_flag IN ('Y','N'))
+, start_date        DATE         NOT NULL
 , end_date          DATE
-, amount            NUMBER                    NOT NULL
-, created_by        NUMBER      FOREIGN KEY   NOT NULL  REFERENCES system_user(system_user_id)
-, creation_date     DATE                      NOT NULL
-, last_updated_by   NUMBER      FOREIGN KEY   NOT NULL  REFERENCES system_user(system_user_id)
-, last_update_date  NUMBER                    NOT NULL);
+, amount            NUMBER       NOT NULL
+, created_by        NUMBER       NOT NULL
+, creation_date     DATE         NOT NULL
+, last_updated_by   NUMBER       NOT NULL
+, last_update_date  NUMBER       NOT NULL
+, CONSTRAINT pk_price_1          PRIMARY KEY(price_id)
+, CONSTRAINT fk_price_1          FOREIGN KEY(item_id)         REFERENCES item(item_id)
+, CONSTRAINT fk_price_2          FOREIGN KEY(price_type)      REFERENCES common_lookup(common_lookup_id)
+, CONSTRAINT fk_price_3          FOREIGN KEY(price_type)      REFERENCES common_lookup(common_lookup_id)
+, CONSTRAINT fk_price_4          FOREIGN KEY(created_by)      REFERENCES system_user(system_user_id)
+, CONSTRAINT fk_price_5          FOREIGN KEY(last_updated_by) REFERENCES system_user(system_user_id));
 
 
 -- --------------------------------------------------
@@ -210,7 +216,7 @@ INSERT INTO item
 , item_title
 , item_subtitle
 , item_rating
-, item_release_date
+, release_date
 , created_by
 , creation_date
 , last_updated_by
@@ -238,7 +244,7 @@ INSERT INTO item
 , item_title
 , item_subtitle
 , item_rating
-, item_release_date
+, release_date
 , created_by
 , creation_date
 , last_updated_by
@@ -266,7 +272,7 @@ INSERT INTO item
 , item_title
 , item_subtitle
 , item_rating
-, item_release_date
+, release_date
 , created_by
 , creation_date
 , last_updated_by
@@ -756,12 +762,10 @@ VALUES
 -- ----------------------------------------------------------------------
 --  Step #4c(6): Verify insert of new rows to the TELEPHONE table.
 -- ----------------------------------------------------------------------
-COLUMN common_lookup_context  FORMAT A14  HEADING "Common|Lookup Context"
 COLUMN common_lookup_table    FORMAT A12  HEADING "Common|Lookup Table"
 COLUMN common_lookup_column   FORMAT A18  HEADING "Common|Lookup Column"
 COLUMN common_lookup_type     FORMAT A18  HEADING "Common|Lookup Type"
-SELECT   common_lookup_context
-,        common_lookup_table
+SELECT   common_lookup_table
 ,        common_lookup_column
 ,        common_lookup_type
 FROM     common_lookup

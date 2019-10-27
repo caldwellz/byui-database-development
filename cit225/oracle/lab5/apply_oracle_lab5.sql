@@ -323,7 +323,7 @@ SELECT   d.department_name
 FROM     employee e INNER JOIN department d
 ON       e.department_id = d.department_id INNER JOIN salary s
 ON       e.salary_id = s.salary_id
-WHERE    ... provide the logic and syntax ...
+-- TODO: WHERE    ... provide the logic and syntax ...
 GROUP BY d.department_name
 ORDER BY d.department_name;
 
