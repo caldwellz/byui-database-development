@@ -29,19 +29,30 @@ CREATE OR REPLACE PROCEDURE group_contact_insert
 , pv_country_code        VARCHAR2
 , pv_area_code           VARCHAR2
 , pv_telephone_number    VARCHAR2
-, pv_created_by          NUMBER   := ( SELECT   system_user_id
-                                       FROM     system_user
-                                       WHERE    system_user_name = 'SYSADMIN')
+, pv_created_by          NUMBER   := NULL
 , pv_creation_date       DATE     := SYSDATE
-, pv_last_updated_by     NUMBER   := ( SELECT   system_user_id
-                                       FROM     system_user
-                                       WHERE    system_user_name = 'SYSADMIN')
+, pv_last_updated_by     NUMBER   := NULL
 , pv_last_update_date    DATE     := SYSDATE) IS
 
 BEGIN
  
   /* Create a SAVEPOINT as a starting point. */
   SAVEPOINT starting_point;
+
+  -- Default to sysadmin if no user ids given
+  IF pv_created_by IS NULL THEN
+    SELECT   system_user_id
+    INTO     pv_created_by
+    FROM     system_user
+    WHERE    system_user_name = 'SYSADMIN'
+  END IF;
+
+  IF pv_last_updated_by IS NULL THEN
+    SELECT   system_user_id
+    INTO     pv_last_updated_by
+    FROM     system_user
+    WHERE    system_user_name = 'SYSADMIN'
+  END IF;
 
   /* Insert into the contact table. */
   INSERT INTO contact
