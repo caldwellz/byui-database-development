@@ -33,8 +33,8 @@ CREATE OR REPLACE PROCEDURE group_contact_insert
 , pv_creation_date       DATE     := SYSDATE
 , pv_last_updated_by     NUMBER   := NULL
 , pv_last_update_date    DATE     := SYSDATE) IS
-  id_created_by          NUMBER   := pv_created_by
-, id_last_updated_by     NUMBER   := pv_last_updated_by;
+id_created_by            NUMBER   := pv_created_by;
+id_last_updated_by       NUMBER   := pv_last_updated_by;
 BEGIN
  
   /* Create a SAVEPOINT as a starting point. */
@@ -45,14 +45,14 @@ BEGIN
     SELECT   system_user_id
     INTO     id_created_by
     FROM     system_user
-    WHERE    system_user_name = 'SYSADMIN'
+    WHERE    system_user_name = 'SYSADMIN';
   END IF;
 
   IF pv_last_updated_by IS NULL THEN
     SELECT   system_user_id
     INTO     id_last_updated_by
     FROM     system_user
-    WHERE    system_user_name = 'SYSADMIN'
+    WHERE    system_user_name = 'SYSADMIN';
   END IF;
 
   /* Insert into the contact table. */
