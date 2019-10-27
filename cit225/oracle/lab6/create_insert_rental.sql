@@ -59,6 +59,13 @@ BEGIN
 
   /* Insert into the rental_item table. */
   INSERT INTO rental_item
+  ( rental_item_id
+  , rental_id
+  , item_id
+  , created_by
+  , creation_date
+  , last_updated_by
+  , last_update_date)
   VALUES
   ( rental_item_s1.nextval
   , rental_s1.currval
