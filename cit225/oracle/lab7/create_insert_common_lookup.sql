@@ -15,11 +15,11 @@ SPOOL create_insert_common_lookup.txt
 
 -- Transaction Management Example.
 CREATE OR REPLACE PROCEDURE insert_common_lookup
-( pv_cl_table            VARCHAR2(30)
-, pv_cl_column           VARCHAR2(30)
-, pv_cl_code             VARCHAR2(1)
-, pv_cl_type             VARCHAR2(30)
-, pv_cl_meaning          VARCHAR2(30)
+( pv_cl_table            VARCHAR2
+, pv_cl_column           VARCHAR2
+, pv_cl_code             VARCHAR2
+, pv_cl_type             VARCHAR2
+, pv_cl_meaning          VARCHAR2
 , pv_cl_id               NUMBER   := NULL
 , pv_created_by          NUMBER   := NULL
 , pv_creation_date       DATE     := SYSDATE

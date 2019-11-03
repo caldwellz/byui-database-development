@@ -46,18 +46,18 @@ SELECT  'Step #1' AS "Step Number" FROM dual;
 -- ----------------------------------------------------------------------
 BEGIN
 insert_common_lookup
-( pv_cl_table   => "PRICE"
-, pv_cl_column  => "ACTIVE_FLAG"
-, pv_cl_code    => "Y"
-, pv_cl_type    => "YES"
-, pv_cl_meaning => "Yes");
+( 'PRICE'
+, 'ACTIVE_FLAG'
+, 'Y'
+, 'YES'
+, 'Yes');
 
 insert_common_lookup
-( pv_cl_table   => "PRICE"
-, pv_cl_column  => "ACTIVE_FLAG"
-, pv_cl_code    => "N"
-, pv_cl_type    => "NO"
-, pv_cl_meaning => "No");
+( 'PRICE'
+, 'ACTIVE_FLAG'
+, 'N'
+, 'NO'
+, 'No');
 END;
 /
 
@@ -81,46 +81,46 @@ ORDER BY 1, 2, 3 DESC;
 -- ----------------------------------------------------------------------
 BEGIN
 insert_common_lookup
-( pv_cl_table   => "PRICE"
-, pv_cl_column  => "PRICE_TYPE"
-, pv_cl_code    => "1"
-, pv_cl_type    => "1-DAY RENTAL"
-, pv_cl_meaning => "1-Day Rental");
+( 'PRICE'
+, 'PRICE_TYPE'
+, '1'
+, '1-DAY RENTAL'
+, '1-Day Rental');
 
 insert_common_lookup
-( pv_cl_table   => "PRICE"
-, pv_cl_column  => "PRICE_TYPE"
-, pv_cl_code    => "3"
-, pv_cl_type    => "3-DAY RENTAL"
-, pv_cl_meaning => "3-Day Rental");
+( 'PRICE'
+, 'PRICE_TYPE'
+, '3'
+, '3-DAY RENTAL'
+, '3-Day Rental');
 
 insert_common_lookup
-( pv_cl_table   => "PRICE"
-, pv_cl_column  => "PRICE_TYPE"
-, pv_cl_code    => "5"
-, pv_cl_type    => "5-DAY RENTAL"
-, pv_cl_meaning => "5-Day Rental");
+( 'PRICE'
+, 'PRICE_TYPE'
+, '5'
+, '5-DAY RENTAL'
+, '5-Day Rental');
 
 insert_common_lookup
-( pv_cl_table   => "RENTAL_ITEM"
-, pv_cl_column  => "RENTAL_ITEM_TYPE"
-, pv_cl_code    => "1"
-, pv_cl_type    => "1-DAY RENTAL"
-, pv_cl_meaning => "1-Day Rental");
+( 'RENTAL_ITEM'
+, 'RENTAL_ITEM_TYPE'
+, '1'
+, '1-DAY RENTAL'
+, '1-Day Rental');
 
 insert_common_lookup
-( pv_cl_table   => "RENTAL_ITEM"
-, pv_cl_column  => "RENTAL_ITEM_TYPE"
-, pv_cl_code    => "3"
-, pv_cl_type    => "3-DAY RENTAL"
-, pv_cl_meaning => "3-Day Rental");
+( 'RENTAL_ITEM'
+, 'RENTAL_ITEM_TYPE'
+, '3'
+, '3-DAY RENTAL'
+, '3-Day Rental');
 
 insert_common_lookup
-( pv_cl_table   => "RENTAL_ITEM"
-, pv_cl_column  => "RENTAL_ITEM_TYPE"
-, pv_cl_code    => "5"
-, pv_cl_type    => "5-DAY RENTAL"
-, pv_cl_meaning => "5-Day Rental");
+( 'RENTAL_ITEM'
+, 'RENTAL_ITEM_TYPE'
+, '5'
+, '5-DAY RENTAL'
+, '5-Day Rental');
 END;
 /
 
