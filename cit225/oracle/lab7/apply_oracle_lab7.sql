@@ -19,7 +19,8 @@
 -- ------------------------------------------------------------------
 
 -- Call library files.
-@/home/student/Data/cit225/oracle/lab6/apply_oracle_lab6.sql
+-- @/home/student/Data/cit225/oracle/lab6/apply_oracle_lab6.sql
+@/home/student/Data/cit225/oracle/lab7/create_insert_common_lookup.sql
 
 -- Open log file.
 SPOOL apply_oracle_lab7.txt
@@ -43,9 +44,22 @@ SELECT  'Step #1' AS "Step Number" FROM dual;
 -- ----------------------------------------------------------------------
 --  Step #1 : Insert new rows to support PRICE table.
 -- ----------------------------------------------------------------------
+BEGIN
+insert_common_lookup
+( pv_cl_table   => "PRICE"
+, pv_cl_column  => "ACTIVE_FLAG"
+, pv_cl_code    => "Y"
+, pv_cl_type    => "YES"
+, pv_cl_meaning => "Yes");
 
-
-
+insert_common_lookup
+( pv_cl_table   => "PRICE"
+, pv_cl_column  => "ACTIVE_FLAG"
+, pv_cl_code    => "N"
+, pv_cl_type    => "NO"
+, pv_cl_meaning => "No");
+END;
+/
 
 
 -- ----------------------------------------------------------------------
@@ -65,10 +79,50 @@ ORDER BY 1, 2, 3 DESC;
 -- ----------------------------------------------------------------------
 --  Step #2 : Insert new rows to support PRICE and RENTAL_ITEM table.
 -- ----------------------------------------------------------------------
+BEGIN
+insert_common_lookup
+( pv_cl_table   => "PRICE"
+, pv_cl_column  => "PRICE_TYPE"
+, pv_cl_code    => "1"
+, pv_cl_type    => "1-DAY RENTAL"
+, pv_cl_meaning => "1-Day Rental");
 
+insert_common_lookup
+( pv_cl_table   => "PRICE"
+, pv_cl_column  => "PRICE_TYPE"
+, pv_cl_code    => "3"
+, pv_cl_type    => "3-DAY RENTAL"
+, pv_cl_meaning => "3-Day Rental");
 
+insert_common_lookup
+( pv_cl_table   => "PRICE"
+, pv_cl_column  => "PRICE_TYPE"
+, pv_cl_code    => "5"
+, pv_cl_type    => "5-DAY RENTAL"
+, pv_cl_meaning => "5-Day Rental");
 
+insert_common_lookup
+( pv_cl_table   => "RENTAL_ITEM"
+, pv_cl_column  => "RENTAL_ITEM_TYPE"
+, pv_cl_code    => "1"
+, pv_cl_type    => "1-DAY RENTAL"
+, pv_cl_meaning => "1-Day Rental");
 
+insert_common_lookup
+( pv_cl_table   => "RENTAL_ITEM"
+, pv_cl_column  => "RENTAL_ITEM_TYPE"
+, pv_cl_code    => "3"
+, pv_cl_type    => "3-DAY RENTAL"
+, pv_cl_meaning => "3-Day Rental");
+
+insert_common_lookup
+( pv_cl_table   => "RENTAL_ITEM"
+, pv_cl_column  => "RENTAL_ITEM_TYPE"
+, pv_cl_code    => "5"
+, pv_cl_type    => "5-DAY RENTAL"
+, pv_cl_meaning => "5-Day Rental");
+END;
+/
 
 -- ----------------------------------------------------------------------
 --  Verification #2: Verify the common_lookup contents.
@@ -80,9 +134,9 @@ SELECT   common_lookup_table
 ,        common_lookup_column
 ,        common_lookup_type
 FROM     common_lookup
-WHERE    common_lookup_table = 'PRICE'
-AND      common_lookup_column = 'PRICE_TYPE'
-ORDER BY 3;
+WHERE    common_lookup_table IN ('PRICE','RENTAL_ITEM')
+AND      common_lookup_column IN ('PRICE_TYPE','RENTAL_ITEM_TYPE')
+ORDER BY 1, 3;
 
 -- ----------------------------------------------------------------------
 --  Step #3a : Add columns to RENTAL_ITEM table and seed values.
@@ -133,16 +187,14 @@ FROM    (SELECT   COUNT(*) AS ROW_COUNT
 -- ----------------------------------------------------------------------
 --  Step #3b : Add columns to RENTAL_ITEM table and seed values.
 -- ----------------------------------------------------------------------
-
-
-
+ALTER TABLE rental_item
+  ADD CONSTRAINT fk_rental_item_7 FOREIGN KEY(rental_item_type) REFERENCES common_lookup(common_lookup_id);
 
 -- ----------------------------------------------------------------------
 --  Step #3c : Modify rental_item_type to not null constrained.
 -- ----------------------------------------------------------------------
-
-
-
+ALTER TABLE rental_item
+  MODIFY (rental_item_type NOT NULL);
 
 
 -- ----------------------------------------------------------------------
@@ -244,15 +296,31 @@ SELECT   i.item_id
 ,        cl.common_lookup_id AS price_type
 ,        cl.common_lookup_type AS price_desc
 ,        CASE
-           WHEN  ...implement logic "B"... THEN ...result VALUE...
-           ELSE  ...result VALUE ...
+           WHEN ((TRUNC(SYSDATE) - i.release_date) <= 30)
+             THEN i.release_date
+           WHEN ((TRUNC(SYSDATE) - i.release_date) > 30 AND af.active_flag = 'N')
+             THEN i.release_date + 31
          END AS start_date
+
 ,        CASE
-           WHEN  ...implement logic "C"... THEN ...result VALUE...
+           WHEN ((TRUNC(SYSDATE) - i.release_date) > 30 AND af.active_flag = 'N')
+            THEN i.release_date + 30
          END AS end_date
+
 ,        CASE
-           WHEN  ...implement logic "D"... THEN ...result VALUE...
-           ELSE  ...result VALUE ...
+           WHEN ((TRUNC(SYSDATE) - i.release_date) <= 30)
+             OR ((TRUNC(SYSDATE) - i.release_date) > 30 AND af.active_flag = 'N')
+             THEN CASE
+               WHEN dr.rental_days = 1 THEN 3
+               WHEN dr.rental_days = 3 THEN 10
+               WHEN dr.rental_days = 5 THEN 15
+             END
+           ELSE
+            CASE
+              WHEN dr.rental_days = 1 THEN 1
+              WHEN dr.rental_days = 3 THEN 3
+              WHEN dr.rental_days = 5 THEN 5
+            END
          END AS amount
 FROM     item i CROSS JOIN
         (SELECT 'Y' AS active_flag FROM dual
@@ -266,7 +334,7 @@ FROM     item i CROSS JOIN
          common_lookup cl ON dr.rental_days = SUBSTR(cl.common_lookup_type,1,1)
 WHERE    cl.common_lookup_table = 'PRICE'
 AND      cl.common_lookup_column = 'PRICE_TYPE'
-AND NOT ( ... implement logic "A" ... )
+AND NOT ((TRUNC(SYSDATE) - 30) < i.release_date AND af.active_flag = 'N')
 ORDER BY 1, 2, 3;
 
 SPOOL OFF
