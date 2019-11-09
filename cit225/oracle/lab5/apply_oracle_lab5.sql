@@ -39,28 +39,92 @@ SPOOL apply_oracle_lab5.txt
 -- --------------------------------------------------
 --  Step 1: Write joins with the USING subclause.
 -- --------------------------------------------------
+-- 1a
+COLUMN m_id FORMAT A10 HEADING "Member|ID #"
+COLUMN c_id FORMAT A10 HEADING "Contact|ID #"
+SELECT m.member_id AS m_id, c.contact_id AS c_id
+FROM member m INNER JOIN contact c
+USING (member_id)
+ORDER BY c_id;
 
+-- 1b
+COLUMN m_id FORMAT A10 HEADING "Member|ID #"
+COLUMN c_id FORMAT A10 HEADING "Contact|ID #"
+SELECT m.member_id AS m_id, c.contact_id AS c_id
+FROM member m INNER JOIN contact c
+WHERE (m.member_id = c.member_id)
+ORDER BY c_id;
 
+-- 1c
+COLUMN c_id FORMAT A10 HEADING "Contact|ID #"
+COLUMN a_id FORMAT A10 HEADING "Address|ID #"
+SELECT c.contact_id AS c_id, a.address_id AS a_id
+FROM contact c INNER JOIN address a
+USING (contact_id)
+ORDER BY c_id;
+
+-- 1d
+COLUMN c_id FORMAT A10 HEADING "Contact|ID #"
+COLUMN a_id FORMAT A10 HEADING "Address|ID #"
+SELECT c.contact_id AS c_id, a.address_id AS a_id
+FROM contact c INNER JOIN address a
+WHERE (c.contact_id = a.contact_id)
+ORDER BY c_id;
+
+-- 1e
+COLUMN s_id FORMAT A10 HEADING "Street|Address|ID #"
+COLUMN a_id FORMAT A10 HEADING "Address|ID #"
+SELECT s.street_address_id AS s_id, a.address_id AS a_id
+FROM street_address s INNER JOIN address a
+USING (address_id);
+
+-- 1f
+COLUMN s_id FORMAT A10 HEADING "Street|Address|ID #"
+COLUMN a_id FORMAT A10 HEADING "Address|ID #"
+SELECT s.street_address_id AS s_id, a.address_id AS a_id
+FROM street_address s INNER JOIN address a
+WHERE (s.address_id = a.address_id);
+
+-- 1g
+COLUMN a_id FORMAT A10 HEADING "Address|ID #"
+COLUMN t_id FORMAT A10 HEADING "Telephone|ID #"
+SELECT t.telephone_id AS t_id, a.address_id AS a_id
+FROM telephone t INNER JOIN address a
+USING (address_id);
+
+-- 1h
+COLUMN a_id FORMAT A10 HEADING "Address|ID #"
+COLUMN t_id FORMAT A10 HEADING "Telephone|ID #"
+SELECT t.telephone_id AS t_id, a.address_id AS a_id
+FROM telephone t INNER JOIN address a
+WHERE (t.address_id = a.address_id);
 
 
 -- --------------------------------------------------
 --  Step 2: Write joins with the ON subclause.
 -- --------------------------------------------------
+-- 2a
+COLUMN c_id FORMAT A10 HEADING "Contact|ID #"
+COLUMN su_id FORMAT A10 HEADING "System|User|ID #"
+SELECT c.contact_id AS c_id, su.system_user_id AS su_id
+FROM contact c INNER JOIN system_user su
+ON (c.created_by = su.system_user_id)
+ORDER BY c_id;
 
-
+-- 2b
 
 
 -- --------------------------------------------------
 --  Step 3: Write self joins.
 -- --------------------------------------------------
-
+-- 3a
 
 
 
 -- --------------------------------------------------
 --  Step 4: Write three table joins.
 -- --------------------------------------------------
-
+-- 4a
 
 
 

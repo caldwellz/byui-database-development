@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html lang="en-us"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Instructions</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="Instructions_files/main.css" rel="stylesheet">
+    <link href="Instructions_files/materialize.css" rel="stylesheet">
+    <link href="Instructions_files/prism.css" rel="stylesheet">
+    <link href="Instructions_files/css.css" rel="stylesheet">
+    <link href="Instructions_files/icon.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="row" id="nav">
+        <div class="col s4">
+            <p class="left"><a href=""></a></p>
+        </div>
+        <div class="col s4">
+            <p class="center-align"><a href="https://content.byui.edu/file/d13e0ee0-369f-4e61-809e-f70989ee1add/1/db1/index.html">Table
+                    of Contents</a></p>
+        </div>
+        <div class="col s4">
+            <p class="right"><a href=""></a></p>
+        </div>
+    </div>
+    <div id="content-wrapper">
+        <div id="container" class="group">
+            <h1></h1>
+            <!-- erase this line if you want to turn the bubble off -->
+            <div id="content">
+                <h2>Instructions</h2>
+                <div class="main">
+                    <p><span>Lab
+                            #5: SQL Joins</span></p>
+                    <p>
+                    </p>
+                    <p>Learn how to write <code>SELECT</code> statements that join two tables and
+                        three tables with inner and outer joins. </p>
+                    <ul class="browser-default">
+                        <li><a href="https://content.byui.edu/file/d13e0ee0-369f-4e61-809e-f70989ee1add/1/db1/week-5-summary/lab/help-section-week-5/index.html">Lab</a>
+                            <ul class="browser-default">
+                                <li><a href="https://content.byui.edu/file/d13e0ee0-369f-4e61-809e-f70989ee1add/1/db1/week-5-summary/lab/description-week-5/index.html">Description</a></li>
+                                <li><a href="https://content.byui.edu/file/d13e0ee0-369f-4e61-809e-f70989ee1add/1/db1/week-5-summary/lab/help-section-week-5/index.html">Help Section</a></li>
+                                <li>Instructions</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p>
+                    </p>
+                    <p>Lab Description</p>
+                    <p><em><strong>[50 points]</strong></em> Click the <em><strong>Lab Instructions</strong></em>
+                        link to open the instructions inside the current webpage.</p>
+                    <ul class="collapsible expandable">
+                        <li>
+                            <div title="Click to see the instructions ..." class="collapsible-header" tabindex="0">Lab
+                                Instructions
+                                <i class="material-icons left">keyboard_arrow_right</i>
+                            </div>
+                            <div class="collapsible-body">
+                                <h4>Lab Instructions</h4>
+                                <div>
+                                    <p>
+                                    </p>
+                                    <p>You begin the lab by checking the files in the <code>/home/student/Data/cit225/oracle/lib</code>
+                                        directory:</p>
+                                    <ul class="browser-default">
+                                        <li><code>cleanup_oracle.sql</code></li>
+                                        <li><code>create_oracle_store2.sql</code></li>
+                                        <li><code>preseed_oracle_store.sql</code></li>
+                                        <li><code>seeding.sql</code></li>
+                                    </ul>
+                                    <p>You should write the solution inside the <code>apply_oracle_lab5.sql</code>
+                                        script file in the <code>/home/student/Data/cit225/lab5</code>
+                                        directory, as shown:</p>
+                                    <p>
+                                    </p>
+                                    <div>
+                                        <pre class=" language-powershell"><code class=" language-powershell">-<span class="token operator">-</span> Run the prior lab script<span class="token punctuation">.</span>
+@<span class="token operator">/</span>home<span class="token operator">/</span>student<span class="token operator">/</span><span class="token keyword">Data</span><span class="token operator">/</span>cit225<span class="token operator">/</span>oracle<span class="token operator">/</span>lib1<span class="token operator">/</span>utility<span class="token operator">/</span>cleanup_oracle<span class="token punctuation">.</span>sql
+@<span class="token operator">/</span>home<span class="token operator">/</span>student<span class="token operator">/</span><span class="token keyword">Data</span><span class="token operator">/</span>cit225<span class="token operator">/</span>oracle<span class="token operator">/</span>lib1<span class="token operator">/</span>create<span class="token operator">/</span>create_oracle_store2<span class="token punctuation">.</span>sql
+@<span class="token operator">/</span>home<span class="token operator">/</span>student<span class="token operator">/</span><span class="token keyword">Data</span><span class="token operator">/</span>cit225<span class="token operator">/</span>oracle<span class="token operator">/</span>lib1<span class="token operator">/</span>preseed<span class="token operator">/</span>preseed_oracle_store<span class="token punctuation">.</span>sql
+@<span class="token operator">/</span>home<span class="token operator">/</span>student<span class="token operator">/</span><span class="token keyword">Data</span><span class="token operator">/</span>cit225<span class="token operator">/</span>oracle<span class="token operator">/</span>lib1<span class="token operator">/</span>seed<span class="token operator">/</span>seeding<span class="token punctuation">.</span>sql
+
+SPOOL apply_oracle_lab5<span class="token punctuation">.</span>txt
+
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> insert code here <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+
+SPOOL OFF</code></pre>
+                                    </div>
+                                    <p></p>
+                                    <p>
+                                    </p>
+                                    <ol start="1">
+                                        <li><em><strong>[16 points]</strong></em> Write <code>INNER
+                                                JOIN</code> queries that use the <code>USING</code>
+                                            subclause and return the following results:</li>
+                                    </ol>
+                                    <ul class="collapsible expandable">
+                                        <li>
+                                            <div title="Click to see the instructions ..." class="collapsible-header" tabindex="0">Instruction
+                                                Details
+                                                <i class="material-icons left">keyboard_arrow_right</i>
+                                            </div>
+                                            <div class="collapsible-body">
+                                                <h4>Instruction Details</h4>
+                                                <div>
+                                                    <p>
+                                                    </p>
+                                                    <p>There are several queries to write in this
+                                                        lab. They’re organized by the type
+                                                        of join and syntax pattern.</p>
+                                                    <p>
+                                                    </p>
+                                                    <ol type="a" start="1">
+                                                        <li>Display the <code>MEMBER_ID</code> and
+                                                            <code>CONTACT_ID</code> in the <code>SELECT</code>
+                                                            clause from a join of the <code>MEMBER</code>
+                                                            and <code>CONTACT</code> tables. You
+                                                            should make the join with the <code>USING</code>
+                                                            subclause based on the <code>MEMBER_ID</code>
+                                                            column, which is the primary and
+                                                            foreign key of the respective tables.</li>
+                                                    </ol>
+                                                    <div>
+                                                        <pre class=" language-markup"><code class=" language-markup">Member Contact
+   ID #    ID #
+------- -------
+   1001    1001
+   1001    1002
+   1002    1003
+   1002    1004
+   1003    1005
+   1003    1006
+   1003    1007
+   1004    1008
+   1005    1009
+   1006    1010
+   1007    1011
+   1008    1012</code></pre>
+                                                    </div>
+                                                    <ol type="a" start="2">
+                                                        <li>Display the <code>MEMBER_ID</code> and
+                                                            <code>CONTACT_ID</code> in the <code>SELECT</code>
+                                                            clause from a join of the <code>MEMBER</code>
+                                                            and <code>CONTACT</code> tables. You
+                                                            should put the join in the <code>WHERE</code>
+                                                            clause and base the join on the <code>MEMBER_ID</code>
+                                                            column, which is the primary and
+                                                            foreign key of the respective tables.</li>
+                                                    </ol>
+                                                    <div>
+                                                        <pre class=" language-markup"><code class=" language-markup">Member Contact
+   ID #    ID #
+------- -------
+   1001    1001
+   1001    1002
+   1002    1003
+   1002    1004
+   1003    1005
+   1003    1006
+   1003    1007
+   1004    1008
+   1005    1009
+   1006    1010
+   1007    1011
+   1008    1012</code></pre>
+                                                    </div>
+                                                    <ol type="a" start="3">
+                                                        <li>Display the <code>CONTACT_ID</code> and
+                                                            <code>ADDRESS_ID</code> in the <code>SELECT</code>
+                                                            clause from a join of the <code>CONTACT</code>
+                                                            and <code>ADDRESS</code> tables. You
+                                                            should make the join between the tables
+                                                            with the <code>USING</code> subclause
+                                                            based on the <code>CONTACT_ID</code>
+                                                            column, which is the primary and
+                                                            foreign key of the respective tables.</li>
+                                                    </ol>
+                                                    <div>
+                                                        <pre class=" language-markup"><code class=" language-markup">Contact Address
+   ID #    ID #
+------- -------
+   1001    1001
+   1002    1002
+   1003    1003
+   1004    1004
+   1005    1005
+   1006    1006
+   1007    1007
+   1008    1008
+   1009    1009
+   1010    1010
+   1011    1011
+   1012    1012</code></pre>
+                                                    </div>
+                                                    <ol type="a" start="4">
+                                                        <li>Display the <code>CONTACT_ID</code> and
+                                                            <code>ADDRESS_ID</code> in the <code>SELECT</code>
+                                                            clause from a join of the <code>CONTACT</code>
+                                                            and <code>ADDRESS</code> tables. You
+                                                            should put the join in the <code>WHERE</code>
+                                                            clause and base the join on the <code>CONTACT_ID</code>
+                                                            column, which is the primary and
+                                                            foreign key of the respective tables.</li>
+                                                    </ol>
+                                                    <div>
+                                                        <pre class=" language-markup"><code class=" language-markup">Contact Address
+   ID #    ID #
+------- -------
+   1001    1001
+   1002    1002
+   1003    1003
+   1004    1004
+   1005    1005
+   1006    1006
+   1007    1007
+   1008    1008
+   1009    1009
+   1010    1010
+   1011    1011
+   1012    1012</code></pre>
+                                                    </div>
+                                                    <ol type="a" start="5">
+                                                        <li>Display the <code>ADDRESS_ID</code> and
+                                                            <code>STREET_ADDRESS_ID</code> in the
+                                                            <code>SELECT</code> clause from a join
+                                                            of the <code>ADDRESS</code> and <code>STREET_ADDRESS</code>
+                                                            tables. You should make the join
+                                                            between the tables with the <code>USING</code>
+                                                            subclause based on the <code>ADDRESS_ID</code>
+                                                            column, which is the primary and
+                                                            foreign key of the respective tables.</li>
+                                                    </ol>
+                                                    <div>
+                                                        <pre class=" language-markup"><code class=" language-markup">Street
+Address Address
+   ID #    ID #
+------- -------
+   1001    1001
+   1002    1002
+   1003    1003
+   1004    1004
+   1005    1005
+   1006    1006
+   1007    1007
+   1008    1008
+   1009    1009
+   1010    1010
+   1011    1011
+   1012    1012</code></pre>
+                                                    </div>
+                                                    <ol type="a" start="6">
+                                                        <li>Display the <code>ADDRESS_ID</code> and
+                                                            <code>STREET_ADDRESS_ID</code> in the
+                                                            <code>SELECT</code> clause from a join
+                                                            of the <code>ADDRESS</code> and <code>STREET_ADDRESS</code>
+                                                            tables. You should put the join in the
+                                                            <code>WHERE</code> clause and base the
+                                                            join on the ADDRESS_ID column, which is
+                                                            the primary and foreign key of the
+                                                            respective tables.</li>
+                                                    </ol>
+                                                    <div>
+                                                        <pre class=" language-markup"><code class=" language-markup">Street
+Address Address
+   ID #    ID #
+------- -------
+   1001    1001
+   1002    1002
+   1003    1003
+   1004    1004
+   1005    1005
+   1006    1006
+   1007    1007
+   1008    1008
+   1009    1009
+   1010    1010
+   1011    1011
+   1012    1012</code></pre>
+                                                    </div>
+                                                    <ol type="a" start="7">
+                                                        <li>Display the <code>ADDRESS_ID</code> and
+                                                            <code>TELEPHONE_ID</code> in the <code>SELECT</code>
+                                                            clause from a join of the <code>ADDRESS</code>
+                                                            and <code>TELEPHONE</code> tables. You
+                                                            should make the join between the tables
+                                                            with the <code>USING</code> subclause
+                                                            based on the <code>ADDRESS_ID</code>
+                                                            column, which is the primary and
+                                                            foreign key of the respect tables.</li>
+                                                    </ol>
+                                                    <div>
+                                                        <pre class=" language-markup"><code class=" language-markup">Address Telephone
+   ID #      ID #
+------- ---------
+   1001      1001
+   1002      1002
+   1003      1003
+   1004      1004
+   1005      1005
+   1006      1006
+   1007      1007
+   1008      1008
+   1009      1009
+   1010      1010
+   1011      1011
+   1012      1012</code></pre>
+                                                    </div>
+                                                    <ol type="a" start="8">
+                                                        <li>Display the <code>ADDRESS_ID</code> and
+                                                            <code>TELEPHONE_ID</code> in the <code>SELECT</code>
+                                                            clause from a join of the <code>ADDRESS</code>
+                                                            and <code>TELEPHONE</code> tables. You
+                                                            should put the join in the <code>WHERE</code>
+                                                            clause and base the join on the <code>ADDRESS_ID</code>
+                                                            column, which is the primary and
+                                                            foreign key of the respective tables.</li>
+                                                    </ol>
+                                                    <div>
+                                                        <pre class=" language-markup"><code class=" language-markup">Address Telephone
+   ID #      ID #
+------- ---------
+   1001      1001
+   1002      1002
+   1003      1003
+   1004      1004
+   1005      1005
+   1006      1006
+   1007      1007
+   1008      1008
+   1009      1009
+   1010      1010
+   1011      1011
+   1012      1012</code></pre>
+                                                    </div>
+                                                    <p></p>
+                                                    <p>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <ol start="2">
+                                        <li><strong><em>[8 points]</em></strong> Write <code>INNER
+                                                JOIN</code> queries that use the <code>ON</code>
+                                            subclause and return the following results:</li>
+                                    </ol>
+                                    <ul class="collapsible expandable">
+                                        <li>
+                                            <div title="Click to see the instructions ..." class="collapsible-header" tabindex="0">Instruction
+                                                Details
+                                                <i class="material-icons left">keyboard_arrow_right</i>
+                                            </div>
+                                            <div class="collapsible-body">
+                                                <h4>Instruction Details</h4>
+                                                <div>
+                                                    <ol type="a" start="1">
+                                                        <li>Display the <code>CONTACT_ID</code> and
+                                                            <code>SYSTEM_USER_ID</code> columns in
+                                                            the <code>SELECT</code> clause from a
+                                                            join of the <code>CONTACT</code> and
+                                                            <code>SYSTEM_USER</code> tables. You
+                                                            should make the join with the <code>ON</code>
+                                                            subclause based on the <code>CREATED_BY</code>
+                                                            and <code>SYSTEM_USER_ID</code>
+                                                            columns, which are the foreign and
+                                                            primary key respectively.</li>
+                                                    </ol>
+                                                    <div>
+                                                        <pre class=" language-markup"><code class=" language-markup">System
+Contact    User
+   ID #    ID #
+------- -------
+   1001       1
+   1002       1
+   1003       1
+   1004       1
+   1005       1
+   1006       1
+   1007       1
+   1008    1001
+   1009    1001
+   1010    1001
+   1011    1001
+   1012    1001</code></pre>
+                                                    </div>
+                                                    <ol type="a" start="2">
+                                                        <li>Display the <code>CONTACT_ID</code> and
+                                                            <code>SYSTEM_USER_ID</code> columns in
+                                                            the <code>SELECT</code> clause from a
+                                                            join of the <code>CONTACT</code> and
+                                                            <code>SYSTEM_USER</code> tables. You
+                                                            should put the join in the <code>WHERE</code>
+                                                            clause and base the join on the <code>CREATED_BY</code>
+                                                            column in the <code>CONTACT</code>
+                                                            table and <code>SYSTEM_USER_ID</code>
+                                                            column in the <code>SYSTEM_USER</code>
+                                                            table, which is the primary and foreign
+                                                            key of the respective tables.</li>
+                                                    </ol>
+                                                    <div>
+                                                        <pre class=" language-markup"><code class=" language-markup">System
+Contact    User
+   ID #    ID #
+------- -------
+   1001       1
+   1002       1
+   1003       1
+   1004       1
+   1005       1
+   1006       1
+   1007       1
+   1008    1001
+   1009    1001
+   1010    1001
+   1011    1001
+   1012    1001</code></pre>
+                                                    </div>
+                                                    <ol type="a" start="3">
+                                                        <li>Display the <code>CONTACT_ID</code> and
+                                                            <code>SYSTEM_USER_ID</code> columns in
+                                                            the <code>SELECT</code> clause from a
+                                                            join of the <code>CONTACT</code> and
+                                                            <code>SYSTEM_USER</code> tables. You
+                                                            should make the join with the <code>ON</code>
+                                                            subclause based on the <code>LAST_UPDATED_BY</code>
+                                                            and <code>SYSTEM_USER_ID</code>
+                                                            columns, which are the foreign and
+                                                            primary key respectively.</li>
+                                                    </ol>
+                                                    <div>
+                                                        <pre class=" language-markup"><code class=" language-markup">System
+Contact    User
+   ID #    ID #
+------- -------
+   1001       1
+   1002       1
+   1003       1
+   1004       1
+   1005       1
+   1006       1
+   1007       1
+   1008    1001
+   1009    1001
+   1010    1001
+   1011    1001
+   1012    1001</code></pre>
+                                                    </div>
+                                                    <ol type="a" start="4">
+                                                        <li>Display the <code>CONTACT_ID</code> and
+                                                            <code>SYSTEM_USER_ID</code> columns in
+                                                            the <code>SELECT</code> clause from a
+                                                            join of the <code>CONTACT</code> and
+                                                            <code>SYSTEM_USER</code> tables. You
+                                                            should put the join in the <code>WHERE</code>
+                                                            clause and base the join on the <code>LAST_UPDATED_BY</code>
+                                                            and <code>SYSTEM_USER_ID</code>
+                                                            columns, which are the foreign and
+                                                            primary key respectively.</li>
+                                                    </ol>
+                                                    <div>
+                                                        <pre class=" language-markup"><code class=" language-markup">System
+Contact    User
+   ID #    ID #
+------- -------
+   1001       1
+   1002       1
+   1003       1
+   1004       1
+   1005       1
+   1006       1
+   1007       1
+   1008    1001
+   1009    1001
+   1010    1001
+   1011    1001
+   1012    1001</code></pre>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <ol type="1" start="3">
+                                        <li><strong><em>[8 points]</em></strong> Write <code>INNER
+                                                JOIN</code> queries that use the <code>ON</code>
+                                            subclause to perform a self-join on the <code>SYSTEM_USER</code>
+                                            table. The solution requires that you create three
+                                            copies of the SYSTEM_USER table by using aliases like
+                                            <code>su1</code>, <code>su2</code>, and <code>su3</code>.
+                                            Please note that joining two tables is like matching
+                                            two sets, while joining three table is like joining two
+                                            tables into a temporary result set (or <em>pseudo table</em>)
+                                            and then joining the third table to the temporary
+                                            result set as if it were a table. It should return the
+                                            following results:</li>
+                                    </ol>
+                                    <ul class="collapsible expandable">
+                                        <li>
+                                            <div title="Click to see the instructions ..." class="collapsible-header" tabindex="0">Instruction
+                                                Details
+                                                <i class="material-icons left">keyboard_arrow_right</i>
+                                            </div>
+                                            <div class="collapsible-body">
+                                                <h4>Instruction Details</h4>
+                                                <div>
+                                                    <ol type="a" start="1">
+                                                        <li>[2 points] Display the <code>SYSTEM_USER_ID</code>
+                                                            and <code>CREATED_BY</code> columns
+                                                            from one row, and the <code>SYSTEM_USER_ID</code>
+                                                            column from a row where it is also the
+                                                            primary key. You should make the join
+                                                            with the <code>ON</code> subclause
+                                                            based on the <code>CREATED_BY</code>
+                                                            and <code>SYSTEM_USER_ID</code>
+                                                            columns, which are the foreign and
+                                                            primary key respectively. In a
+                                                            self-join, these columns may be in the
+                                                            same or different rows in the table.</li>
+                                                    </ol>
+                                                    <div>
+                                                        <p>You should use the following column
+                                                            formatting for this command. Please
+                                                            note that column aliases replace column
+                                                            names when two columns share the same
+                                                            name. The formatting commands use the
+                                                            column aliases assigned in the <code>SELECT</code>
+                                                            clause of the query.</p>
+                                                        <pre class=" language-sql"><code class=" language-sql">COL system_user_id  FORMAT <span class="token number">999999</span>  HEADING <span class="token string">"System|User|ID #|--------|Table #1"</span>
+COL created_by      FORMAT <span class="token number">999999</span>  HEADING <span class="token string">"Created|By|ID #|--------|Table #1"</span>
+COL system_user_pk  FORMAT <span class="token number">999999</span>  HEADING <span class="token string">"System|User|ID #|--------|Table #2"</span></code></pre>
+                                                        <p>The formatting will guarantee headers
+                                                            like the following:</p>
+                                                        <pre class=" language-markup"><code class=" language-markup">System  Created   System
+    User       By     User
+    ID #     ID #     ID #
+-------- -------- --------
+Table #1 Table #1 Table #2
+-------- -------- --------
+       1	1	 1
+    1001	1	 1
+    1002	1	 1</code></pre>
+                                                    </div>
+                                                    <ol type="a" start="2">
+                                                        <li>[2 points] Display the <code>SYSTEM_USER_ID</code>
+                                                            and <code>LAST_UPDATED_BY</code>
+                                                            columns from one row, and the <code>SYSTEM_USER_ID</code>
+                                                            column from a row where it is also the
+                                                            primary key. You should make the join
+                                                            with the <code>ON</code> subclause
+                                                            based on the <code>LAST_UPDATED_BY</code>
+                                                            and <code>SYSTEM_USER_ID</code>
+                                                            columns, which are the foreign and
+                                                            primary key respectively. In a
+                                                            self-join, these columns may be in the
+                                                            same or different rows in the table.</li>
+                                                    </ol>
+                                                    <div>
+                                                        <p>You should use the following column
+                                                            formatting for this command. Please
+                                                            note that column aliases replace column
+                                                            names when two columns share the same
+                                                            name. The formatting commands use the
+                                                            column aliases assigned in the <code>SELECT</code>
+                                                            clause of the query.</p>
+                                                        <pre class=" language-sql"><code class=" language-sql">COL system_user_id   FORMAT <span class="token number">999999</span>  HEADING <span class="token string">"System|User|ID #|--------|Table #1"</span>
+COL last_updated_by  FORMAT <span class="token number">999999</span>  HEADING <span class="token string">"Last|Updated|By|ID #|--------|Table #1"</span>
+COL system_user_pk   FORMAT <span class="token number">999999</span>  HEADING <span class="token string">"System|User|ID #|--------|Table #2"</span></code></pre>
+                                                        <p>The formatting will guarantee headers
+                                                            like the following:</p>
+                                                        <pre class=" language-markup"><code class=" language-markup">Last
+  System  Updated   System
+    User       By     User
+    ID #     ID #     ID #
+-------- -------- --------
+Table #1 Table #1 Table #2
+-------- -------- --------
+       1	1	 1
+    1001	1	 1
+    1002	1	 1</code></pre>
+                                                    </div>
+                                                    <ol type="a" start="3">
+                                                        <li>[4 points] Display the <code>SYSTEM_USER_ID</code>
+                                                            and <code>SYSTEM_USER_NAME</code>
+                                                            columns from the first copy of the
+                                                            <code>SYSTEM_USER</code> table, then
+                                                            the following from the second copy of
+                                                            the <code>SYSTEM_USER</code> table:
+                                                            <p>
+                                                            </p>
+                                                            <ul class="browser-default">
+                                                                <li>The <code>SYSTEM_USER_ID</code>
+                                                                    as the <em>“Created
+                                                                        By”</em> column.</li>
+                                                                <li>The <code>SYSTEM_USER_NAME</code>
+                                                                    as the <em>“Created By
+                                                                        User Name”</em>
+                                                                    column.</li>
+                                                            </ul>
+                                                            <p></p>
+                                                            <p>
+                                                            </p>
+                                                            <p>and, the following from the third
+                                                                copy of the <code>SYSTEM_USER</code>
+                                                                table: </p>
+                                                            <p>
+                                                            </p>
+                                                            <ul class="browser-default">
+                                                                <li>The <code>SYSTEM_USER_ID</code>
+                                                                    as the <em>“Last Updated
+                                                                        By”</em> column.</li>
+                                                                <li>The <code>SYSTEM_USER_NAME</code>
+                                                                    as the <em>“Last Updated
+                                                                        User Name”</em>
+                                                                    column.</li>
+                                                            </ul>
+                                                            <p></p>
+                                                            <p>
+                                                            </p>
+                                                            <p>You solve this by performing a three
+                                                                table join. A join between three
+                                                                tables requires you to join two
+                                                                tables before you join the result
+                                                                of the join between the two tables
+                                                                to the third table. You write the
+                                                                join between the table inside the
+                                                                <code>FROM</code> clause.</p>
+                                                            <p>
+                                                            </p>
+                                                            <p>You should follow these steps:</p>
+                                                            <p>
+                                                            </p>
+                                                            <ol type="a">
+                                                                <li>You join the first copy of the
+                                                                    <code>SYSTEM_USER</code> table
+                                                                    to the second copy of the <code>SYSTEM_USER</code>
+                                                                    table by joining the following
+                                                                    two columns:
+                                                                    <p>
+                                                                    </p>
+                                                                    <ol type="i">
+                                                                        <li>The <code>CREATED_BY</code>
+                                                                            column in the first
+                                                                            copy of the <code>SYSTEM_USER</code>
+                                                                            table.</li>
+                                                                        <li>The <code>SYSTEM_USER_ID</code>
+                                                                            column in the second
+                                                                            copy of the <code>SYSTEM_USER</code>
+                                                                            table.</li>
+                                                                    </ol>
+                                                                    <p></p>
+                                                                </li>
+                                                                <li>You join the first copy of the
+                                                                    <code>SYSTEM_USER</code> table
+                                                                    to the third copy of the <code>SYSTEM_USER</code>
+                                                                    table by joining the following
+                                                                    two columns to the result set
+                                                                    of the prior join:
+                                                                    <ol type="i">
+                                                                        <li>The <code>LAST_UPDATED_BY</code>
+                                                                            column in the first
+                                                                            copy of the <code>SYSTEM_USER</code>
+                                                                            table.</li>
+                                                                        <li>The <code>SYSTEM_USER_ID</code>
+                                                                            column in the third
+                                                                            copy of the <code>SYSTEM_USER</code>
+                                                                            table.</li>
+                                                                    </ol>
+                                                                </li>
+                                                            </ol>
+                                                            <p></p>
+                                                        </li>
+                                                    </ol>
+                                                    <div>
+                                                        <p>You should use the following column
+                                                            formatting for this command. Please
+                                                            note that column aliases replace column
+                                                            names when two columns share the same
+                                                            name. The formatting commands use the
+                                                            column aliases assigned in the <code>SELECT</code>
+                                                            clause of the query.</p>
+                                                        <pre class=" language-sql"><code class=" language-sql">COL user_id        FORMAT <span class="token number">999999</span>  HEADING <span class="token string">"System|User|ID #|--------|Table #1"</span>
+COL user_name      FORMAT A8      HEADING <span class="token string">"System|User|Name|--------|Table #1"</span>
+COL cby_user_id    FORMAT <span class="token number">999999</span>  HEADING <span class="token string">"System|User|ID #|--------|Table #2"</span>
+COL cby_user_name  FORMAT A8      HEADING <span class="token string">"System|User|Name|--------|Table #2"</span>
+COL lby_user_id    FORMAT <span class="token number">999999</span>  HEADING <span class="token string">"System|User|ID #|--------|Table #3"</span>
+COL lby_user_name  FORMAT A8      HEADING <span class="token string">"System|User|Name|--------|Table #3"</span></code></pre>
+                                                        <p>The formatting will guarantee headers
+                                                            like the following:</p>
+                                                        <pre class=" language-markup"><code class=" language-markup">System System     System System     System System
+    User User	      User User 	User User
+    ID # Name	      ID # Name 	ID # Name
+-------- -------- -------- -------- -------- --------
+Table #1 Table #1 Table #2 Table #2 Table #3 Table #3
+-------- -------- -------- -------- -------- --------
+       1 SYSADMIN	 1 SYSADMIN	   1 SYSADMIN
+    1001 DBA1		 1 SYSADMIN	   1 SYSADMIN
+    1002 DBA2		 1 SYSADMIN	   1 SYSADMIN</code></pre>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <p></p>
+                                    <p>
+                                    </p>
+                                    <ol start="4">
+                                        <li><strong><em>[8 points]</em></strong> Display the <code>RENTAL_ID</code>
+                                            column from the <code>RENTAL</code> table, the <code>RENTAL_ID</code>
+                                            and <code>ITEM_ID</code> from the <code>RENTAL_ITEM</code>
+                                            table, and <code>ITEM_ID</code> column from the <code>ITEM</code>
+                                            table. You should make a join from the <code>RENTAL</code>
+                                            table to the <code>RENTAL_ITEM</code> table, and then
+                                            the <code>ITEM</code> table. Join the tables based on
+                                            their respective primary and foreign key values.</li>
+                                    </ol>
+                                    <ul class="collapsible expandable">
+                                        <li>
+                                            <div title="Click to see the instructions ..." class="collapsible-header" tabindex="0">Instruction
+                                                Details
+                                                <i class="material-icons left">keyboard_arrow_right</i>
+                                            </div>
+                                            <div class="collapsible-body">
+                                                <h4>Instruction Details</h4>
+                                                <div>
+                                                    <p>
+                                                    </p>
+                                                    <div>
+                                                        <pre class=" language-markup"><code class=" language-markup">Rental Rental Item Rental Item     Item
+   Table       Table	   Table    Table
+-------- ----------- ----------- --------
+  Rental      Rental	    Item     Item
+    ID #	ID #	    ID #     ID #
+-------- ----------- ----------- --------
+    1001	1001	    1002     1002
+    1001	1001	    1004     1004
+    1001	1001	    1005     1005
+    1002	1002	    1016     1016
+    1002	1002	    1021     1021
+    1003	1003	    1019     1019
+    1004	1004	    1014     1014
+    1005	1005	    1007     1007
+    1005	1005	    1001     1001</code></pre>
+                                                    </div>
+                                                    <p></p>
+                                                    <p>After creating the foregoing result set,
+                                                        alter the <code>RENTAL</code> table by
+                                                        dropping the <code>NN_RENTAL_3</code>
+                                                        constraint.</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <p></p>
+                                    <p>
+                                    </p>
+                                    <ol start="5">
+                                        <li><strong><em>[10 points]</em></strong> Display the <code>DEPARTMENT_NAME</code>
+                                            from the <code>DEPARTMENT</code> table and the average
+                                            in whole dollars of the <code>SALARY</code> column from
+                                            the <code>SALARY</code> table grouped by and ordered by
+                                            the <code>DEPARTMENT_NAME</code> column for the last
+                                            two months. (HINT: The lookup values and range values
+                                            with a <code>BETWEEN</code> operator must be not null
+                                            values, and when the ending date is null you should use
+                                            an <code>NVL(some_date, SYSDATE + 1)</code> or tomorrow
+                                            to get the operator to return a value other than a null
+                                            value.)</li>
+                                    </ol>
+                                    <p></p>
+                                    <ul class="collapsible expandable">
+                                        <li>
+                                            <div title="Click to see the instructions ..." class="collapsible-header" tabindex="0">
+                                                Instruction Details
+                                                <i class="material-icons left">keyboard_arrow_right</i>
+                                            </div>
+                                            <div class="collapsible-body">
+                                                <h4>
+                                                    Instruction Details </h4>
+                                                <div>
+                                                    <p>
+                                                    </p>
+                                                    <div>
+                                                        <p>
+                                                        </p>
+                                                        <p>You need to copy the following code
+                                                            blocks into your lab before you can
+                                                            write and run the desired query.
+                                                            That’s because one script
+                                                            creates the <code>DEPARTMENT</code>,
+                                                            <code>EMPLOYEE</code>, and <code>SALARY</code>
+                                                            tables and inserts values into those
+                                                            tables, and the other creates the <code>CALENDAR</code>
+                                                            table that lets you determine the
+                                                            starting and ending date of months.</p>
+                                                        <p>
+                                                        </p>
+                                                        <p>The firsts block creates the <code>DEPARTMENT</code>,
+                                                            <code>EMPLOYEE</code> and <code>SALARY</code>
+                                                            tables and inserts values into those
+                                                            tables. It follows below:</p>
+                                                        <pre class=" language-markup"><code class=" language-markup">/* Conditionally drop non-equijoin sample tables. */
+BEGIN
+  FOR i IN (SELECT   object_name
+            ,        object_type
+            FROM     user_objects
+            WHERE    object_name IN ('DEPARTMENT','DEPARTMENT_S'
+                                  ,'EMPLOYEE','EMPLOYEE_S'
+                                  ,'SALARY','SALARY_S')
+            ORDER BY object_type) LOOP
+    IF i.object_type = 'TABLE' THEN
+      EXECUTE IMMEDIATE 'DROP '||i.object_type||' '||i.object_name||' CASCADE CONSTRAINTS';
+    ELSIF i.object_type = 'SEQUENCE' THEN
+      EXECUTE IMMEDIATE 'DROP '||i.object_type||' '||i.object_name;
+    END IF;
+  END LOOP;
+END;
+/
+
+/* Create department table. */
+CREATE TABLE department
+( department_id    NUMBER  CONSTRAINT department_pk PRIMARY KEY
+, department_name  VARCHAR2(20));
+
+/* Create a department_s sequence. */
+CREATE SEQUENCE department_s;
+
+/* Create a salary table. */
+CREATE TABLE salary
+( salary_id             NUMBER  CONSTRAINT salary_pk   PRIMARY KEY
+, effective_start_date  DATE    CONSTRAINT salary_nn1  NOT NULL
+, effective_end_date    DATE
+, salary                NUMBER  CONSTRAINT salary_nn2  NOT NULL);
+
+/* Create a salary_s sequence. */
+CREATE SEQUENCE salary_s;
+
+/* Create an employee table. */
+CREATE TABLE employee
+( employee_id    NUMBER        CONSTRAINT employee_pk  PRIMARY KEY
+, department_id  NUMBER        CONSTRAINT employee_nn1 NOT NULL
+, salary_id      NUMBER        CONSTRAINT employee_nn2 NOT NULL
+, first_name     VARCHAR2(20)  CONSTRAINT employee_nn3 NOT NULL
+, last_name      VARCHAR2(20)  CONSTRAINT employee_nn4 NOT NULL
+, CONSTRAINT employee_fk FOREIGN KEY(employee_id) REFERENCES employee(employee_id));
+
+/* Create an employee_s sequence. */
+CREATE SEQUENCE employee_s;
+
+
+/* Create an anonymous program to insert data. */
+SET SERVEROUTPUT ON SIZE UNLIMITED
+DECLARE
+  /* Declare a collection of strings. */
+  TYPE xname IS TABLE OF VARCHAR2(20);
+
+  /* Declare a collection of numbers. */
+  TYPE xsalary IS TABLE OF NUMBER;
+
+  /* Local variable generated by a random foreign key. */
+  lv_department_id  NUMBER;
+  lv_salary_id      NUMBER;
+
+  /* A collection of first names. */
+  lv_first XNAME := xname('Ann','Abbey','Amanda','Archie','Antonio','Arnold'
+                         ,'Barbara','Basil','Bernie','Beth','Brian','Bryce'
+                         ,'Carl','Carrie','Charlie','Christine','Corneilus','Crystal'
+                         ,'Dana','Darlene','Darren','Dave','Davi','Deidre'
+                         ,'Eamonn','Eberhard','Ecaterina','Ebony','Elana','Eric'
+                         ,'Fabian','Faith','Fernando','Farris','Fiana','Francesca'
+                         ,'Gabe','Gayle','Geoffrey','Gertrude','Grayson','Guy'
+                         ,'Harry','Harriet','Henry','Henrica','Herman','Hesper'
+                         ,'Ian','Ida','Iggy','Iliana','Imogene','Issac'
+                         ,'Jan','Jack','Jennifer','Jerry','Julian','June'
+                         ,'Kacey','Karen','Kaitlyn','Keith','Kevin','Kyle'
+                         ,'Laney','Lawrence','Leanne','Liam','Lois','Lynne'
+                         ,'Marcel','Marcia','Mark','Meagan','Mina','Michael'
+                         ,'Nancy','Naomi','Narcissa','Nasim','Nathaniel','Neal'
+                         ,'Obadiah','Odelia','Ohanna','Olaf','Olive','Oscar'
+                         ,'Paige','Palmer','Paris','Pascal','Patricia','Peter'
+                         ,'Qadir','Qasim','Quaid','Quant','Quince','Quinn'
+                         ,'Rachelle','Rafael','Raj','Randy','Ramona','Raven'
+                         ,'Savina','Sadie','Sally','Samuel','Saul','Santino'
+                         ,'Tabitha','Tami','Tanner','Thomas','Timothy','Tina'
+                         ,'Ugo','Ululani','Umberto','Una','Urbi','Ursula'
+                         ,'Val','Valerie','Valiant','Vanessa','Vaughn','Verna'
+                         ,'Wade','Wagner','Walden','Wanda','Wendy','Wilhelmina'
+                         ,'Xander','Xavier','Xena','Xerxes','Xia','Xylon'
+                         ,'Yana','Yancy','Yasmina','Yasmine','Yepa','Yeva'
+                         ,'Zacarias','Zach','Zahara','Zander','Zane');
+
+  /* A collection of last names. */
+  lv_last  XNAME := xname('Abernathy','Anderson','Baker','Barney'
+                         ,'Christensen','Cafferty','Davis','Donaldson'
+                         ,'Eckhart','Eidelman','Fern','Finkel','Frank','Frankel','Fromm'
+                         ,'Garfield','Geary','Harvey','Hamilton','Harwood'
+                         ,'Ibarguen','Imbezi','Lindblom','Lynstrom'
+                         ,'Martel','McKay','McLellen','Nagata','Noonan','Nunes'
+                         ,'O''Brien','Oakey','Patterson','Petersen','Pratel','Preston'
+                         ,'Qian','Queen','Ricafort','Richards','Roberts','Robertson'
+                         ,'Sampson','Simon','Tabacchi','Travis','Trevor','Tower'
+                         ,'Ubel','Urie','Vassen','Vanderbosch'
+                         ,'Wacha','Walcott','West','Worley','Xian','Xiang'
+                         ,'Yackley','Yaguchi','Zarbarsky','Zambelli');
+
+  /* A collection of department names. */
+  lv_dept  XNAME := xname('Accounting','Operations','Sales','Factory','Manufacturing');
+
+  /* A colleciton of possible salaries. */
+  lv_salary  XSALARY := xsalary( 36000, 42000, 48000, 52000, 64000 );
+
+  /* Define a local function. */
+  FUNCTION random_foreign_key RETURN INTEGER IS
+    /* Declare a return variable. */
+    lv_return_value  NUMBER;
+  BEGIN
+    /* Select a random number between 1 and 5 and assign it to a local variable. */
+    SELECT CASE
+             WHEN num = 0 THEN 5 ELSE num
+           END AS random_key
+    INTO   lv_return_value
+    FROM   (SELECT ROUND(dbms_random.VALUE(1,1000)/100/2,0) num FROM dual) il;
+
+    /* Return the random number. */
+    RETURN lv_return_value;
+  END random_foreign_key;
+
+BEGIN
+  /* Insert departments. */
+  FOR i IN 1..lv_dept.LAST LOOP
+    INSERT INTO department
+    ( department_id
+    , department_name )
+    VALUES
+    ( department_s.NEXTVAL
+    , lv_dept(i));
+  END LOOP;
+
+  /* Insert salary. */
+  FOR i IN 1..lv_salary.LAST LOOP
+    INSERT INTO salary
+    ( salary_id
+    , effective_start_date
+    , salary )
+    VALUES
+    ( salary_s.NEXTVAL
+    , TRUNC(SYSDATE) - 30
+    , lv_salary(i));
+  END LOOP;
+
+  /* Insert random employees. */
+  FOR i IN 1..lv_first.LAST LOOP
+    FOR j IN 1..lv_last.LAST LOOP
+      /* Assign a random values to a local variable. */
+      lv_department_id := random_foreign_key;
+      lv_salary_id := random_foreign_key;
+
+      /* Insert values into the employee table. */
+      INSERT INTO employee
+      ( employee_id
+      , department_id
+      , salary_id
+      , first_name
+      , last_name )
+      VALUES
+      ( employee_s.NEXTVAL
+      , lv_department_id
+      , lv_salary_id
+      , lv_first(i)
+      , lv_last(j));
+    END LOOP;
+  END LOOP;
+
+  /* Commit the writes. */
+  COMMIT;
+END;
+/</code></pre>
+                                                    </div>
+                                                    <p></p>
+                                                    <p>
+                                                    </p>
+                                                    <p>After you run the anonymous block program,
+                                                        you can confirm its success with the
+                                                        following query that joins three tables
+                                                        together. A table join between three or
+                                                        more tables produces a result set similar
+                                                        to the result set from a two table join.</p>
+                                                    <p>The join between two tables matches one row
+                                                        in a table to one or more rows in another
+                                                        table. The result set of a join returns the
+                                                        all the columns from both tables in set of
+                                                        matched rows. The <code>SELECT</code>
+                                                        clause chooses only those columns that you
+                                                        want to display. </p>
+                                                    <p>The join between a join of two tables and a
+                                                        third table works like the join between two
+                                                        tables because conceptually it treats the
+                                                        result set of the first two tables as
+                                                        temporary table. The third table is then
+                                                        joined to the temporary table and creates a
+                                                        new temporary table with all the columns
+                                                        from the three tables. The <code>SELECT</code>
+                                                        clause lets you choose which columns to
+                                                        display from the three tables.</p>
+                                                    <p>The occurrence of any aggregation column in
+                                                        the <code>SELECT</code>-list, or comma
+                                                        delimited set of column values, means you
+                                                        must add a <code>GROUP BY</code> clause to
+                                                        the query. The <code>GROUP BY</code> clause
+                                                        identifies non-aggregating columns that
+                                                        would otherwise repeat in the result set as
+                                                        duplicates and it returns one unique copy
+                                                        with the result of the aggregation
+                                                        function.</p>
+                                                    <p>
+                                                    </p>
+                                                    <div>
+                                                        <pre class=" language-sql"><code class=" language-sql"><span class="token keyword">SELECT</span>   d<span class="token punctuation">.</span>department_name
+<span class="token punctuation">,</span>        <span class="token function">ROUND</span><span class="token punctuation">(</span><span class="token function">AVG</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span>salary<span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">)</span> <span class="token keyword">AS</span> salary
+<span class="token keyword">FROM</span>     employee e <span class="token keyword">INNER</span> <span class="token keyword">JOIN</span> department d
+<span class="token keyword">ON</span>       e<span class="token punctuation">.</span>department_id <span class="token operator">=</span> d<span class="token punctuation">.</span>department_id <span class="token keyword">INNER</span> <span class="token keyword">JOIN</span> salary s
+<span class="token keyword">ON</span>       e<span class="token punctuation">.</span>salary_id <span class="token operator">=</span> s<span class="token punctuation">.</span>salary_id
+<span class="token keyword">GROUP</span> <span class="token keyword">BY</span> d<span class="token punctuation">.</span>department_name
+<span class="token keyword">ORDER</span> <span class="token keyword">BY</span> d<span class="token punctuation">.</span>department_name<span class="token punctuation">;</span></code></pre>
+                                                    </div>
+                                                    <p></p>
+                                                    <p>
+                                                    </p>
+                                                    <p>The query used should return the average
+                                                        salary in whole dollars:</p>
+                                                    <p>
+                                                    </p>
+                                                    <div>
+                                                        <pre class=" language-markup"><code class=" language-markup">DDEPARTMENT_NAME 	 SALARY
+-------------------- ----------
+Accounting		  48337
+Factory 		  48138
+Manufacturing		  48526
+Operations		  48124
+Sales			  48721</code></pre>
+                                                    </div>
+                                                    <p></p>
+                                                    <p>
+                                                    </p>
+                                                    <p>After you run the foregoing anonymous block
+                                                        program and verify the results, you should
+                                                        copy the following script into you script
+                                                        file:</p>
+                                                    <p>
+                                                    </p>
+                                                    <div>
+                                                        <pre class=" language-sql"><code class=" language-sql"><span class="token comment">/* Conditionally drop the table. */</span>
+<span class="token keyword">BEGIN</span>
+  <span class="token keyword">FOR</span> i <span class="token operator">IN</span> <span class="token punctuation">(</span><span class="token keyword">SELECT</span> table_name
+            <span class="token keyword">FROM</span>   user_tables
+            <span class="token keyword">WHERE</span>  table_name <span class="token operator">=</span> <span class="token string">'MOCK_CALENDAR'</span><span class="token punctuation">)</span> <span class="token keyword">LOOP</span>
+    <span class="token keyword">EXECUTE</span> IMMEDIATE <span class="token string">'DROP TABLE '</span><span class="token operator">||</span>i<span class="token punctuation">.</span>table_name<span class="token operator">||</span><span class="token string">' CASCADE CONSTRAINTS'</span><span class="token punctuation">;</span>
+  <span class="token keyword">END</span> <span class="token keyword">LOOP</span><span class="token punctuation">;</span>
+<span class="token keyword">END</span><span class="token punctuation">;</span>
+<span class="token operator">/</span>
+
+<span class="token comment">/* Create a mock_calendar table. */</span>
+<span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> mock_calendar
+<span class="token punctuation">(</span> short_month  VARCHAR2<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span>
+<span class="token punctuation">,</span> long_month   VARCHAR2<span class="token punctuation">(</span><span class="token number">9</span><span class="token punctuation">)</span>
+<span class="token punctuation">,</span> start_date   <span class="token keyword">DATE</span>
+<span class="token punctuation">,</span> end_date     <span class="token keyword">DATE</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">/* Seed the table with 10 years of data. */</span>
+<span class="token keyword">DECLARE</span>
+  <span class="token comment">/* Create local collection data types. */</span>
+  <span class="token keyword">TYPE</span> smonth <span class="token operator">IS</span> <span class="token keyword">TABLE</span> <span class="token keyword">OF</span> VARCHAR2<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">TYPE</span> lmonth <span class="token operator">IS</span> <span class="token keyword">TABLE</span> <span class="token keyword">OF</span> VARCHAR2<span class="token punctuation">(</span><span class="token number">9</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">/* Declare month arrays. */</span>
+  short_month SMONTH :<span class="token operator">=</span> smonth<span class="token punctuation">(</span><span class="token string">'JAN'</span><span class="token punctuation">,</span><span class="token string">'FEB'</span><span class="token punctuation">,</span><span class="token string">'MAR'</span><span class="token punctuation">,</span><span class="token string">'APR'</span><span class="token punctuation">,</span><span class="token string">'MAY'</span><span class="token punctuation">,</span><span class="token string">'JUN'</span>
+                              <span class="token punctuation">,</span><span class="token string">'JUL'</span><span class="token punctuation">,</span><span class="token string">'AUG'</span><span class="token punctuation">,</span><span class="token string">'SEP'</span><span class="token punctuation">,</span><span class="token string">'OCT'</span><span class="token punctuation">,</span><span class="token string">'NOV'</span><span class="token punctuation">,</span><span class="token string">'DEC'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  long_month  LMONTH :<span class="token operator">=</span> lmonth<span class="token punctuation">(</span><span class="token string">'January'</span><span class="token punctuation">,</span><span class="token string">'February'</span><span class="token punctuation">,</span><span class="token string">'March'</span><span class="token punctuation">,</span><span class="token string">'April'</span><span class="token punctuation">,</span><span class="token string">'May'</span><span class="token punctuation">,</span><span class="token string">'June'</span>
+                              <span class="token punctuation">,</span><span class="token string">'July'</span><span class="token punctuation">,</span><span class="token string">'August'</span><span class="token punctuation">,</span><span class="token string">'September'</span><span class="token punctuation">,</span><span class="token string">'October'</span><span class="token punctuation">,</span><span class="token string">'November'</span><span class="token punctuation">,</span><span class="token string">'December'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">/* Declare base dates. */</span>
+  start_date <span class="token keyword">DATE</span> :<span class="token operator">=</span> <span class="token string">'01-JAN-15'</span><span class="token punctuation">;</span>
+  end_date   <span class="token keyword">DATE</span> :<span class="token operator">=</span> <span class="token string">'31-JAN-15'</span><span class="token punctuation">;</span>
+
+  <span class="token comment">/* Declare years. */</span>
+  years      NUMBER :<span class="token operator">=</span> <span class="token number">4</span><span class="token punctuation">;</span>
+
+<span class="token keyword">BEGIN</span>
+
+  <span class="token comment">/* Loop through years and months. */</span>
+  <span class="token keyword">FOR</span> i <span class="token operator">IN</span> <span class="token number">1.</span><span class="token punctuation">.</span>years <span class="token keyword">LOOP</span>
+    <span class="token keyword">FOR</span> j <span class="token operator">IN</span> <span class="token number">1.</span><span class="token punctuation">.</span>short_month<span class="token punctuation">.</span>COUNT <span class="token keyword">LOOP</span>
+      <span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> mock_calendar <span class="token keyword">VALUES</span>
+      <span class="token punctuation">(</span> short_month<span class="token punctuation">(</span>j<span class="token punctuation">)</span>
+      <span class="token punctuation">,</span> long_month<span class="token punctuation">(</span>j<span class="token punctuation">)</span>
+      <span class="token punctuation">,</span> ADD_MONTHS<span class="token punctuation">(</span>start_date<span class="token punctuation">,</span><span class="token punctuation">(</span>j<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">+</span><span class="token punctuation">(</span><span class="token number">12</span><span class="token operator">*</span><span class="token punctuation">(</span>i<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+      <span class="token punctuation">,</span> ADD_MONTHS<span class="token punctuation">(</span>end_date<span class="token punctuation">,</span><span class="token punctuation">(</span>j<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">+</span><span class="token punctuation">(</span><span class="token number">12</span><span class="token operator">*</span><span class="token punctuation">(</span>i<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">END</span> <span class="token keyword">LOOP</span><span class="token punctuation">;</span>
+  <span class="token keyword">END</span> <span class="token keyword">LOOP</span><span class="token punctuation">;</span>
+
+  <span class="token comment">/* Commit the records. */</span>
+  <span class="token keyword">COMMIT</span><span class="token punctuation">;</span>
+<span class="token keyword">END</span><span class="token punctuation">;</span>
+<span class="token operator">/</span></code></pre>
+                                                    </div>
+                                                    <p></p>
+                                                    <p>
+                                                    </p>
+                                                    <p>After you run the foregoing anonymous block
+                                                        program and verify the results, you should
+                                                        copy the following script into you script
+                                                        file:</p>
+                                                    <p>
+                                                    </p>
+                                                    <div>
+                                                        <pre class=" language-sql"><code class=" language-sql"><span class="token comment">/* Set output parameters. */</span>
+<span class="token keyword">SET</span> PAGESIZE <span class="token number">16</span>
+
+<span class="token comment">/* Format column output. */</span>
+COL short_month FORMAT A5 HEADING <span class="token string">"Short|Month"</span>
+COL long_month  FORMAT A9 HEADING <span class="token string">"Long|Month"</span>
+COL start_date  FORMAT A9 HEADING <span class="token string">"Start|Date"</span>
+COL end_date    FORMAT A9 HEADING <span class="token string">"End|Date"</span>
+
+<span class="token comment">/* Query the results from the table. */</span>
+<span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> mock_calendar<span class="token punctuation">;</span></code></pre>
+                                                    </div>
+                                                    <p></p>
+                                                    <p>
+                                                    </p>
+                                                    <p>The query used should return four years of
+                                                        calendar data, like:</p>
+                                                    <p>
+                                                    </p>
+                                                    <div>
+                                                        <pre class=" language-markup"><code class=" language-markup">Short Long	Start	  End
+Month Month	Date	  Date
+----- --------- --------- ---------
+JAN   January	01-JAN-17 31-JAN-17
+FEB   February	01-FEB-17 28-FEB-17
+MAR   March	01-MAR-17 31-MAR-17
+APR   April	01-APR-17 30-APR-17
+MAY   May	01-MAY-17 31-MAY-17
+JUN   June	01-JUN-17 30-JUN-17
+JUL   July	01-JUL-17 31-JUL-17
+AUG   August	01-AUG-17 31-AUG-17
+SEP   September 01-SEP-17 30-SEP-17
+OCT   October	01-OCT-17 31-OCT-17
+NOV   November	01-NOV-17 30-NOV-17
+DEC   December	01-DEC-17 31-DEC-17
+
+Short Long	Start	  End
+Month Month	Date	  Date
+----- --------- --------- ---------
+JAN   January	01-JAN-18 31-JAN-18
+FEB   February	01-FEB-18 28-FEB-18
+MAR   March	01-MAR-18 31-MAR-18
+APR   April	01-APR-18 30-APR-18
+MAY   May	01-MAY-18 31-MAY-18
+JUN   June	01-JUN-18 30-JUN-18
+JUL   July	01-JUL-18 31-JUL-18
+AUG   August	01-AUG-18 31-AUG-18
+SEP   September 01-SEP-18 30-SEP-18
+OCT   October	01-OCT-18 31-OCT-18
+NOV   November	01-NOV-18 30-NOV-18
+DEC   December	01-DEC-18 31-DEC-18
+
+Short Long	Start	  End
+Month Month	Date	  Date
+----- --------- --------- ---------
+JAN   January	01-JAN-19 31-JAN-19
+FEB   February	01-FEB-19 28-FEB-19
+MAR   March	01-MAR-19 31-MAR-19
+APR   April	01-APR-19 30-APR-19
+MAY   May	01-MAY-19 31-MAY-19
+JUN   June	01-JUN-19 30-JUN-19
+JUL   July	01-JUL-19 31-JUL-19
+AUG   August	01-AUG-19 31-AUG-19
+SEP   September 01-SEP-19 30-SEP-19
+OCT   October	01-OCT-19 31-OCT-19
+NOV   November	01-NOV-19 30-NOV-19
+DEC   December	01-DEC-19 31-DEC-19
+
+Short Long	Start	  End
+Month Month	Date	  Date
+----- --------- --------- ---------
+JAN   January	01-JAN-20 31-JAN-20
+FEB   February	01-FEB-20 29-FEB-20
+MAR   March	01-MAR-20 31-MAR-20
+APR   April	01-APR-20 30-APR-20
+MAY   May	01-MAY-20 31-MAY-20
+JUN   June	01-JUN-20 30-JUN-20
+JUL   July	01-JUL-20 31-JUL-20
+AUG   August	01-AUG-20 31-AUG-20
+SEP   September 01-SEP-20 30-SEP-20
+OCT   October	01-OCT-20 31-OCT-20
+NOV   November	01-NOV-20 30-NOV-20
+DEC   December	01-DEC-20 31-DEC-20</code></pre>
+                                                    </div>
+                                                    <p></p>
+                                                    <p>
+                                                    </p>
+                                                    <p>Now you can add a <code>WHERE</code> clause
+                                                        to the following query. The <code>WHERE</code>
+                                                        clause should check whether the current
+                                                        effective salary start date is within minus
+                                                        sixty days of today and today.</p>
+                                                    <p>When a null value may exist for any <code>effective_start_date</code>
+                                                        column value, you should wrap that column
+                                                        value in an <code>NVL</code> function call.
+                                                        You should use a value outside of the
+                                                        planned range when a null value is found in
+                                                        the <code>effective_start_date</code>
+                                                        column, like the day after tomorrow. You
+                                                        can represent common dates for this type of
+                                                        problem as follows:</p>
+                                                    <ul class="browser-default">
+                                                        <li>A day 30-days ago would be <code>TRUNC(SYSDATE)
+                                                                - 30</code>.</li>
+                                                        <li>Yesterday would be <code>TRUNC(SYSDATE)
+                                                                - 1</code>.</li>
+                                                        <li>Today would be <code>TRUNC(SYSDATE)</code>
+                                                            when measuring a date between today and
+                                                            some arbitrary date.</li>
+                                                        <li>Today would be <code>TRUNC(SYSDATE) + 1</code>
+                                                            when measuring a date between some
+                                                            arbitrary date in the past and today
+                                                            because today runs until the start of
+                                                            tomorrow.</li>
+                                                        <li>Tomorrow start at <code>TRUNC(SYSDATE)
+                                                                + 1</code> and ends at <code>TRUNC(SYSDATE)
+                                                                + 2</code>; which means you use the
+                                                            former to end today and the latter for
+                                                            tomorrow.</li>
+                                                    </ul>
+                                                    <p>The query should return aggregated results
+                                                        for all those rows where the
+                                                        effective_start_date is within the range of
+                                                        today minus 60-days and tomorrow morning.</p>
+                                                    <p>
+                                                    </p>
+                                                    <div>
+                                                        <pre class=" language-sql"><code class=" language-sql"><span class="token keyword">SELECT</span>   d<span class="token punctuation">.</span>department_name
+<span class="token punctuation">,</span>        <span class="token function">ROUND</span><span class="token punctuation">(</span><span class="token function">AVG</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span>salary<span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">)</span> <span class="token keyword">AS</span> salary
+<span class="token keyword">FROM</span>     employee e <span class="token keyword">INNER</span> <span class="token keyword">JOIN</span> department d
+<span class="token keyword">ON</span>       e<span class="token punctuation">.</span>department_id <span class="token operator">=</span> d<span class="token punctuation">.</span>department_id <span class="token keyword">INNER</span> <span class="token keyword">JOIN</span> salary s
+<span class="token keyword">ON</span>       e<span class="token punctuation">.</span>salary_id <span class="token operator">=</span> s<span class="token punctuation">.</span>salary_id
+<span class="token keyword">WHERE</span>    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token keyword">GROUP</span> <span class="token keyword">BY</span> d<span class="token punctuation">.</span>department_name
+<span class="token keyword">ORDER</span> <span class="token keyword">BY</span> d<span class="token punctuation">.</span>department_name<span class="token punctuation">;</span></code></pre>
+                                                    </div>
+                                                    <p></p>
+                                                    <p>
+                                                    </p>
+                                                    <p>The query should return the same average
+                                                        salaries in whole dollars as when it was
+                                                        run without a <code>WHERE</code> clause.</p>
+                                                    <p>
+                                                    </p>
+                                                    <div>
+                                                        <pre class=" language-markup"><code class=" language-markup">DEPARTMENT_NAME 	 SALARY
+-------------------- ----------
+Accounting		  48209
+Factory 		  48414
+Manufacturing		  48768
+Operations		  48598
+Sales			  48308</code></pre>
+                                                    </div>
+                                                    <p></p>
+                                                    <p>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <p></p>
+                                    <p>
+                                    </p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <p>Test Case</p>
+                    <p>Click the <em><strong>Test Case Instructions</strong></em> link to open the
+                        test case instructions inside the current webpage.</p>
+                    <ul class="collapsible expandable">
+                        <li>
+                            <div title="Click to see the instructions ..." class="collapsible-header" tabindex="0">Test
+                                Case Instructions
+                                <i class="material-icons left">keyboard_arrow_right</i>
+                            </div>
+                            <div class="collapsible-body">
+                                <h4>Test Case Instructions</h4>
+                                <div>
+                                    <p>
+                                    </p>
+                                    <p>After you write the <code>apply_oracle_lab5.sql</code>
+                                        script, you should navigate to the <code>/home/student/Data/cit225/oracle/lab5</code>
+                                        directory. You call the <code>sqlplus</code> utility from
+                                        the same directory and then you run the <code>apply_oracle_lab5.sql</code>
+                                        script with the following syntax:</p>
+                                    <p>
+                                    </p>
+                                    <div>
+                                        <pre class=" language-sql"><code class=" language-sql"><span class="token variable">@apply_oracle_lab5.sql</span></code></pre>
+                                    </div>
+                                    <p></p>
+                                    <p>
+                                    </p>
+                                    <p>You should submit your <code>apply_oracle_lab5.sql</code>
+                                        script file and <code>apply_oracle_lab5.txt</code> log file
+                                        for a grade.</p>
+                                    <p>
+                                    </p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <p>
+                    </p>
+                </div>
+                <div class="meta group">
+                </div>
+            </div>
+        </div>
+        <!-- Powered by WPtouch: 4.3.34 -->
+        <!--stats_footer_test-->
+    </div>
+    <script src="Instructions_files/prism.js"></script>
+    <script src="Instructions_files/materialize.js"></script>
+    <script src="Instructions_files/main.js"></script>
+
+
+</body></html>

@@ -1,0 +1,14 @@
+#content-wrapper {
+    font-family: "Roboto", sans-serif;
+    max-width: 1000px;
+    margin: auto;
+    padding: 10px;
+}
+
+.table {
+    overflow-x: auto;
+}
+
+#content pre[class*="language-"]>code {
+    background-image: linear-gradient(transparent 50%, rgba(69, 142, 209, 0.25) 50%)
+}
