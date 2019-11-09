@@ -19,7 +19,7 @@
 -- ------------------------------------------------------------------
 
 -- Call library files.
--- @/home/student/Data/cit225/oracle/lab6/apply_oracle_lab6.sql
+@/home/student/Data/cit225/oracle/lab6/apply_oracle_lab6.sql
 @/home/student/Data/cit225/oracle/lab7/create_insert_common_lookup.sql
 
 -- Open log file.
@@ -296,30 +296,27 @@ SELECT   i.item_id
 ,        cl.common_lookup_id AS price_type
 ,        cl.common_lookup_type AS price_desc
 ,        CASE
-           WHEN ((TRUNC(SYSDATE) - i.release_date) <= 30)
+           WHEN ((TRUNC(SYSDATE) - i.release_date) <= 30 OR af.active_flag = 'N')
              THEN i.release_date
-           WHEN ((TRUNC(SYSDATE) - i.release_date) > 30 AND af.active_flag = 'N')
+           WHEN ((TRUNC(SYSDATE) - i.release_date) > 30 AND af.active_flag = 'Y')
              THEN i.release_date + 31
          END AS start_date
-
 ,        CASE
            WHEN ((TRUNC(SYSDATE) - i.release_date) > 30 AND af.active_flag = 'N')
             THEN i.release_date + 30
          END AS end_date
-
 ,        CASE
-           WHEN ((TRUNC(SYSDATE) - i.release_date) <= 30)
-             OR ((TRUNC(SYSDATE) - i.release_date) > 30 AND af.active_flag = 'N')
+           WHEN ((TRUNC(SYSDATE) - i.release_date) > 30 AND af.active_flag = 'Y')
              THEN CASE
-               WHEN dr.rental_days = 1 THEN 3
-               WHEN dr.rental_days = 3 THEN 10
-               WHEN dr.rental_days = 5 THEN 15
+               WHEN dr.rental_days = 1 THEN 1
+               WHEN dr.rental_days = 3 THEN 3
+               WHEN dr.rental_days = 5 THEN 5
              END
            ELSE
             CASE
-              WHEN dr.rental_days = 1 THEN 1
-              WHEN dr.rental_days = 3 THEN 3
-              WHEN dr.rental_days = 5 THEN 5
+               WHEN dr.rental_days = 1 THEN 3
+               WHEN dr.rental_days = 3 THEN 10
+               WHEN dr.rental_days = 5 THEN 15
             END
          END AS amount
 FROM     item i CROSS JOIN
