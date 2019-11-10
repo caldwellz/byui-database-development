@@ -407,13 +407,10 @@ BEGIN
   SELECT   i.item_id
   INTO     p_item_id
   FROM     item i, common_lookup cl
-  WHERE    item_barcode = '69011-12203';
--- Make Harry check out the same item twice to appease the
--- expected data set in lab 8; original query below.
---  WHERE    i.item_title = 'Star Wars I'
---  AND      i.item_subtitle = 'Phantom Menace'
---  AND      i.item_type = cl.common_lookup_id
---  AND      cl.common_lookup_type = 'DVD_WIDE_SCREEN';
+  WHERE    i.item_title = 'Star Wars I'
+  AND      i.item_subtitle = 'Phantom Menace'
+  AND      i.item_type = cl.common_lookup_id
+  AND      cl.common_lookup_type = 'DVD_WIDE_SCREEN';
   
   insert_rental(
     pv_customer_id => p_customer_id
