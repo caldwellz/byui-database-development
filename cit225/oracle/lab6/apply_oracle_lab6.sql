@@ -112,7 +112,7 @@ CREATE TABLE price
 , created_by        NUMBER       NOT NULL
 , creation_date     DATE         NOT NULL
 , last_updated_by   NUMBER       NOT NULL
-, last_update_date  NUMBER       NOT NULL
+, last_update_date  DATE         NOT NULL
 , CONSTRAINT pk_price_1          PRIMARY KEY(price_id)
 , CONSTRAINT fk_price_1          FOREIGN KEY(item_id)         REFERENCES item(item_id)
 , CONSTRAINT fk_price_2          FOREIGN KEY(price_type)      REFERENCES common_lookup(common_lookup_id)
