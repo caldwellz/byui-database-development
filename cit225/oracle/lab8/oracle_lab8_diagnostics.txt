@@ -1,0 +1,168 @@
+SQL> 
+SQL> -- Set the page size.
+SQL> SET ECHO ON
+SQL> SET PAGESIZE 999
+SQL> 
+SQL> -- Customers
+SQL> COL customer_name	FORMAT A24  HEADING "Customer Name"
+SQL> COL city		FORMAT A12  HEADING "City"
+SQL> COL state		FORMAT A6   HEADING "State"
+SQL> COL telephone	FORMAT A10  HEADING "Telephone"
+SQL> SELECT   m.account_number
+  2  ,	      c.last_name||', '||c.first_name
+  3  ||       CASE
+  4  		WHEN c.middle_name IS NOT NULL THEN ' '||c.middle_name
+  5  	      END AS customer_name
+  6  ,	      a.city AS city
+  7  ,	      a.state_province AS state
+  8  ,	      t.telephone_number AS telephone
+  9  FROM     member m INNER JOIN contact c
+ 10  ON       m.member_id = c.member_id INNER JOIN address a
+ 11  ON       c.contact_id = a.contact_id INNER JOIN telephone t
+ 12  ON       c.contact_id = t.contact_id;
+
+Account                                                                         
+Number     Customer Name            City         State  Telephone               
+---------- ------------------------ ------------ ------ ----------              
+B293-71445 Winn, Randi              San Jose     CA     111-1111                
+B293-71445 Winn, Brian              San Jose     CA     111-1111                
+B293-71446 Vizquel, Oscar           San Jose     CA     222-2222                
+B293-71446 Vizquel, Doreen          San Jose     CA     222-2222                
+B293-71447 Sweeney, Meaghan         San Jose     CA     333-3333                
+B293-71447 Sweeney, Matthew         San Jose     CA     333-3333                
+B293-71447 Sweeney, Ian M           San Jose     CA     333-3333                
+R11-514-34 Clinton, Goeffrey Ward   Provo        Utah   423-1234                
+R11-514-35 Moss, Wendy              Provo        Utah   423-1235                
+R11-514-36 Gretelz, Simon Jonah     Provo        Utah   423-1236                
+R11-514-37 Royal, Elizabeth Jane    Provo        Utah   423-1237                
+R11-514-38 Smith, Brian Nathan      Spanish Fork Utah   423-1238                
+US00011    Potter, Harry            Provo        Utah   333-3333                
+US00011    Potter, Ginny            Provo        Utah   333-3333                
+US00011    Potter, Lily Luna        Provo        Utah   333-3333                
+
+15 rows selected.
+
+SQL> 
+SQL> -- Rental Items
+SQL> COL account_number  FORMAT A10  HEADING "Account|Number"
+SQL> COL customer_name	 FORMAT A22  HEADING "Customer Name"
+SQL> COL rental_id	 FORMAT 9999 HEADING "Rental|ID #"
+SQL> COL rental_item_id  FORMAT 9999 HEADING "Rental|Item|ID #"
+SQL> SELECT   m.account_number
+  2  ,	      c.last_name||', '||c.first_name
+  3  ||       CASE
+  4  		WHEN c.middle_name IS NOT NULL THEN ' '||c.middle_name
+  5  	      END AS customer_name
+  6  ,	      r.rental_id
+  7  ,	      ri.rental_item_id
+  8  FROM     member m INNER JOIN contact c
+  9  ON       m.member_id = c.member_id INNER JOIN rental r
+ 10  ON       c.contact_id = r.customer_id INNER JOIN rental_item ri
+ 11  ON       r.rental_id = ri.rental_id
+ 12  ORDER BY 3, 4;
+
+                                         Rental                                 
+Account                           Rental   Item                                 
+Number     Customer Name            ID #   ID #                                 
+---------- ---------------------- ------ ------                                 
+B293-71446 Vizquel, Oscar           1001   1001                                 
+B293-71446 Vizquel, Oscar           1001   1002                                 
+B293-71446 Vizquel, Oscar           1001   1003                                 
+B293-71446 Vizquel, Doreen          1002   1004                                 
+B293-71446 Vizquel, Doreen          1002   1005                                 
+B293-71447 Sweeney, Meaghan         1003   1006                                 
+B293-71447 Sweeney, Ian M           1004   1007                                 
+B293-71445 Winn, Brian              1005   1008                                 
+B293-71445 Winn, Brian              1005   1009                                 
+US00011    Potter, Harry            1006   1010                                 
+US00011    Potter, Harry            1006   1011                                 
+US00011    Potter, Ginny            1007   1012                                 
+US00011    Potter, Lily Luna        1008   1013                                 
+
+13 rows selected.
+
+SQL> 
+SQL> -- Price Type / Rental Item TYPE
+SQL> COL common_lookup_table  FORMAT A12 HEADING "Common|Lookup Table"
+SQL> COL common_lookup_column FORMAT A18 HEADING "Common|Lookup Column"
+SQL> COL common_lookup_code   FORMAT 999 HEADING "Common|Lookup|Code"
+SQL> COL total_pk_count       FORMAT 999 HEADING "Foreign|Key|Count"
+SQL> SELECT   cl.common_lookup_table
+  2  ,	      cl.common_lookup_column
+  3  ,	      TO_NUMBER(cl.common_lookup_code) AS common_lookup_code
+  4  ,	      COUNT(*) AS total_pk_count
+  5  FROM     price p INNER JOIN common_lookup cl
+  6  ON       p.price_type = cl.common_lookup_id
+  7  AND      cl.common_lookup_table = 'PRICE'
+  8  AND      cl.common_lookup_column = 'PRICE_TYPE'
+  9  GROUP BY cl.common_lookup_table
+ 10  ,	      cl.common_lookup_column
+ 11  ,	      cl.common_lookup_code
+ 12  UNION ALL
+ 13  SELECT   cl.common_lookup_table
+ 14  ,	      cl.common_lookup_column
+ 15  ,	      TO_NUMBER(cl.common_lookup_code) AS common_lookup_code
+ 16  ,	      COUNT(*) AS total_pk_count
+ 17  FROM     rental_item ri INNER JOIN common_lookup cl
+ 18  ON       ri.rental_item_type = cl.common_lookup_id
+ 19  AND      cl.common_lookup_table = 'RENTAL_ITEM'
+ 20  AND      cl.common_lookup_column = 'RENTAL_ITEM_TYPE'
+ 21  GROUP BY cl.common_lookup_table
+ 22  ,	      cl.common_lookup_column
+ 23  ,	      cl.common_lookup_code
+ 24  ORDER BY 1, 2, 3;
+
+                                Common Foreign                                  
+Common       Common             Lookup     Key                                  
+Lookup Table Lookup Column        Code   Count                                  
+------------ ------------------ ------ -------                                  
+PRICE        PRICE_TYPE              1      45                                  
+PRICE        PRICE_TYPE              3      45                                  
+PRICE        PRICE_TYPE              5      45                                  
+RENTAL_ITEM  RENTAL_ITEM_TYPE        1       2                                  
+RENTAL_ITEM  RENTAL_ITEM_TYPE        3       1                                  
+RENTAL_ITEM  RENTAL_ITEM_TYPE        5      10                                  
+
+6 rows selected.
+
+SQL> 
+SQL> -- Price table dates
+SQL> COL customer_name		FORMAT A20  HEADING "Contact|--------|Customer Name"
+SQL> COL r_rental_id		FORMAT 9999 HEADING "Rental|------|Rental|ID #"
+SQL> COL amount 		FORMAT 9999 HEADING "Price|------||Amount"
+SQL> COL price_type_code	FORMAT 9999 HEADING "Price|------|Type|Code"
+SQL> COL rental_item_type_code	FORMAT 9999 HEADING "Rental|Item|------|Type|Code"
+SQL> COL needle 		FORMAT A11  HEADING "Rental|--------|Check Out|Date"
+SQL> COL low_haystack		FORMAT A11  HEADING "Price|--------|Start|Date"
+SQL> COL high_haystack		FORMAT A11  HEADING "Price|--------|End|Date"
+SQL> SELECT   c.last_name||', '||c.first_name
+  2  ||       CASE
+  3  		WHEN c.middle_name IS NOT NULL THEN ' '||c.middle_name
+  4  	      END AS customer_name
+  5  ,	      ri.rental_id AS ri_rental_id
+  6  ,	      p.amount
+  7  ,	      TO_NUMBER(cl2.common_lookup_code) AS price_type_code
+  8  ,	      TO_NUMBER(cl2.common_lookup_code) AS rental_item_type_code
+  9  ,	      p.start_date AS low_haystack
+ 10  ,	      r.check_out_date AS needle
+ 11  ,	      NVL(p.end_date,TRUNC(SYSDATE) + 1) AS high_haystack
+ 12  FROM     price p INNER JOIN common_lookup cl1
+ 13  ON       p.price_type = cl1.common_lookup_id
+ 14  AND      cl1.common_lookup_table = 'PRICE'
+ 15  AND      cl1.common_lookup_column = 'PRICE_TYPE' FULL JOIN rental_item ri
+ 16  ON       p.item_id = ri.item_id INNER JOIN common_lookup cl2
+ 17  ON       ri.rental_item_type = cl2.common_lookup_id
+ 18  AND      cl2.common_lookup_table = 'RENTAL_ITEM'
+ 19  AND      cl2.common_lookup_column = 'RENTAL_ITEM_TYPE' RIGHT JOIN rental r
+ 20  ON       ri.rental_id = r.rental_id FULL JOIN contact c
+ 21  ON       r.customer_id = c.contact_id
+ 22  WHERE    cl1.common_lookup_code = cl2.common_lookup_code
+ 23  AND      p.active_flag = 'Y'
+ 24  AND NOT  r.check_out_date
+ 25  		BETWEEN  p.start_date AND NVL(p.end_date,TRUNC(SYSDATE) + 1)
+ 26  ORDER BY 2, 3;
+
+no rows selected
+
+SQL> 
+SQL> SPOOL OFF
