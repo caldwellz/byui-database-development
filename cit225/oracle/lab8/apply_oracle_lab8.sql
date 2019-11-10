@@ -19,7 +19,7 @@
 -- ------------------------------------------------------------------
 
 -- Call library files.
--- @/home/student/Data/cit225/oracle/lab7/apply_oracle_lab7.sql
+@/home/student/Data/cit225/oracle/lab7/apply_oracle_lab7.sql
 
 -- Open log file.
 SPOOL apply_oracle_lab8.txt
@@ -43,7 +43,7 @@ INSERT INTO price
 , creation_date
 , last_updated_by
 , last_update_date )
-( SELECT   price_s.NEXTVAL
+( SELECT   price_s1.NEXTVAL
   ,        item_id
   ,        price_type
   ,        active_flag
@@ -210,7 +210,7 @@ SET      rental_item_price =
            AND      ri.rental_item_type = cl2.common_lookup_id
            AND      cl1.common_lookup_code = cl2.common_lookup_code
            AND      r.check_out_date
-                      BETWEEN p.start_date AND p.end_date);
+                      BETWEEN p.start_date AND NVL(p.end_date,TRUNC(SYSDATE) + 1));
 
 -- ----------------------------------------------------------------------
 --  Verify #3 : Query the RENTAL_ITEM_PRICE values.
