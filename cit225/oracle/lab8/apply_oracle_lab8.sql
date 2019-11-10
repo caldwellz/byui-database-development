@@ -19,7 +19,7 @@
 -- ------------------------------------------------------------------
 
 -- Call library files.
-@/home/student/Data/cit225/oracle/lab7/apply_oracle_lab7.sql
+-- @/home/student/Data/cit225/oracle/lab7/apply_oracle_lab7.sql
 
 -- Open log file.
 SPOOL apply_oracle_lab8.txt
@@ -43,7 +43,7 @@ INSERT INTO price
 , creation_date
 , last_updated_by
 , last_update_date )
-( SELECT price_s.NEXTVAL
+( SELECT   price_s.NEXTVAL
   ,        item_id
   ,        price_type
   ,        active_flag
@@ -60,20 +60,37 @@ INSERT INTO price
      ,        cl.common_lookup_id AS price_type
      ,        cl.common_lookup_type AS price_desc
      ,        CASE
-                WHEN  ...implement logic "B" FROM Lab #7... THEN ...result VALUE...
-                ELSE  ...result VALUE ...
-              END AS start_date
-     ,        CASE
-                WHEN  ...implement logic "C" FROM Lab #7... THEN ...result VALUE...
-              END AS end_date
-     ,        CASE
-                WHEN  ...implement logic "D" FROM Lab #7... THEN ...result VALUE...
-                ELSE  ...result VALUE ...
-            END AS amount
-     ,        ( ... subquery ... ) AS created_by
-     ,        ( ... truncated CURRENT DATE ...) AS creation_date
-     ,        ( ... subquery ... ) AS last_updated_by
-     ,        ( ... truncated CURRENT DATE ...) AS last_update_date
+               WHEN ((TRUNC(SYSDATE) - i.release_date) <= 30 OR af.active_flag = 'N')
+                 THEN i.release_date
+               WHEN ((TRUNC(SYSDATE) - i.release_date) > 30 AND af.active_flag = 'Y')
+                 THEN i.release_date + 31
+             END AS start_date
+    ,        CASE
+               WHEN ((TRUNC(SYSDATE) - i.release_date) > 30 AND af.active_flag = 'N')
+                THEN i.release_date + 30
+             END AS end_date
+    ,        CASE
+               WHEN ((TRUNC(SYSDATE) - i.release_date) > 30 AND af.active_flag = 'Y')
+                 THEN CASE
+                   WHEN dr.rental_days = 1 THEN 1
+                   WHEN dr.rental_days = 3 THEN 3
+                   WHEN dr.rental_days = 5 THEN 5
+                 END
+               ELSE
+                CASE
+                   WHEN dr.rental_days = 1 THEN 3
+                   WHEN dr.rental_days = 3 THEN 10
+                   WHEN dr.rental_days = 5 THEN 15
+                END
+             END AS amount
+     ,        (SELECT   system_user_id
+                FROM     system_user
+                WHERE    system_user_name = 'SYSADMIN') AS created_by
+     ,        TRUNC(SYSDATE) AS creation_date
+     ,        (SELECT   system_user_id
+                FROM     system_user
+                WHERE    system_user_name = 'SYSADMIN') AS last_updated_by
+     ,        TRUNC(SYSDATE) AS last_update_date
      FROM     item i CROSS JOIN
              (SELECT 'Y' AS active_flag FROM dual
               UNION ALL
@@ -86,7 +103,7 @@ INSERT INTO price
               common_lookup cl ON dr.rental_days = SUBSTR(cl.common_lookup_type,1,1)
      WHERE    cl.common_lookup_table = 'PRICE'
      AND      cl.common_lookup_column = 'PRICE_TYPE'
-     AND NOT ( ...implement logic "A" FROM Lab #7...)));
+     AND NOT ((TRUNC(SYSDATE) - 30) < i.release_date AND af.active_flag = 'N')));
 
 -- Query the result.
 COLUMN type   FORMAT A5   HEADING "Type"
@@ -142,9 +159,8 @@ AND      NOT (end_date IS NULL);
 -- ----------------------------------------------------------------------
 --  Step #2 : Add a constraint to PRICE table.
 -- ----------------------------------------------------------------------
-
-
-
+ALTER TABLE price
+  MODIFY (price_type NOT NULL);
 
 
 -- ----------------------------------------------------------------------
@@ -291,9 +307,8 @@ SET LINESIZE 80
 -- ----------------------------------------------------------------------
 --  Step #4 : Alter the RENTAL_ITEM table.
 -- ----------------------------------------------------------------------
-
-
-
+ALTER TABLE rental_item
+  MODIFY (rental_item_price NOT NULL);
 
 
 -- ----------------------------------------------------------------------
