@@ -1,0 +1,2106 @@
+<!DOCTYPE html>
+<html lang="en-us"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Instructions</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="Instructions_files/main.css" rel="stylesheet">
+    <link href="Instructions_files/materialize.css" rel="stylesheet">
+    <link href="Instructions_files/prism.css" rel="stylesheet">
+    <link href="Instructions_files/css.css" rel="stylesheet">
+    <link href="Instructions_files/icon.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="row" id="nav">
+        <div class="col s4">
+            <p class="left"><a href=""></a></p>
+        </div>
+        <div class="col s4">
+            <p class="center-align"><a href="https://content.byui.edu/file/d13e0ee0-369f-4e61-809e-f70989ee1add/1/db1/index.html">Table
+                    of Contents</a></p>
+        </div>
+        <div class="col s4">
+            <p class="right"><a href=""></a></p>
+        </div>
+    </div>
+    <div id="content-wrapper">
+        <div id="container" class="group">
+            <h1></h1>
+            <!-- erase this line if you want to turn the bubble off -->
+            <div id="content">
+                <h2>Instructions</h2>
+                <div class="main">
+                    <p><span>Lab
+                            #9: External Tables</span></p>
+                    <p>
+                    </p>
+                    <p>Learn how to create an externally managed table and how to run anonymous
+                        block PL/SQL programs to fix data states in the some of the tables. You
+                        create the <code>airport</code> and <code>account_list</code> tables and
+                        their respective <code>airport_s1</code> and <code>account_list_s1</code>
+                        sequences before running the anonymous block PLSQL programs. You also
+                        insert six rows into the <code>common_lookup</code> table.</p>
+                    <ul class="browser-default">
+                        <li><a href="https://content.byui.edu/file/d13e0ee0-369f-4e61-809e-f70989ee1add/1/db1/week-9-summary/lab-week-9/index.html">Lab</a>
+                            <ul class="browser-default">
+                                <li><a href="https://content.byui.edu/file/d13e0ee0-369f-4e61-809e-f70989ee1add/1/db1/week-9-summary/lab-week-9/description-week-9/index.html">Description</a></li>
+                                <li><a href="https://content.byui.edu/file/d13e0ee0-369f-4e61-809e-f70989ee1add/1/db1/week-9-summary/lab-week-9/help-section/index.html">Help Section</a></li>
+                                <li>Instructions</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p>
+                    </p>
+                    <p>Lab Instructions</p>
+                    <p>This lab has four unit testing steps placed into one test script.</p>
+                    <p><em><strong>[44 points]</strong></em> Click the <em><strong>Lab Instructions</strong></em>
+                        link to open the instructions inside the current webpage.</p>
+                    <ul class="collapsible expandable">
+                        <li class="active">
+                            <div title="Click to see the instructions ..." class="collapsible-header" tabindex="0">
+                                Lab Instructions
+                                <i class="material-icons left">keyboard_arrow_down</i>
+                            </div>
+                            <div class="collapsible-body" style="display: block;">
+                                <h4>
+                                    Lab Instructions </h4>
+                                <div>
+                                    <p>
+                                    </p>
+                                    <p>You begin these steps by running the following script:</p>
+                                    <ul class="browser-default">
+                                        <li>The <code>lab8/apply_oracle_lab8.sql</code> script.</li>
+                                    </ul>
+                                    <p>You put the script into your <code>apply_oracle_lab9.sql</code>
+                                        script, which should be in the following directory:</p>
+                                    <pre class=" language-bash"><code class=" language-bash">/home/student/Data/cit225/lab9</code></pre>
+                                    <p>You should use the following general prototype as your
+                                        starting point for the <code>apply_oracle_lab9.sql</code>
+                                        script:</p>
+                                    <ul class="collapsible expandable">
+                                        <li class="">
+                                            <div title="Click to see the instructions ..." class="collapsible-header" tabindex="0">
+                                                Sample script
+                                                <i class="material-icons left">keyboard_arrow_right</i>
+                                            </div>
+                                            <div class="collapsible-body" style="">
+                                                <h4>
+                                                    Sample script </h4>
+                                                <p>This expands to show you how to structure your
+                                                    <code>apply_oracle_lab9.sql</code> script.</p>
+                                                <div>
+                                                    <p>
+                                                    </p>
+                                                    <pre class=" language-sql"><code class=" language-sql"><span class="token comment">-- ------------------------------------------------------------------</span>
+<span class="token comment">-- Call the prior lab.</span>
+<span class="token comment">-- ------------------------------------------------------------------</span>
+
+@@<span class="token operator">/</span>home<span class="token operator">/</span>student<span class="token operator">/</span><span class="token keyword">Data</span><span class="token operator">/</span>cit225<span class="token operator">/</span>oracle<span class="token operator">/</span>lab8<span class="token operator">/</span>apply_oracle_lab8<span class="token punctuation">.</span><span class="token keyword">sql</span>
+
+<span class="token comment">-- Open log file.</span>
+SPOOL apply_oracle_lab9<span class="token punctuation">.</span>txt
+
+<span class="token comment">-- --------------------------------------------------------</span>
+<span class="token comment">--  Step #1</span>
+<span class="token comment">--  -------</span>
+<span class="token comment">--  Create the TRANSACTION table per the web page spec.</span>
+<span class="token comment">-- --------------------------------------------------------</span>
+
+<span class="token comment">-- Insert step #1 statements here.</span>
+
+<span class="token comment">-- --------------------------------------------------------</span>
+<span class="token comment">--  Step #2</span>
+<span class="token comment">--  -------</span>
+<span class="token comment">--  Insert two rows for the TRANSACTION_TYPE column and</span>
+<span class="token comment">--  four rows for the PAYMENT_METHOD_TYPE column of the</span>
+<span class="token comment">--  TRANSACTION table into the COMMON_LOOKUP table.</span>
+<span class="token comment">-- --------------------------------------------------------</span>
+
+<span class="token comment">-- Insert step #2 statements here.</span>
+
+<span class="token comment">-- --------------------------------------------------------</span>
+<span class="token comment">--  Step #3</span>
+<span class="token comment">--  -------</span>
+<span class="token comment">--  Create the AIRPORT and ACCOUNT_LIST tables; and</span>
+<span class="token comment">--  insert rows into both tables.</span>
+<span class="token comment">-- --------------------------------------------------------</span>
+
+<span class="token comment">-- Insert step #3 statements here.</span>
+
+<span class="token comment">-- --------------------------------------------------------</span>
+<span class="token comment">--  Step #4</span>
+<span class="token comment">--  -------</span>
+<span class="token comment">--  Create an external table TRANSACTION_UPLOAD that uses</span>
+<span class="token comment">--  a pre-seeded source file.</span>
+<span class="token comment">-- --------------------------------------------------------</span>
+
+<span class="token comment">-- Insert step #4 statements here.</span>
+
+<span class="token comment">-- Close log file.</span>
+SPOOL <span class="token keyword">OFF</span>
+
+<span class="token comment">-- Make all changes permanent.</span>
+<span class="token keyword">COMMIT</span><span class="token punctuation">;</span></code></pre>
+                                                    <p></p>
+                                                    <p>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <p></p>
+                                    <p>You should complete the following four steps:</p>
+                                    <p>
+                                    </p>
+                                    <ol start="1">
+                                        <li><strong><em>[6 points]</em></strong> Create the
+                                            following <code>transaction</code> table as per the
+                                            specification, but do so understanding the business
+                                            logic of the model. After creating the <code>transaction</code>
+                                            table, create a unique index on the columns that make
+                                            up the natural key and call it the <code>natural_key</code>
+                                            index.</li>
+                                    </ol>
+                                    <p></p>
+                                    <ul class="collapsible expandable">
+                                        <li class="active">
+                                            <div title="Click to see the instructions ..." class="collapsible-header" tabindex="0">
+                                                Instruction Details
+                                                <i class="material-icons left">keyboard_arrow_down</i>
+                                            </div>
+                                            <div class="collapsible-body" style="display: block;">
+                                                <h4>
+                                                    Instruction Details </h4>
+                                                <p>You create the <code>transaction</code>
+                                                    table and a <code>transaction_s1</code>
+                                                    sequence.</p>
+                                                <div>
+                                                    <p>
+                                                    </p>
+                                                    <ol type="a" start="1">
+                                                        <li>You create the <code>TRANSACTION</code>
+                                                            table and a <code>TRANSACTION_S1</code>
+                                                            sequence as qualified below.</li>
+                                                    </ol>
+                                                    <p></p>
+                                                    <p>
+                                                    </p>
+                                                    <div>
+                                                        <p>
+                                                        </p>
+                                                        <p><strong>Implementation Note:</strong>
+                                                            The <code>TRANSACTION</code> table has
+                                                            a range relationship to a <code>CALENDAR</code>
+                                                            table that will be defined later.</p>
+                                                        <p><strong>Business Rule:</strong> You may
+                                                            enter an account number into the <code>TRANSACTION_ACCOUNT</code>
+                                                            column of 111-111-111-111 for a debit,
+                                                            and 222-222-222-222 for a credit. A
+                                                            debit recognizes payment for a rental,
+                                                            and is a value that adds to the
+                                                            company’s assets. A credit
+                                                            recognizes a refund for a rental, and
+                                                            is a value that decreases the
+                                                            company’s assets. Debits should
+                                                            have a <code>TRANSACTION_TYPE</code>
+                                                            that maps to the corresponding debit
+                                                            row in the <code>COMMON_LOOKUP</code>
+                                                            table, and credits should have a <code>TRANSACTION_TYPE</code>
+                                                            that maps to the corresponding credit
+                                                            row in the <code>COMMON_LOOKUP</code>
+                                                            table.</p>
+                                                        <p><strong>System Logic:</strong> In a
+                                                            future refinement of our pilot design,
+                                                            the <code>TRANSACTION_ACCOUNT</code>
+                                                            column will be replaced by a foreign
+                                                            key that points to the <code>CHART_OF_ACCOUNT</code>
+                                                            table. A <code>CHART_OF_ACCOUNT</code>
+                                                            table holds rows that describe every
+                                                            account, like it’s account
+                                                            number (e.g., 111-111-111-111),
+                                                            description, start and end date.</p>
+                                                        <div class="table">
+                                                            <table>
+                                                                <tbody>
+                                                                    <tr class="table_row">
+                                                                        <th class="table_nameh" colspan="6" valign="bottom">Table
+                                                                            Name: TRANSACTION</th>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th class="column_nameh" rowspan="2">Column Name</th>
+                                                                        <th class="constrainth" colspan="3">Constraint</th>
+                                                                        <th class="constraint_data_typeh" rowspan="2">Data<br>Type</th>
+                                                                        <th class="constraint_physical_sizeh" rowspan="2">Physical<br>Size</th>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th class="constraint_typeh">Type</th>
+                                                                        <th class="constraint_tableh">Reference
+                                                                            Table</th>
+                                                                        <th class="constraint_columnh">Reference
+                                                                            Column</th>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>TRANSACTION_ID</td>
+                                                                        <td>PRIMARY KEY</td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td>Integer</td>
+                                                                        <td>Maximum</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>TRANSACTION_ACCOUNT</td>
+                                                                        <td>NOT NULL</td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td>String</td>
+                                                                        <td>15</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="constraint_data_typeh" rowspan="2">TRANSACTION_TYPE</td>
+                                                                        <td>FOREIGN KEY</td>
+                                                                        <td class="constraint_data_typeh" rowspan="2">COMMON_LOOKUP</td>
+                                                                        <td class="constraint_data_typeh" rowspan="2">COMMON_LOOKUP_ID</td>
+                                                                        <td class="constraint_data_typeh" rowspan="2">Integer</td>
+                                                                        <td class="constraint_data_typeh" rowspan="2">Maximum</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>NOT NULL</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>TRANSACTION_DATE</td>
+                                                                        <td>NOT NULL</td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td>Date</td>
+                                                                        <td>Date</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>TRANSACTION_AMOUNT</td>
+                                                                        <td>NOT NULL</td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td>Number</td>
+                                                                        <td>Maximum</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="constraint_data_typeh" rowspan="2">RENTAL_ID</td>
+                                                                        <td>FOREIGN KEY</td>
+                                                                        <td class="constraint_data_typeh" rowspan="2">RENTAL</td>
+                                                                        <td class="constraint_data_typeh" rowspan="2">RENTAL_ID</td>
+                                                                        <td class="constraint_data_typeh" rowspan="2">Integer</td>
+                                                                        <td class="constraint_data_typeh" rowspan="2">Maximum</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>NOT NULL</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="constraint_data_typeh" rowspan="2">PAYMENT_METHOD_TYPE</td>
+                                                                        <td>FOREIGN KEY</td>
+                                                                        <td class="constraint_data_typeh" rowspan="2">COMMON_LOOKUP</td>
+                                                                        <td class="constraint_data_typeh" rowspan="2">COMMON_LOOKUP_ID</td>
+                                                                        <td class="constraint_data_typeh" rowspan="2">Integer</td>
+                                                                        <td class="constraint_data_typeh" rowspan="2">Maximum</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>NOT NULL</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>PAYMENT_ACCOUNT_NUMBER</td>
+                                                                        <td>NOT NULL</td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td>String</td>
+                                                                        <td>19</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="constraint_data_typeh" rowspan="2">CREATED_BY</td>
+                                                                        <td>FOREIGN KEY</td>
+                                                                        <td class="constraint_data_typeh" rowspan="2">SYSTEM_USER</td>
+                                                                        <td class="constraint_data_typeh" rowspan="2">SYSTEM_USER_ID</td>
+                                                                        <td class="constraint_data_typeh" rowspan="2">Integer</td>
+                                                                        <td class="constraint_data_typeh" rowspan="2">Maximum</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>NOT NULL</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>CREATION_DATE</td>
+                                                                        <td>NOT NULL</td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td>Date</td>
+                                                                        <td>Date</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="constraint_data_typeh" rowspan="2">LAST_UPDATED_BY</td>
+                                                                        <td>FOREIGN KEY</td>
+                                                                        <td class="constraint_data_typeh" rowspan="2">SYSTEM_USER</td>
+                                                                        <td class="constraint_data_typeh" rowspan="2">SYSTEM_USER_ID</td>
+                                                                        <td class="constraint_data_typeh" rowspan="2">Integer</td>
+                                                                        <td class="constraint_data_typeh" rowspan="2">Maximum</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>NOT NULL</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>LAST_UPDATE_DATE</td>
+                                                                        <td>NOT NULL</td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td>Date</td>
+                                                                        <td>Date</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        <p>
+                                                        </p>
+                                                        <p>* The <code>TRANSACTION_AMOUNT</code>
+                                                            column uses a <em>NUMBER</em> data type
+                                                            but the column may contain an integer
+                                                            or decimal value.</p>
+                                                        <p>Don’t forget that on the Oracle
+                                                            Database, that you’ll need to
+                                                            provide an explicit <code>TRANSACTION_S1</code>
+                                                            sequence. The sequence should start
+                                                            with the default value of a <code>1</code>.</p>
+                                                        <p>
+                                                        </p>
+                                                        <p>You should use the following formatting
+                                                            and query to verify completion of this
+                                                            step:</p>
+                                                        <pre class=" language-markup"><code class=" language-markup">COLUMN table_name   FORMAT A14  HEADING "Table Name"
+COLUMN column_id    FORMAT 9999 HEADING "Column ID"
+COLUMN column_name  FORMAT A22  HEADING "Column Name"
+COLUMN nullable     FORMAT A8   HEADING "Nullable"
+COLUMN data_type    FORMAT A12  HEADING "Data Type"
+SELECT   table_name
+,        column_id
+,        column_name
+,        CASE
+           WHEN nullable = 'N' THEN 'NOT NULL'
+           ELSE ''
+         END AS nullable
+,        CASE
+           WHEN data_type IN ('CHAR','VARCHAR2','NUMBER') THEN
+             data_type||'('||data_length||')'
+           ELSE
+             data_type
+         END AS data_type
+FROM     user_tab_columns
+WHERE    table_name = 'TRANSACTION'
+ORDER BY 2;</code></pre>
+                                                        <p>It should display the following results:</p>
+                                                        <pre class=" language-markup"><code class=" language-markup">Table Name     Column ID Column Name            Nullable Data Type
+-------------- --------- ---------------------- -------- ------------
+TRANSACTION            1 TRANSACTION_ID         NOT NULL NUMBER(22)
+TRANSACTION            2 TRANSACTION_ACCOUNT    NOT NULL VARCHAR2(15)
+TRANSACTION            3 TRANSACTION_TYPE       NOT NULL NUMBER(22)
+TRANSACTION            4 TRANSACTION_DATE       NOT NULL DATE
+TRANSACTION            5 TRANSACTION_AMOUNT     NOT NULL NUMBER(22)
+TRANSACTION            6 RENTAL_ID              NOT NULL NUMBER(22)
+TRANSACTION            7 PAYMENT_METHOD_TYPE    NOT NULL NUMBER(22)
+TRANSACTION            8 PAYMENT_ACCOUNT_NUMBER NOT NULL VARCHAR2(19)
+TRANSACTION            9 CREATED_BY             NOT NULL NUMBER(22)
+TRANSACTION           10 CREATION_DATE          NOT NULL DATE
+TRANSACTION           11 LAST_UPDATED_BY        NOT NULL NUMBER(22)
+TRANSACTION           12 LAST_UPDATE_DATE       NOT NULL DATE
+
+12 rows selected.</code></pre>
+                                                    </div>
+                                                    <ol type="a" start="2">
+                                                        <li>You create the <code>NATURAL_KEY</code>
+                                                            unique index as qualified below.</li>
+                                                    </ol>
+                                                    <p></p>
+                                                    <p>
+                                                    </p>
+                                                    <div>
+                                                        <p>After you create the table, you need to
+                                                            add a <code>UNIQUE INDEX</code> on the
+                                                            following columns to the <code>TRANSACTION</code>
+                                                            table. This is necessary to improve the
+                                                            run-time performance of the merge
+                                                            operations later in this lab.</p>
+                                                        <ul class="browser-default">
+                                                            <li>RENTAL_ID</li>
+                                                            <li>TRANSACTION_TYPE</li>
+                                                            <li>TRANSACTION_DATE</li>
+                                                            <li>PAYMENT_METHOD_TYPE</li>
+                                                            <li>PAYMENT_ACCOUNT_NUMBER</li>
+                                                            <li>TRANSACTION_ACCOUNT</li>
+                                                        </ul>
+                                                        <p>You should use the following formatting
+                                                            and query to verify completion of this
+                                                            step:</p>
+                                                        <pre class=" language-markup"><code class=" language-markup">COLUMN table_name       FORMAT A12  HEADING "Table Name"
+COLUMN index_name       FORMAT A16  HEADING "Index Name"
+COLUMN uniqueness       FORMAT A8   HEADING "Unique"
+COLUMN column_position  FORMAT 9999 HEADING "Column Position"
+COLUMN column_name      FORMAT A24  HEADING "Column Name"
+SELECT   i.table_name
+,        i.index_name
+,        i.uniqueness
+,        ic.column_position
+,        ic.column_name
+FROM     user_indexes i INNER JOIN user_ind_columns ic
+ON       i.index_name = ic.index_name
+WHERE    i.table_name = 'TRANSACTION'
+AND      i.uniqueness = 'UNIQUE'
+AND      i.index_name = 'NATURAL_KEY';</code></pre>
+                                                        <p>It should display the following results:</p>
+                                                        <pre class=" language-markup"><code class=" language-markup">Table Name   Index Name       Unique   Column Position Column Name
+------------ ---------------- -------- --------------- ------------------------
+TRANSACTION  NATURAL_KEY      UNIQUE                 1 RENTAL_ID
+TRANSACTION  NATURAL_KEY      UNIQUE                 2 TRANSACTION_TYPE
+TRANSACTION  NATURAL_KEY      UNIQUE                 3 TRANSACTION_DATE
+TRANSACTION  NATURAL_KEY      UNIQUE                 4 PAYMENT_METHOD_TYPE
+TRANSACTION  NATURAL_KEY      UNIQUE                 5 PAYMENT_ACCOUNT_NUMBER
+TRANSACTION  NATURAL_KEY      UNIQUE                 6 TRANSACTION_ACCOUNT
+
+6 rows selected.</code></pre>
+                                                        <p>
+                                                        </p>
+                                                    </div>
+                                                    <p></p>
+                                                    <p>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <p></p>
+                                    <p>
+                                    </p>
+                                    <ol type="1" start="2">
+                                        <li><strong><em>[6 points]</em></strong> Insert the
+                                            following two <code>TRANSACTION_TYPE</code> rows and
+                                            four <code>PAYMENT_METHOD_TYPE</code> rows into the
+                                            <code>COMMON_LOOKUP</code> table. They should have
+                                            valid <em>who-audit</em> column data.</li>
+                                    </ol>
+                                    <p></p>
+                                    <ul class="collapsible expandable">
+                                        <li>
+                                            <div title="Click to see the instructions ..." class="collapsible-header" tabindex="0">
+                                                Instruction Details
+                                                <i class="material-icons left">keyboard_arrow_right</i>
+                                            </div>
+                                            <div class="collapsible-body">
+                                                <h4>
+                                                    Instruction Details </h4>
+                                                <p>You insert the six rows
+                                                    by using the following instructions.</p>
+                                                <div>
+                                                    <p>
+                                                    </p>
+                                                    <p>
+                                                    </p>
+                                                    <div class="table">
+                                                        <table>
+                                                            <tbody>
+                                                                <tr class="table_row">
+                                                                    <th class="table_nameh" colspan="5" valign="bottom">Table Name:
+                                                                        COMMON_LOOKUP</th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th class="constraint_tableh">Lookup
+                                                                        Table</th>
+                                                                    <th class="constraint_tableh">Lookup
+                                                                        Column</th>
+                                                                    <th class="constraint_tableh">Lookup
+                                                                        Type</th>
+                                                                    <th class="constraint_tableh">Lookup
+                                                                        Meaning</th>
+                                                                    <th class="constraint_tableh">Lookup
+                                                                        Code</th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>TRANSACTION</td>
+                                                                    <td>TRANSACTION_TYPE</td>
+                                                                    <td>CREDIT</td>
+                                                                    <td>Credit</td>
+                                                                    <td>CR</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>TRANSACTION</td>
+                                                                    <td>TRANSACTION_TYPE</td>
+                                                                    <td>DEBIT</td>
+                                                                    <td>Debit</td>
+                                                                    <td>DR</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>TRANSACTION</td>
+                                                                    <td>PAYMENT_METHOD_TYPE</td>
+                                                                    <td>DISCOVER_CARD</td>
+                                                                    <td>Discover Card</td>
+                                                                    <td></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>TRANSACTION</td>
+                                                                    <td>PAYMENT_METHOD_TYPE</td>
+                                                                    <td>VISA_CARD</td>
+                                                                    <td>Visa Card</td>
+                                                                    <td></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>TRANSACTION</td>
+                                                                    <td>PAYMENT_METHOD_TYPE</td>
+                                                                    <td>MASTER_CARD</td>
+                                                                    <td>Master Card</td>
+                                                                    <td></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>TRANSACTION</td>
+                                                                    <td>PAYMENT_METHOD_TYPE</td>
+                                                                    <td>CASH</td>
+                                                                    <td>Cash</td>
+                                                                    <td></td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <p></p>
+                                                    <p>
+                                                    </p>
+                                                    <p>You should use the following formatting and
+                                                        query to verify completion of this step:</p>
+                                                    <pre class=" language-markup"><code class=" language-markup">COLUMN common_lookup_table  FORMAT A20 HEADING "COMMON_LOOKUP_TABLE"
+COLUMN common_lookup_column FORMAT A20 HEADING "COMMON_LOOKUP_COLUMN"
+COLUMN common_lookup_type   FORMAT A20 HEADING "COMMON_LOOKUP_TYPE"
+SELECT   common_lookup_table
+,        common_lookup_column
+,        common_lookup_type
+FROM     common_lookup
+WHERE    common_lookup_table = 'TRANSACTION'
+AND      common_lookup_column IN ('TRANSACTION_TYPE','PAYMENT_METHOD_TYPE')
+ORDER BY 1, 2, 3 DESC;</code></pre>
+                                                    <p>It should display the following results:</p>
+                                                    <pre class=" language-markup"><code class=" language-markup">COMMON_LOOKUP_TABLE  COMMON_LOOKUP_COLUMN COMMON_LOOKUP_TYPE
+-------------------- -------------------- --------------------
+TRANSACTION          PAYMENT_METHOD_TYPE  VISA_CARD
+TRANSACTION          PAYMENT_METHOD_TYPE  MASTER_CARD
+TRANSACTION          PAYMENT_METHOD_TYPE  DISCOVER_CARD
+TRANSACTION          PAYMENT_METHOD_TYPE  CASH
+TRANSACTION          TRANSACTION_TYPE     DEBIT
+TRANSACTION          TRANSACTION_TYPE     CREDIT
+
+6 rows selected.</code></pre>
+                                                    <p>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <p></p>
+                                    <p>
+                                    </p>
+                                    <ol type="1" start="3">
+                                        <li><strong><em>[26 points]</em></strong> Create the
+                                            following <code>airport</code> and <code>account_list</code>
+                                            tables as per the specification, but do so
+                                            understanding the business logic of the model.</li>
+                                    </ol>
+                                    <p></p>
+                                    <ul class="collapsible expandable">
+                                        <li class="active">
+                                            <div title="Click to see the instructions ..." class="collapsible-header" tabindex="0">
+                                                Instruction Details
+                                                <i class="material-icons left">keyboard_arrow_down</i>
+                                            </div>
+                                            <div class="collapsible-body" style="display: block;">
+                                                <h4>
+                                                    Instruction Details </h4>
+                                                <p>You create and populate
+                                                    the <code>airport</code> and <code>account_list</code>
+                                                    tables.</p>
+                                                <div>
+                                                    <p>
+                                                    </p>
+                                                    <p><strong>Implementation Note:</strong> The
+                                                        <code>AIRPORT</code> table has a filtered
+                                                        substring relationship to <code>ACCOUNT</code>
+                                                        numbers because the business model is
+                                                        evolving toward airport kiosks rather than
+                                                        stores. The <code>ACCOUNT_LIST</code>
+                                                        contains a set of pre-seeded values that
+                                                        may be consumed as new customers are
+                                                        entered into the Video Store application.</p>
+                                                    <p><strong>Business Rule:</strong> You must
+                                                        seed the <code>AIRPORT</code> with any
+                                                        additional information that may be added to
+                                                        the model to support new customers. The
+                                                        city where the customer lives needs to be
+                                                        mapped to the nearest regional airport. All
+                                                        <code>ACCOUNT_NUMBER</code> column values
+                                                        must contain a valid account number found
+                                                        in the <code>ACCOUNT_LIST</code> table.
+                                                        When an account number is assigned to a
+                                                        customer, you must indicate the <code>SYSTEM_USER_ID</code>
+                                                        linked to assigning the account number in
+                                                        the <code>CONSUMED_BY</code> column of the
+                                                        <code>ACCOUNT_LIST</code> table, and
+                                                        provide the date of that activity in the
+                                                        <code>CONSUMED_BY</code> column.</p>
+                                                    <p><strong>System Logic:</strong> Seeding
+                                                        procedures are provided in the lab to
+                                                        update all existing data in the model,
+                                                        provided you add any required new cities in
+                                                        the <code>AIRPORT</code> table. The import
+                                                        of external records is now dependent on
+                                                        accurate <code>ACCOUNT_NUMBER</code> values
+                                                        in the <code>MEMBER</code> table. You must
+                                                        update all pre-existing records.</p>
+                                                    <ol type="a" start="1">
+                                                        <li>You need to create the <code>AIRPORT</code>
+                                                            table and the <code>AIRPORT_S1</code>
+                                                            sequences.</li>
+                                                    </ol>
+                                                    <p>
+                                                    </p>
+                                                    <div>
+                                                        <div class="table">
+                                                            <table>
+                                                                <tbody>
+                                                                    <tr class="table_row">
+                                                                        <th class="table_nameh" colspan="6" valign="bottom">Table
+                                                                            Name: AIRPORT</th>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th class="column_nameh" rowspan="2">Column Name</th>
+                                                                        <th class="constrainth" colspan="3">Constraint</th>
+                                                                        <th class="constraint_data_typeh" rowspan="2">Data<br>Type</th>
+                                                                        <th class="constraint_physical_sizeh" rowspan="2">Physical<br>Size</th>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th class="constraint_typeh">Type</th>
+                                                                        <th class="constraint_tableh">Reference
+                                                                            Table</th>
+                                                                        <th class="constraint_columnh">Reference
+                                                                            Column</th>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>AIRPORT_ID</td>
+                                                                        <td>PRIMARY KEY</td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td>Integer</td>
+                                                                        <td>Maximum</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>AIRPORT_CODE</td>
+                                                                        <td>NOT NULL</td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td>String</td>
+                                                                        <td>3</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>AIRPORT_CITY</td>
+                                                                        <td>NOT NULL</td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td>String</td>
+                                                                        <td>30</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>CITY</td>
+                                                                        <td>NOT NULL</td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td>String</td>
+                                                                        <td>30</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>STATE_PROVINCE</td>
+                                                                        <td>NOT NULL</td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td>String</td>
+                                                                        <td>30</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="constraint_data_typeh" rowspan="2">CREATED_BY</td>
+                                                                        <td>FOREIGN KEY</td>
+                                                                        <td class="constraint_data_typeh" rowspan="2">SYSTEM_USER</td>
+                                                                        <td class="constraint_data_typeh" rowspan="2">SYSTEM_USER_ID</td>
+                                                                        <td class="constraint_data_typeh" rowspan="2">Integer</td>
+                                                                        <td class="constraint_data_typeh" rowspan="2">Maximum</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>NOT NULL</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>CREATION_DATE</td>
+                                                                        <td>NOT NULL</td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td>Date</td>
+                                                                        <td>Date</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="constraint_data_typeh" rowspan="2">LAST_UPDATED_BY</td>
+                                                                        <td>FOREIGN KEY</td>
+                                                                        <td class="constraint_data_typeh" rowspan="2">SYSTEM_USER</td>
+                                                                        <td class="constraint_data_typeh" rowspan="2">SYSTEM_USER_ID</td>
+                                                                        <td class="constraint_data_typeh" rowspan="2">Integer</td>
+                                                                        <td class="constraint_data_typeh" rowspan="2">Maximum</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>NOT NULL</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>LAST_UPDATE_DATE</td>
+                                                                        <td>NOT NULL</td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td>Date</td>
+                                                                        <td>Date</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        <p>
+                                                        </p>
+                                                        <p>You should use the following formatting
+                                                            and query to verify completion of this
+                                                            step:</p>
+                                                        <pre class=" language-markup"><code class=" language-markup">COLUMN table_name   FORMAT A14  HEADING "Table Name"
+COLUMN column_id    FORMAT 9999 HEADING "Column ID"
+COLUMN column_name  FORMAT A22  HEADING "Column Name"
+COLUMN nullable     FORMAT A8   HEADING "Nullable"
+COLUMN data_type    FORMAT A12  HEADING "Data Type"
+SELECT   table_name
+,        column_id
+,        column_name
+,        CASE
+           WHEN nullable = 'N' THEN 'NOT NULL'
+           ELSE ''
+         END AS nullable
+,        CASE
+           WHEN data_type IN ('CHAR','VARCHAR2','NUMBER') THEN
+             data_type||'('||data_length||')'
+           ELSE
+             data_type
+         END AS data_type
+FROM     user_tab_columns
+WHERE    table_name = 'AIRPORT'
+ORDER BY 2;</code></pre>
+                                                        <p>It should display the following results:</p>
+                                                        <pre class=" language-markup"><code class=" language-markup">Table Name     Column ID Column Name            Nullable Data Type
+-------------- --------- ---------------------- -------- ------------
+AIRPORT                1 AIRPORT_ID             NOT NULL NUMBER(22)
+AIRPORT                2 AIRPORT_CODE           NOT NULL VARCHAR2(3)
+AIRPORT                3 AIRPORT_CITY           NOT NULL VARCHAR2(30)
+AIRPORT                4 CITY                   NOT NULL VARCHAR2(30)
+AIRPORT                5 STATE_PROVINCE         NOT NULL VARCHAR2(30)
+AIRPORT                6 CREATED_BY             NOT NULL NUMBER(22)
+AIRPORT                7 CREATION_DATE          NOT NULL DATE
+AIRPORT                8 LAST_UPDATED_BY        NOT NULL NUMBER(22)
+AIRPORT                9 LAST_UPDATE_DATE       NOT NULL DATE
+
+9 rows selected.</code></pre>
+                                                    </div>
+                                                    <p></p>
+                                                    <p>
+                                                    </p>
+                                                    <ol type="a" start="2">
+                                                        <li>You need to create a unique natural key
+                                                            (named <code>NK_AIRPORT</code>) index
+                                                            for the <code>AIRPORT</code> table. You
+                                                            should create it with the following
+                                                            four columns.</li>
+                                                    </ol>
+                                                    <p></p>
+                                                    <p>
+                                                    </p>
+                                                    <div>
+                                                        <ul class="browser-default">
+                                                            <li>AIRPORT_CODE</li>
+                                                            <li>AIRPORT_CITY</li>
+                                                            <li>CITY</li>
+                                                            <li>STATE_PROVINCE</li>
+                                                        </ul>
+                                                        <p>You should use the following formatting
+                                                            and query to verify completion of this
+                                                            step:</p>
+                                                        <pre class=" language-markup"><code class=" language-markup">COLUMN table_name       FORMAT A12  HEADING "Table Name"
+COLUMN index_name       FORMAT A16  HEADING "Index Name"
+COLUMN uniqueness       FORMAT A8   HEADING "Unique"
+COLUMN column_position  FORMAT 9999 HEADING "Column Position"
+COLUMN column_name      FORMAT A24  HEADING "Column Name"
+SELECT   i.table_name
+,        i.index_name
+,        i.uniqueness
+,        ic.column_position
+,        ic.column_name
+FROM     user_indexes i INNER JOIN user_ind_columns ic
+ON       i.index_name = ic.index_name
+WHERE    i.table_name = 'AIRPORT'
+AND      i.uniqueness = 'UNIQUE'
+AND      i.index_name = 'NK_AIRPORT';</code></pre>
+                                                        <p>It should display the following results:</p>
+                                                        <pre class=" language-markup"><code class=" language-markup">Table Name   Index Name       Unique   Column Position Column Name
+------------ ---------------- -------- --------------- ------------------------
+AIRPORT      NK_AIRPORT       UNIQUE                 1 AIRPORT_CODE
+AIRPORT      NK_AIRPORT       UNIQUE                 2 AIRPORT_CITY
+AIRPORT      NK_AIRPORT       UNIQUE                 3 CITY
+AIRPORT      NK_AIRPORT       UNIQUE                 4 STATE_PROVINCE
+
+4 rows selected.</code></pre>
+                                                    </div>
+                                                    <p></p>
+                                                    <p>
+                                                    </p>
+                                                    <ol type="a" start="3">
+                                                        <li>You need to seed the <code>AIRPORT</code>
+                                                            table with at least these cities, and
+                                                            any others that you’ve used for
+                                                            inserted values in the <code>CONTACT</code>
+                                                            table.</li>
+                                                    </ol>
+                                                    <p></p>
+                                                    <p>
+                                                    </p>
+                                                    <div>
+                                                        <div class="table">
+                                                            <table>
+                                                                <tbody>
+                                                                    <tr class="table_row">
+                                                                        <th class="table_nameh" colspan="5" valign="bottom">Table
+                                                                            Name: AIRPORT</th>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th class="constraint_tableh">Airport
+                                                                            Code</th>
+                                                                        <th class="constraint_tableh">Airport
+                                                                            City</th>
+                                                                        <th class="constraint_tableh">City</th>
+                                                                        <th class="constraint_tableh">State
+                                                                            Province</th>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>LAX</td>
+                                                                        <td>Los Angeles</td>
+                                                                        <td>Los Angeles</td>
+                                                                        <td>California</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>SLC</td>
+                                                                        <td>Salt Lake City</td>
+                                                                        <td>Provo</td>
+                                                                        <td>Utah</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>SLC</td>
+                                                                        <td>Salt Lake City</td>
+                                                                        <td>Spanish Fork</td>
+                                                                        <td>Utah</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>SFO</td>
+                                                                        <td>San Francisco</td>
+                                                                        <td>San Francsico</td>
+                                                                        <td>California</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>SJC</td>
+                                                                        <td>San Jose</td>
+                                                                        <td>San Jose</td>
+                                                                        <td>California</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>SJC</td>
+                                                                        <td>San Jose</td>
+                                                                        <td>San Carlos</td>
+                                                                        <td>California</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        <p>
+                                                        </p>
+                                                        <p>You should use the following query to
+                                                            verify completion of this step:</p>
+                                                        <pre class=" language-markup"><code class=" language-markup">COLUMN code           FORMAT A4  HEADING "Code"
+COLUMN airport_city   FORMAT A14 HEADING "Airport City"
+COLUMN city           FORMAT A14 HEADING "City"
+COLUMN state_province FORMAT A10 HEADING "State or|Province"
+SELECT   airport_code AS code
+,        airport_city
+,        city
+,        state_province
+FROM     airport;</code></pre>
+                                                        <p>It should display the following results:</p>
+                                                        <pre class=" language-markup"><code class=" language-markup">.                                        State or
+Code   Airport City     City             Province
+------ ---------------- ---------------- ------------
+LAX    Los Angeles      Los Angeles      California
+SFO    San Francisco    San Francisco    California
+SJC    San Jose         San Carlos       California
+SJC    San Jose         San Jose         California
+SLC    Salt Lake City   Provo            Utah
+SLC    Salt Lake City   Spanish Fork     Utah
+
+6 rows selected.</code></pre>
+                                                    </div>
+                                                    <p></p>
+                                                    <p>
+                                                    </p>
+                                                    <ol type="a" start="4">
+                                                        <li>You need to create the <code>ACCOUNT_LIST</code>
+                                                            table and <code>ACCOUNT_LIST_S1</code>
+                                                            sequence.</li>
+                                                    </ol>
+                                                    <p></p>
+                                                    <p>
+                                                    </p>
+                                                    <div>
+                                                        <div class="table">
+                                                            <table>
+                                                                <tbody>
+                                                                    <tr class="table_row">
+                                                                        <th class="table_nameh" colspan="6" valign="bottom">Table
+                                                                            Name: ACCOUNT_LIST</th>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th class="column_nameh" rowspan="2">Column Name</th>
+                                                                        <th class="constrainth" colspan="3">Constraint</th>
+                                                                        <th class="constraint_data_typeh" rowspan="2">Data<br>Type</th>
+                                                                        <th class="constraint_physical_sizeh" rowspan="2">Physical<br>Size</th>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th class="constraint_typeh">Type</th>
+                                                                        <th class="constraint_tableh">Reference
+                                                                            Table</th>
+                                                                        <th class="constraint_columnh">Reference
+                                                                            Column</th>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>ACCOUNT_LIST_ID</td>
+                                                                        <td>PRIMARY KEY</td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td>Integer</td>
+                                                                        <td>Maximum</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>ACCOUNT_NUMBER</td>
+                                                                        <td>NOT NULL</td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td>String</td>
+                                                                        <td>10</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>CONSUMED_DATE</td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td>Date</td>
+                                                                        <td>Date</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>CONSUMED_BY</td>
+                                                                        <td>FOREIGN KEY</td>
+                                                                        <td>SYSTEM_USER</td>
+                                                                        <td>SYSTEM_USER_ID</td>
+                                                                        <td>Integer</td>
+                                                                        <td>Maximum</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="constraint_data_typeh" rowspan="2">CREATED_BY</td>
+                                                                        <td>FOREIGN KEY</td>
+                                                                        <td class="constraint_data_typeh" rowspan="2">SYSTEM_USER</td>
+                                                                        <td class="constraint_data_typeh" rowspan="2">SYSTEM_USER_ID</td>
+                                                                        <td class="constraint_data_typeh" rowspan="2">Integer</td>
+                                                                        <td class="constraint_data_typeh" rowspan="2">Maximum</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>NOT NULL</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>CREATION_DATE</td>
+                                                                        <td>NOT NULL</td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td>Date</td>
+                                                                        <td>Date</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="constraint_data_typeh" rowspan="2">LAST_UPDATED_BY</td>
+                                                                        <td>FOREIGN KEY</td>
+                                                                        <td class="constraint_data_typeh" rowspan="2">SYSTEM_USER</td>
+                                                                        <td class="constraint_data_typeh" rowspan="2">SYSTEM_USER_ID</td>
+                                                                        <td class="constraint_data_typeh" rowspan="2">Integer</td>
+                                                                        <td class="constraint_data_typeh" rowspan="2">Maximum</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>NOT NULL</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>LAST_UPDATE_DATE</td>
+                                                                        <td>NOT NULL</td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td>Date</td>
+                                                                        <td>Date</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        <p>
+                                                        </p>
+                                                        <p>You should use the following formatting
+                                                            and query to verify completion of this
+                                                            step:</p>
+                                                        <pre class=" language-markup"><code class=" language-markup">COLUMN table_name   FORMAT A14
+COLUMN column_id    FORMAT 9999
+COLUMN column_name  FORMAT A22
+COLUMN data_type    FORMAT A12
+SELECT   table_name
+,        column_id
+,        column_name
+,        CASE
+           WHEN nullable = 'N' THEN 'NOT NULL'
+           ELSE ''
+         END AS nullable
+,        CASE
+           WHEN data_type IN ('CHAR','VARCHAR2','NUMBER') THEN
+             data_type||'('||data_length||')'
+           ELSE
+             data_type
+         END AS data_type
+FROM     user_tab_columns
+WHERE    table_name = 'ACCOUNT_LIST'
+ORDER BY 2;</code></pre>
+                                                        <p>It should display the following results
+                                                            (please note that the <code>CONSUMED_DATE</code>
+                                                            and <code>CONSUMED_BY</code> columns
+                                                            are nullable until you use the account
+                                                            number):</p>
+                                                        <pre class=" language-markup"><code class=" language-markup">TABLE NAME     COLUMN_ID COLUMN NAME            NULLABLE DATA_TYPE
+-------------- --------- ---------------------- -------- ------------
+ACCOUNT_LIST           1 ACCOUNT_LIST_ID        NOT NULL NUMBER(22)
+ACCOUNT_LIST           2 ACCOUNT_NUMBER         NOT NULL VARCHAR2(10)
+ACCOUNT_LIST           3 CONSUMED_DATE                   DATE
+ACCOUNT_LIST           4 CONSUMED_BY                     NUMBER(22)
+ACCOUNT_LIST           5 CREATED_BY             NOT NULL NUMBER(22)
+ACCOUNT_LIST           6 CREATION_DATE          NOT NULL DATE
+ACCOUNT_LIST           7 LAST_UPDATED_BY        NOT NULL NUMBER(22)
+ACCOUNT_LIST           8 LAST_UPDATE_DATE       NOT NULL DATE
+
+8 rows selected.</code></pre>
+                                                        <p>Don’t forget that you need to
+                                                            create a <code>ACCOUNT_LIST_S1</code>
+                                                            sequence to enable the procedure to
+                                                            work.</p>
+                                                        <p>
+                                                        </p>
+                                                    </div>
+                                                    <p></p>
+                                                    <p>
+                                                    </p>
+                                                    <ol type="a" start="5">
+                                                        <li>You need to seed the <code>ACCOUNT_LIST</code>
+                                                            table. This would take more time than
+                                                            leveraging a stored procedure but
+                                                            writing stored procedures from class is
+                                                            a beyond scope. Therefore,
+                                                            you’ve been provided with stored
+                                                            procedures for the databases. Click on
+                                                            the <em>Setup Script</em> to see how
+                                                            the procedure works, how to run the
+                                                            procedure, and how to check how many
+                                                            rows are inserted into the <code>ACCOUNT_LIST</code>
+                                                            table.</li>
+                                                    </ol>
+                                                    <p></p>
+                                                    <p>
+                                                    </p>
+                                                    <div>
+                                                        <ul class="collapsible expandable">
+                                                            <li>
+                                                                <div title="Click to see the instructions ..." class="collapsible-header" tabindex="0">Setup
+                                                                    Script
+                                                                    <i class="material-icons left">keyboard_arrow_right</i>
+                                                                </div>
+                                                                <div class="collapsible-body">
+                                                                    <h4>Setup Script</h4>
+                                                                    <p>
+                                                                    </p>
+                                                                    <p>Click
+                                                                        on this to see a necessary
+                                                                        PL/SQL procedure for this
+                                                                        lab.</p>
+                                                                    <p>
+                                                                    </p>
+                                                                    <div>
+                                                                        <p>
+                                                                        </p>
+                                                                        <div>
+                                                                            <p>This contains the
+                                                                                necessary seeding
+                                                                                code that lets you
+                                                                                apply specific
+                                                                                rules to populate
+                                                                                the <code>ACCOUNT_LIST</code>
+                                                                                table. It is
+                                                                                <strong><em>dependent</em></strong>
+                                                                                upon your
+                                                                                seeding of the
+                                                                                <code>AIRPORT</code>
+                                                                                table. It
+                                                                                won’t work
+                                                                                correctly if you
+                                                                                have incorrect
+                                                                                values in that
+                                                                                table.</p>
+                                                                            <p>
+                                                                            </p>
+                                                                            <p>You should just copy
+                                                                                and past this code
+                                                                                into a text editor
+                                                                                of your choice.
+                                                                                Then, you can run
+                                                                                it as the <code>student</code>
+                                                                                user against the
+                                                                                <code>student</code>
+                                                                                database. After you
+                                                                                have it in a file,
+                                                                                you should run it
+                                                                                to place the
+                                                                                procedure in your
+                                                                                database. </p>
+                                                                            <pre class=" language-markup"><code class=" language-markup">-- Create or replace seeding procedure.
+CREATE OR REPLACE PROCEDURE seed_account_list IS
+  /* Declare variable to capture table, and column. */
+  lv_table_name   VARCHAR2(90);
+  lv_column_name  VARCHAR2(30);
+
+  /* Declare an exception variable and PRAGMA map. */
+  not_null_column  EXCEPTION;
+  PRAGMA EXCEPTION_INIT(not_null_column,-1400);
+
+BEGIN
+  /* Set savepoint. */
+  SAVEPOINT all_or_none;
+
+  FOR i IN (SELECT DISTINCT airport_code FROM airport) LOOP
+    FOR j IN 1..50 LOOP
+
+      INSERT INTO account_list
+      VALUES
+      ( account_list_s1.NEXTVAL
+      , i.airport_code||'-'||LPAD(j,6,'0')
+      , NULL
+      , NULL
+      , 1002
+      , SYSDATE
+      , 1002
+      , SYSDATE);
+    END LOOP;
+  END LOOP;
+
+  /* Commit the writes as a group. */
+  COMMIT;
+
+EXCEPTION
+  WHEN not_null_column THEN
+    /* Capture the table and column name that triggered the error. */
+    lv_table_name := (TRIM(BOTH '"' FROM RTRIM(REGEXP_SUBSTR(SQLERRM,'".*\."',REGEXP_INSTR(SQLERRM,'\.',1,1)),'."')));
+    lv_column_name := (TRIM(BOTH '"' FROM REGEXP_SUBSTR(SQLERRM,'".*"',REGEXP_INSTR(SQLERRM,'\.',1,2))));
+
+    /* This undoes all DML statements to this point in the procedure. */
+    ROLLBACK TO SAVEPOINT all_or_none;
+    RAISE_APPLICATION_ERROR(
+       -20001
+      ,'Remove the NOT NULL contraint from the '||lv_column_name||' column in'||CHR(10)||' the '||lv_table_name||' table.');
+  WHEN OTHERS THEN
+    /* This undoes all DML statements to this point in the procedure. */
+    ROLLBACK TO SAVEPOINT all_or_none;
+END;
+/</code></pre>
+                                                                            <p>
+                                                                            </p>
+                                                                            <p>After you create the
+                                                                                procedure in your
+                                                                                database, you call
+                                                                                it like so:</p>
+                                                                            <pre class=" language-sql"><code class=" language-sql"><span class="token keyword">EXECUTE</span> seed_account_list<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+                                                                            <p>
+                                                                            </p>
+                                                                            <p>You should use the
+                                                                                following query to
+                                                                                verify completion
+                                                                                of this step:</p>
+                                                                            <pre class=" language-markup"><code class=" language-markup">COLUMN object_name FORMAT A18
+COLUMN object_type FORMAT A12
+SELECT   object_name
+,        object_type
+FROM     user_objects
+WHERE    object_name = 'SEED_ACCOUNT_LIST';</code></pre>
+                                                                            <p>It should display
+                                                                                the following
+                                                                                results:</p>
+                                                                            <pre class=" language-markup"><code class=" language-markup">OBJECT_NAME        OBJECT_TYPE
+------------------ ------------
+SEED_ACCOUNT_LIST  PROCEDURE
+
+1 row selected.</code></pre>
+                                                                        </div>
+                                                                        <p></p>
+                                                                        <p>
+                                                                        </p>
+                                                                        <p>The procedure has an
+                                                                            embedded <code>COMMIT</code>
+                                                                            instruction. You can
+                                                                            query the <code>ACCOUNT_LIST</code>
+                                                                            table to make sure it
+                                                                            inserted 50 rows for
+                                                                            each airport.</p>
+                                                                    </div>
+                                                                    <p></p>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div>
+                                                        <p>After you’ve created the <code>ACCOUNT_LIST</code>
+                                                            table and the <code>SEED_ACCOUNT_LIST</code>
+                                                            procedure, you call the <code>SEED_ACCOUNT_LIST</code>
+                                                            procedure to populate the table. The
+                                                            following query verifies that
+                                                            you’ve successfully run the
+                                                            <code>SEED_ACCOUNT_LIST</code>
+                                                            procedure:</p>
+                                                        <pre class=" language-sql"><code class=" language-sql"><span class="token keyword">COLUMN</span> airport FORMAT A7
+<span class="token keyword">SELECT</span>   SUBSTR<span class="token punctuation">(</span>account_number<span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">)</span> <span class="token keyword">AS</span> <span class="token string">"Airport"</span>
+<span class="token punctuation">,</span>        <span class="token function">COUNT</span><span class="token punctuation">(</span><span class="token operator">*</span><span class="token punctuation">)</span> <span class="token keyword">AS</span> <span class="token string">"# Accounts"</span>
+<span class="token keyword">FROM</span>     account_list
+<span class="token keyword">WHERE</span>    consumed_date <span class="token operator">IS</span> <span class="token boolean">NULL</span>
+<span class="token keyword">GROUP</span> <span class="token keyword">BY</span> SUBSTR<span class="token punctuation">(</span>account_number<span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">)</span>
+<span class="token keyword">ORDER</span> <span class="token keyword">BY</span> <span class="token number">1</span><span class="token punctuation">;</span></code></pre>
+                                                        <p>It should display the following:</p>
+                                                        <pre class=" language-markup"><code class=" language-markup">Airport # Accounts
+------- ----------
+LAX             50
+SFO             50
+SJC             50
+SLC             50
+
+4 rows selected.</code></pre>
+                                                    </div>
+                                                    <ol type="a" start="6">
+                                                        <li>In a prior lab and in both the create
+                                                            and seed scripts, the <code>STATE_PROVINCE</code>
+                                                            column values uses a mixture of US
+                                                            Postal Services state abbreviations and
+                                                            full state names. You need to update
+                                                            all <code>STATE_PROVINCE</code> values
+                                                            with their full state names because a
+                                                            subsequent seeding and the import
+                                                            program rely on full <code>STATE_PROVINCE</code>
+                                                            names. You need to update any
+                                                            pre-seeded US Postal Service state
+                                                            abbreviations with the full state
+                                                            names.</li>
+                                                    </ol>
+                                                    <p></p>
+                                                    <p>
+                                                    </p>
+                                                    <div>
+                                                        <p>The following <code>UPDATE</code>
+                                                            statement changes US Postal Services
+                                                            abbreviations to the full state name:</p>
+                                                        <pre class=" language-markup"><code class=" language-markup">UPDATE address
+SET    state_province = 'California'
+WHERE  state_province = 'CA';</code></pre>
+                                                    </div>
+                                                    <ol type="a" start="7">
+                                                        <li>You need to run the script that creates
+                                                            the <code>UPDATE_MEMBER_ACCOUNT</code>
+                                                            procedure, and then you need to call it
+                                                            to update values in the <code>MEMBER</code>
+                                                            and <code>ACCOUNT_LIST</code> tables.
+                                                            It relies on you having run the <code>SEED_ACCOUNT_LIST</code>
+                                                            procedure successfully.</li>
+                                                    </ol>
+                                                    <div>
+                                                        <ul class="collapsible expandable">
+                                                            <li>
+                                                                <div title="Click to see the instructions ..." class="collapsible-header" tabindex="0">Setup
+                                                                    Script
+                                                                    <i class="material-icons left">keyboard_arrow_right</i>
+                                                                </div>
+                                                                <div class="collapsible-body">
+                                                                    <h4>Setup Script</h4>
+                                                                    <p>
+                                                                    </p>
+                                                                    <p>Click
+                                                                        on this to see a necessary
+                                                                        PL/SQL procedure for this
+                                                                        lab.</p>
+                                                                    <p>
+                                                                    </p>
+                                                                    <div>
+                                                                        <p>
+                                                                        </p>
+                                                                        <div>
+                                                                            <p>This contains the
+                                                                                necessary code to
+                                                                                consume values from
+                                                                                the <code>ACCOUNT_LIST</code>
+                                                                                table and update
+                                                                                the <code>ACCOUNT_NUMBER</code>
+                                                                                column of the <code>MEMBER</code>
+                                                                                table with correct
+                                                                                values from the
+                                                                                <code>ACCOUNT_LIST</code>
+                                                                                table.</p>
+                                                                            <p>
+                                                                            </p>
+                                                                            <p>You should just copy
+                                                                                and past this code
+                                                                                into your <code>apply_lab9_oracle.sql</code>
+                                                                                script. Then, you
+                                                                                can run it as the
+                                                                                <code>student</code>
+                                                                                user.</p>
+                                                                            <pre class=" language-markup"><code class=" language-markup">CREATE OR REPLACE PROCEDURE update_member_account IS
+
+  /* Declare a local variable. */
+  lv_account_number VARCHAR2(10);
+
+  /* Declare a SQL cursor fabricated from local variables. */
+  CURSOR member_cursor IS
+    SELECT   DISTINCT
+             m.member_id
+    ,        a.city
+    ,        a.state_province
+    FROM     member m INNER JOIN contact c
+    ON       m.member_id = c.member_id INNER JOIN address a
+    ON       c.contact_id = a.contact_id
+    ORDER BY m.member_id;
+
+BEGIN
+
+  /* Set savepoint. */
+  SAVEPOINT all_or_none;
+
+  /* Open a local cursor. */
+  FOR i IN member_cursor LOOP
+
+      /* Secure a unique account number as they're consumed from the list. */
+      SELECT al.account_number
+      INTO   lv_account_number
+      FROM   account_list al INNER JOIN airport ap
+      ON     SUBSTR(al.account_number,1,3) = ap.airport_code
+      WHERE  ap.city = i.city
+      AND    ap.state_province = i.state_province
+      AND    consumed_by IS NULL
+      AND    consumed_date IS NULL
+      AND    ROWNUM &lt; 2
+      ORDER BY al.account_number;
+
+      /* Update a member with a unique account number linked to their nearest airport. */
+      UPDATE member
+      SET    account_number = lv_account_number
+      WHERE  member_id = i.member_id;
+
+      /* Mark consumed the last used account number. */
+      UPDATE account_list
+      SET    consumed_by = 1002
+      ,      consumed_date = SYSDATE
+      WHERE  account_number = lv_account_number;
+
+  END LOOP;
+
+  /* Commit the writes as a group. */
+  COMMIT;
+
+EXCEPTION
+  WHEN NO_DATA_FOUND THEN
+    dbms_output.put_line('You have an error in your AIRPORT table inserts.');
+
+    /* This undoes all DML statements to this point in the procedure. */
+    ROLLBACK TO SAVEPOINT all_or_none;
+  WHEN OTHERS THEN
+    /* This undoes all DML statements to this point in the procedure. */
+    ROLLBACK TO SAVEPOINT all_or_none;
+END;
+/</code></pre>
+                                                                            <p>
+                                                                            </p>
+                                                                            <p>You should use the
+                                                                                following query to
+                                                                                verify completion
+                                                                                of this step:</p>
+                                                                            <pre class=" language-markup"><code class=" language-markup">COLUMN object_name FORMAT A22
+COLUMN object_type FORMAT A12
+SELECT   object_name
+,        object_type
+FROM     user_objects
+WHERE    object_name = 'UPDATE_MEMBER_ACCOUNT';</code></pre>
+                                                                            <p>It should display
+                                                                                the following
+                                                                                results:</p>
+                                                                            <pre class=" language-markup"><code class=" language-markup">OBJECT_NAME            OBJECT_TYPE
+---------------------- ------------
+UPDATE_MEMBER_ACCOUNT  PROCEDURE
+
+1 row selected.</code></pre>
+                                                                            <p>
+                                                                            </p>
+                                                                            <p>After you create the
+                                                                                procedure in your
+                                                                                database, you call
+                                                                                it like so:</p>
+                                                                            <pre class=" language-sql"><code class=" language-sql"><span class="token keyword">EXECUTE</span> update_member_account<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+                                                                        </div>
+                                                                        <p></p>
+                                                                        <p>
+                                                                        </p>
+                                                                        <p>The procedure has an
+                                                                            embedded <code>COMMIT</code>
+                                                                            instruction. You can
+                                                                            query the updated <code>ACCOUNT_NUMBER</code>
+                                                                            values from the <code>MEMBER</code>
+                                                                            table. It inserts one
+                                                                            row for each row in the
+                                                                            <code>MEMBER</code>
+                                                                            table.</p>
+                                                                    </div>
+                                                                    <p></p>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                        <p>After you create the <code>ACCOUNT_LIST</code>
+                                                            table, you update the <code>MEMBER</code>
+                                                            table by calling the <code>UPDATE_MEMBER_ACCOUNT</code>
+                                                            procedure to populate the table. The
+                                                            following query verifies that change:</p>
+                                                        <pre class=" language-markup"><code class=" language-markup">-- Format the SQL statement display.
+COLUMN member_id      FORMAT 999999 HEADING "Member|ID #"
+COLUMN last_name      FORMAT A7     HEADING "Last|Name"
+COLUMN account_number FORMAT A10    HEADING "Account|Number"
+COLUMN acity          FORMAT A12    HEADING "Address City"
+COLUMN apstate        FORMAT A10    HEADING "Airport|State or|Province"
+COLUMN alcode         FORMAT A5     HEADING "Airport|Account|Code"
+
+-- Query distinct members and addresses.
+SELECT   DISTINCT
+         m.member_id
+,        c.last_name
+,        m.account_number
+,        a.city AS acity
+,        ap.state_province AS apstate
+,        SUBSTR(al.account_number,1,3) AS alcode
+FROM     member m INNER JOIN contact c
+ON       m.member_id = c.member_id INNER JOIN address a
+ON       c.contact_id = a.contact_id INNER JOIN airport ap
+ON       a.city = ap.city
+AND      a.state_province = ap.state_province INNER JOIN account_list al
+ON       ap.airport_code = SUBSTR(al.account_number,1,3)
+ORDER BY 1;</code></pre>
+                                                        <p>You should see the following rows in the
+                                                            <code>MEMBER</code> table (without the period at the beginning).</p>
+                                                        <p>
+                                                        </p>
+                                                        <pre class=" language-markup"><code class=" language-markup">.                                       Address    Airport
+ Member Last    Account                 State or   Account
+   ID # Name    Number     Address City Province   Code
+------- ------- ---------- ------------ ---------- --------
+   1001 Winn    SJC-000001 San Jose     California SJC
+   1002 Vizquel SJC-000002 San Jose     California SJC
+   1003 Sweeney SJC-000003 San Jose     California SJC
+   1004 Clinton SLC-000001 Provo        Utah       SLC
+   1005 Moss    SLC-000002 Provo        Utah       SLC
+   1006 Gretelz SLC-000003 Provo        Utah       SLC
+   1007 Royal   SLC-000004 Provo        Utah       SLC
+   1008 Smith   SLC-000005 Spanish Fork Utah       SLC
+   1009 Potter  SLC-000006 Provo        Utah       SLC</code></pre>
+                                                        <ul class="collapsible expandable">
+                                                            <li>
+                                                                <div title="Click to see the instructions ..." class="collapsible-header" tabindex="0">Troubleshooting
+                                                                    Script
+                                                                    <i class="material-icons left">keyboard_arrow_right</i>
+                                                                </div>
+                                                                <div class="collapsible-body">
+                                                                    <h4>Troubleshooting Script</h4>
+                                                                    <p>
+                                                                    </p>
+                                                                    <p>You
+                                                                        should open the nested
+                                                                        element to find and run a
+                                                                        diagnostic script if the
+                                                                        previous query failed to
+                                                                        return the correct results.</p>
+                                                                    <p>
+                                                                    </p>
+                                                                    <div>
+                                                                        <p>
+                                                                        </p>
+                                                                        <div>
+                                                                            <p>If you didn’t
+                                                                                get the result
+                                                                                above, it’s
+                                                                                likely that a step
+                                                                                was missed in this
+                                                                                or an earlier lab
+                                                                                in the sequence of
+                                                                                labs. The missing
+                                                                                step most likely
+                                                                                caused the <code>update_member_account</code>
+                                                                                procedure to fail
+                                                                                because it
+                                                                                couldn’t
+                                                                                resolve a join
+                                                                                between tables. The
+                                                                                following
+                                                                                diagnostic query
+                                                                                should be used when
+                                                                                the previous query
+                                                                                failed.</p>
+                                                                            <pre class=" language-markup"><code class=" language-markup">-- Reset the pagesize.
+SET PAGESIZE 99
+SET LINESIZE 92
+
+-- Verify the account changes in the MEMBER table.
+COLUMN member_id      FORMAT 999999 HEADING "Member|ID #"
+COLUMN last_name      FORMAT A9     HEADING "Last|Name"
+COLUMN account_number FORMAT A10    HEADING "Account|Number"
+COLUMN acity          FORMAT A14    HEADING "Address City"
+COLUMN apcity         FORMAT A14    HEADING "Airport|List City"
+COLUMN astate         FORMAT A10    HEADING "Address|State or|Province"
+COLUMN apstate        FORMAT A10    HEADING "Airport|State or|Province"
+COLUMN apcode         FORMAT A5     HEADING "Airport|Code"
+COLUMN alcode         FORMAT A5     HEADING "Account|Airport|Code"
+
+-- Run the query.
+SELECT   DISTINCT
+         m.member_id
+,        c.last_name
+,        m.account_number
+,        a.city AS acity
+,        ap.city AS apcity
+,        a.state_province AS astate
+,        ap.state_province AS apstate
+,        ap.airport_code AS apcode
+,        SUBSTR(al.account_number,1,3) AS alcode
+FROM     member m INNER JOIN contact c
+ON       m.member_id = c.member_id INNER JOIN address a
+ON       c.contact_id = a.contact_id RIGHT JOIN airport ap
+ON       a.city = ap.city
+AND      a.state_province = ap.state_province RIGHT JOIN account_list al
+ON       ap.airport_code = SUBSTR(al.account_number,1,3)
+ORDER BY 1;
+
+-- Reset the pagesize.
+SET PAGESIZE 80</code></pre>
+                                                                            <p>This should yield
+                                                                                the following
+                                                                                results:</p>
+                                                                            <pre class=" language-markup"><code class=" language-markup">Address    Airport             Account
+ Member Last	Account 				 State or   State or   Airport  Airport
+   ID # Name	Number	   Address City   Airport City	 Province   Province   Code     Code
+------- ------- ---------- -------------- -------------- ---------- ---------- -------- --------
+   1001 Winn	SJC-000001 San Jose	  San Jose	 California California SJC	SJC
+   1002 Vizquel SJC-000002 San Jose	  San Jose	 California California SJC	SJC
+   1003 Sweeney SJC-000003 San Jose	  San Jose	 California California SJC	SJC
+   1004 Clinton SLC-000001 Provo	  Provo 	 Utah	    Utah       SLC	SLC
+   1005 Moss	SLC-000002 Provo	  Provo 	 Utah	    Utah       SLC	SLC
+   1006 Gretelz SLC-000003 Provo	  Provo 	 Utah	    Utah       SLC	SLC
+   1007 Royal	SLC-000004 Provo	  Provo 	 Utah	    Utah       SLC	SLC
+   1008 Smith	SLC-000005 Spanish Fork   Spanish Fork	 Utah	    Utah       SLC	SLC
+   1009 Potter	SLC-000006 Provo	  Provo 	 Utah	    Utah       SLC	SLC
+					  Los Angeles		    California LAX	LAX
+					  San Carlos		    California SJC	SJC
+					  San Francisco 	    California SFO	SFO</code></pre>
+                                                                        </div>
+                                                                        <p></p>
+                                                                    </div>
+                                                                    <p></p>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                        <p></p>
+                                                        <p>After updating the <code>MEMBER</code>
+                                                            table, you are ready to move forward to
+                                                            the next step.</p>
+                                                    </div>
+                                                    <p></p>
+                                                    <p>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <p></p>
+                                    <p>
+                                    </p>
+                                    <ol type="1" start="4">
+                                        <li><strong><em>[6 points]</em></strong> Create the
+                                            following <code>transaction_upload</code> table as per
+                                            the specification, but do so understanding the business
+                                            logic of the model. As a <strong><em>Big Picture</em></strong>,
+                                            our video store just got a consolidation of rentals
+                                            from a store that’s closed for our customers.
+                                            <p>
+                                            </p>
+                                            <p>You need to import the values and ensure that our
+                                                source data agrees with the other store. For
+                                                example, do all customer names, addresses, account
+                                                numbers match our data. If they do, the merge
+                                                should go well. If they don’t, the figures
+                                                will ultimately be incorrect.</p>
+                                        </li>
+                                    </ol>
+                                    <p></p>
+                                    <ul class="collapsible expandable">
+                                        <li>
+                                            <div title="Click to see the instructions ..." class="collapsible-header" tabindex="0">
+                                                Instruction Details
+                                                <i class="material-icons left">keyboard_arrow_right</i>
+                                            </div>
+                                            <div class="collapsible-body">
+                                                <h4>
+                                                    Instruction Details </h4>
+                                                <p>You create a temporary
+                                                    table and query the data from the external
+                                                    comma-separated values (CSV) file.</p>
+                                                <div>
+                                                    <p>
+                                                    </p>
+                                                    <p><strong>Implementation Note:</strong> The
+                                                        <code>TRANSACTION_UPLOAD</code> table is in
+                                                        unnormalized form, which means it has
+                                                        repeating rows and unique rows.</p>
+                                                    <p><strong>Business Rule:</strong> The data has
+                                                        secured a valid <code>CUSTOMER_ID</code>
+                                                        and <code>ITEM_ID</code> before generating
+                                                        the CSV source file. You need to create an
+                                                        import table to support the upload of
+                                                        remote store data.</p>
+                                                    <p><strong>System Logic:</strong> This will be
+                                                        implemented in an Oracle database as an <a href="https://content.byui.edu/file/d13e0ee0-369f-4e61-809e-f70989ee1add/1/db1/lesson-7-aggregation/oracle-external-tables/index.html">external
+                                                            table</a> (or, this short essay on <a href="https://www.toadworld.com/platforms/oracle/w/wiki/10953.external-tables.aspx">external
+                                                            tables</a>), and in <a href="https://content.byui.edu/file/d13e0ee0-369f-4e61-809e-f70989ee1add/1/db1/lesson-7-aggregation/mysql-csv-upload/index.html">MySQL
+                                                            as a memory resident table</a>. Memory
+                                                        resident tables disappear when the database
+                                                        is rebooted. You use the <code>ENGINE=MEMORY</code>
+                                                        as opposed to the <code>ENGINE=INNODB</code>
+                                                        syntax. These rules support the business
+                                                        rules provided you have no <code>FOREIGN
+                                                            KEY</code> references in the <code>TRANSACTION_UPLOAD</code>
+                                                        table.</p>
+                                                    <div class="table">
+                                                        <table>
+                                                            <tbody>
+                                                                <tr class="table_row">
+                                                                    <th class="table_nameh" colspan="6" valign="bottom">Table Name:
+                                                                        TRANSACTION_UPLOAD</th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th class="column_nameh" rowspan="2">Column Name</th>
+                                                                    <th class="constrainth" colspan="3">Constraint</th>
+                                                                    <th class="constraint_data_typeh" rowspan="2">Data<br>Type</th>
+                                                                    <th class="constraint_physical_sizeh" rowspan="2">Physical<br>Size</th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th class="constraint_typeh">Type</th>
+                                                                    <th class="constraint_tableh">Reference
+                                                                        Table</th>
+                                                                    <th class="constraint_columnh">Reference
+                                                                        Column</th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>ACCOUNT_NUMBER</td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td>String</td>
+                                                                    <td>10</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>FIRST_NAME</td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td>String</td>
+                                                                    <td>20</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>MIDDLE_NAME</td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td>String</td>
+                                                                    <td>20</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>LAST_NAME</td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td>String</td>
+                                                                    <td>20</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>CHECK_OUT_DATE</td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td>Date</td>
+                                                                    <td>Date</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>RETURN_DATE</td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td>Date</td>
+                                                                    <td>Date</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>RENTAL_ITEM_TYPE</td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td>String</td>
+                                                                    <td>12</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>TRANSACTION_TYPE</td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td>String</td>
+                                                                    <td>14</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>TRANSACTION_AMOUNT</td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td>Number</td>
+                                                                    <td>Decimal</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>TRANSACTION_DATE</td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td>Date</td>
+                                                                    <td>Date</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>ITEM_ID</td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td>Integer</td>
+                                                                    <td>Maximum</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>PAYMENT_METHOD_TYPE</td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td>String</td>
+                                                                    <td>14</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>PAYMENT_ACCOUNT_NUMBER</td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td>String</td>
+                                                                    <td>19</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <p>
+                                                    </p>
+                                                    <div>
+                                                        <ul class="collapsible expandable">
+                                                            <li>
+                                                                <div title="Click to see the instructions ..." class="collapsible-header" tabindex="0">Linux
+                                                                    and Oracle Virtual Directory
+                                                                    Setup Steps
+                                                                    <i class="material-icons left">keyboard_arrow_right</i>
+                                                                </div>
+                                                                <div class="collapsible-body">
+                                                                    <h4>Linux and Oracle Virtual
+                                                                        Directory Setup Steps</h4>
+                                                                    <p>
+                                                                    </p>
+                                                                    <p>Open
+                                                                        these additional
+                                                                        instructions <strong><em>only
+                                                                                if</em></strong>
+                                                                        you are not using the
+                                                                        instructor provided Linux
+                                                                        image. The instructions
+                                                                        will enable you to position
+                                                                        and set privileges on files
+                                                                        that will support the
+                                                                        Oracle virtual directory
+                                                                        that you create in the lab.</p>
+                                                                    <p>
+                                                                    </p>
+                                                                    <div>
+                                                                        <p>
+                                                                        </p>
+                                                                        <p>Before you create the
+                                                                            <code>TRANSACTION_UPLOAD</code>
+                                                                            table, you need to
+                                                                            create a physical and
+                                                                            virtual directory. You
+                                                                            should use the
+                                                                            following physical path
+                                                                            for the <code>upload</code>
+                                                                            directory (the Fedora
+                                                                            image has these
+                                                                            directories already):</p>
+                                                                        <pre class=" language-bash"><code class=" language-bash">/u01/app/oracle/upload</code></pre>
+                                                                        <p>Assuming you’re
+                                                                            working in an Oracle
+                                                                            Database 11<em>g</em>
+                                                                            XE instance (other than
+                                                                            the course’s
+                                                                            Fedora image), you can
+                                                                            create a valid <code>upload</code>
+                                                                            directory as the <code>root</code>
+                                                                            user. You assume the
+                                                                            <code>root</code> user
+                                                                            privilege with the
+                                                                            following command:</p>
+                                                                        <pre class=" language-bash"><code class=" language-bash"><span class="token function">su</span> - root</code></pre>
+                                                                        <p>You should navigate to
+                                                                            this directory:</p>
+                                                                        <pre class=" language-bash"><code class=" language-bash">/u01/app/oracle</code></pre>
+                                                                        <p>Then, issue this command
+                                                                            as the <code>root</code>
+                                                                            user to create a new
+                                                                            <code>upload</code>
+                                                                            directory:</p>
+                                                                        <pre class=" language-bash"><code class=" language-bash"><span class="token function">mkdir</span> upload</code></pre>
+                                                                        <p>Now you have the
+                                                                            following directory:</p>
+                                                                        <pre class=" language-bash"><code class=" language-bash">/u01/app/oracle/upload</code></pre>
+                                                                        <p>Assuming you’ve
+                                                                            created the <code>upload</code>
+                                                                            directory as the <code>root</code>
+                                                                            user, copy all <code>*.csv</code>
+                                                                            files to this
+                                                                            directory. Then, as the
+                                                                            <code>root</code> user
+                                                                            you should issue the
+                                                                            following two commands
+                                                                            from the <code>/u01/app/oracle</code>
+                                                                            directory:</p>
+                                                                        <pre class=" language-sql"><code class=" language-sql">chown <span class="token operator">-</span>R oracle:dba upload
+chmod <span class="token operator">-</span>R <span class="token number">755</span> upload</code></pre>
+                                                                        <p>Having made that change
+                                                                            you should now be able
+                                                                            to query the external
+                                                                            file source, like a
+                                                                            *.csv (comma-separated
+                                                                            values) file. Hope this
+                                                                            helps those trying to
+                                                                            use external tables.</p>
+                                                                        <p>Unzip the <a href="https://content.byui.edu/file/d13e0ee0-369f-4e61-809e-f70989ee1add/1/db1/content/Lab7_Final_CSV_Files.zip"><code>transaction_upload.csv</code>
+                                                                                file</a> if
+                                                                            you’re not using
+                                                                            the course’s
+                                                                            Fedora image, and put
+                                                                            the file in the <code>/u01/app/oracle/upload</code>
+                                                                            directory.</p>
+                                                                    </div>
+                                                                    <p></p>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <p></p>
+                                                    <p>Assuming that you have created the necessary
+                                                        <code>transaction_upload.csv</code> file in
+                                                        the <code>/u01/app/oracle/upload</code>
+                                                        directory, which was done for those
+                                                        students using the standard image, you need
+                                                        to do the following:</p>
+                                                    <p>Connect as the <code>system</code> user. You
+                                                        have two options to connect as the
+                                                        privileged system user.</p>
+                                                    <ul class="browser-default">
+                                                        <li>Connect to <code>sqlplus</code> with
+                                                            the following command:
+                                                            <p>
+                                                            </p>
+                                                            <pre class=" language-bash"><code class=" language-bash">sqlplus system/cangetin</code></pre>
+                                                            <p></p>
+                                                            <p>
+                                                            </p>
+                                                            <p>or, connect as the <code>student</code>
+                                                                user first and then change your
+                                                                user account to the <code>system</code>
+                                                                user in the same session with the
+                                                                following command:</p>
+                                                            <p>
+                                                            </p>
+                                                            <pre class=" language-sql"><code class=" language-sql"><span class="token keyword">SQL</span><span class="token operator">&gt;</span> <span class="token keyword">CONNECT</span> SYSTEM<span class="token operator">/</span>cangetin</code></pre>
+                                                            <p></p>
+                                                            <p>
+                                                            </p>
+                                                        </li>
+                                                        <li>As the <code>system</code> user, issue
+                                                            the following two commands:
+                                                            <p>
+                                                            </p>
+                                                            <pre class=" language-sql"><code class=" language-sql"><span class="token keyword">CREATE</span> DIRECTORY upload <span class="token keyword">AS</span> <span class="token string">'/u01/app/oracle/upload'</span><span class="token punctuation">;</span>
+<span class="token keyword">GRANT</span> <span class="token keyword">READ</span><span class="token punctuation">,</span> <span class="token keyword">WRITE</span> <span class="token keyword">ON</span> DIRECTORY upload <span class="token keyword">TO</span> student<span class="token punctuation">;</span></code></pre>
+                                                            <p></p>
+                                                        </li>
+                                                        <li>Don’t forget to connect back as
+                                                            the student user before testing your
+                                                            lba.</li>
+                                                    </ul>
+                                                    <p>Please check the <a href="https://content.byui.edu/file/d13e0ee0-369f-4e61-809e-f70989ee1add/1/db1/lesson-7-aggregation/oracle-external-tables/index.html">Oracle
+                                                            External Tables</a> web page if you
+                                                        need more information about how to setup
+                                                        external tables in an Oracle database.</p>
+                                                    <p>Unlike ordinary tables, a query against the
+                                                        data dictionary doesn’t yield a full
+                                                        understanding of an external table. To see
+                                                        the storage clause of an external table,
+                                                        you must use the <code>get_ddl</code>
+                                                        function found in the <code>dbms_metadata</code>
+                                                        package.</p>
+                                                    <p>You can use the following query to see the
+                                                        full structure of an external table:</p>
+                                                    <pre class=" language-sql"><code class=" language-sql"><span class="token keyword">SET</span> LONG <span class="token number">200000</span>  <span class="token comment">-- Enables the display of the full statement.</span>
+<span class="token keyword">SELECT</span>   dbms_metadata<span class="token punctuation">.</span>get_ddl<span class="token punctuation">(</span><span class="token string">'TABLE'</span><span class="token punctuation">,</span><span class="token string">'TRANSACTION_UPLOAD'</span><span class="token punctuation">)</span> <span class="token keyword">AS</span> <span class="token string">"Table Description"</span>
+<span class="token keyword">FROM</span>     dual<span class="token punctuation">;</span></code></pre>
+                                                    <p>
+                                                    </p>
+                                                    <p>This should show you the following:</p>
+                                                    <p>
+                                                    </p>
+                                                    <pre class=" language-markup"><code class=" language-markup">Table Description
+------------------------------------------------------------
+  CREATE TABLE "STUDENT"."TRANSACTION_UPLOAD"
+   (    "ACCOUNT_NUMBER" VARCHAR2(10),
+        "FIRST_NAME" VARCHAR2(20),
+        "MIDDLE_NAME" VARCHAR2(20),
+        "LAST_NAME" VARCHAR2(20),
+        "CHECK_OUT_DATE" DATE,
+        "RETURN_DATE" DATE,
+        "RENTAL_ITEM_TYPE" VARCHAR2(12),
+        "TRANSACTION_TYPE" VARCHAR2(14),
+        "TRANSACTION_AMOUNT" NUMBER,
+        "TRANSACTION_DATE" DATE,
+        "ITEM_ID" NUMBER,
+        "PAYMENT_METHOD_TYPE" VARCHAR2(14),
+        "PAYMENT_ACCOUNT_NUMBER" VARCHAR2(19)
+   )
+   ORGANIZATION EXTERNAL
+    ( TYPE ORACLE_LOADER
+      DEFAULT DIRECTORY "UPLOAD"
+      ACCESS PARAMETERS
+      ( RECORDS DELIMITED BY NEWLINE CHARACTERSET US7ASCII
+      BADFILE     'UPLOAD':'transaction_upload.bad'
+      DISCARDFILE 'UPLOAD':'transaction_upload.dis'
+      LOGFILE     'UPLOAD':'transaction_upload.log'
+      FIELDS TERMINATED BY ','
+      OPTIONALLY ENCLOSED BY "'"
+      MISSING FIELD VALUES ARE NULL     )
+      LOCATION
+       ( 'transaction_upload.csv'
+       )
+    )
+   REJECT LIMIT UNLIMITED
+
+1 row selected.</code></pre>
+                                                    <p></p>
+                                                    <p>
+                                                    </p>
+                                                    <p>You can verify that you have access to the
+                                                        external roles:</p>
+                                                    <pre class=" language-sql"><code class=" language-sql"><span class="token keyword">SELECT</span>   <span class="token function">COUNT</span><span class="token punctuation">(</span><span class="token operator">*</span><span class="token punctuation">)</span> <span class="token keyword">AS</span> <span class="token string">"External Rows"</span>
+<span class="token keyword">FROM</span>     transaction_upload<span class="token punctuation">;</span></code></pre>
+                                                    <p>
+                                                    </p>
+                                                    <pre class=" language-markup"><code class=" language-markup">External Rows
+-------------
+        11520</code></pre>
+                                                    <p></p>
+                                                    <p>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <p></p>
+                                    <p>
+                                    </p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <p></p>
+                    <p>
+                    </p>
+                    <p>Test Case</p>
+                    <p>Click the <em><strong>Test Case Instructions</strong></em> link to open the
+                        test case instructions inside the current webpage.</p>
+                    <ul class="collapsible expandable">
+                        <li>
+                            <div title="Click to see the instructions ..." class="collapsible-header" tabindex="0">Test
+                                Case Instructions
+                                <i class="material-icons left">keyboard_arrow_right</i>
+                            </div>
+                            <div class="collapsible-body">
+                                <h4>Test Case Instructions</h4>
+                                <div>
+                                    <p>
+                                    </p>
+                                    <p>You should embed the verification queries from these
+                                        instructions inside your <code>apply_lab9_oracle.sql</code>
+                                        script file. You should call the <code>apply_lab9_oracle.sql</code>
+                                        script from the <code>sqlplus</code> command-line utility</p>
+                                    <p>
+                                    </p>
+                                    <div>
+                                        <pre class=" language-sql"><code class=" language-sql"><span class="token variable">@apply_oracle_lab9.sql</span></code></pre>
+                                    </div>
+                                    <p></p>
+                                    <p>
+                                    </p>
+                                    <p>You should submit your <code>apply_oracle_lab9.sql</code>
+                                        script file and <code>apply_oracle_lab9.txt</code> log file
+                                        for a grade.</p>
+                                    <p>
+                                    </p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <p>
+                    </p>
+                </div>
+                <div class="meta group">
+                </div>
+            </div>
+        </div>
+        <!-- Powered by WPtouch: 4.3.34 -->
+        <!--stats_footer_test-->
+    </div>
+    <script src="Instructions_files/prism.js"></script>
+    <script src="Instructions_files/materialize.js"></script>
+    <script src="Instructions_files/main.js"></script>
+
+
+</body></html>

@@ -19,7 +19,11 @@
 -- ------------------------------------------------------------------
 
 -- Run the prior lab script.
-@/home/student/Data/cit225/oracle/lab8/apply_oracle_lab8.sql
+-- @/home/student/Data/cit225/oracle/lab8/apply_oracle_lab8.sql
+
+-- Import my handy-dandy insertion procedures to reduce code duplication and bugs
+@/home/student/Data/cit225/oracle/lab7/create_insert_common_lookup.sql
+@/home/student/Data/cit225/oracle/lab9/create_insert_airport.sql
 
 -- Open log file.
 SPOOL apply_oracle_lab9.txt
@@ -54,16 +58,31 @@ END;
 --  Step #1 : Create the TRANSACTION table.
 -- ----------------------------------------------------------------------
 -- Create the TRANSACTION table.
-
-
-
+CREATE TABLE transaction
+( transaction_id          NUMBER
+, transaction_account     VARCHAR2(15) NOT NULL  
+, transaction_type        NUMBER       NOT NULL
+, transaction_date        DATE         NOT NULL
+, transaction_amount      NUMBER       NOT NULL
+, rental_id               NUMBER       NOT NULL
+, payment_method_type     NUMBER       NOT NULL
+, payment_account_number  VARCHAR2(19) NOT NULL
+, created_by              NUMBER       NOT NULL
+, creation_date           DATE         NOT NULL
+, last_updated_by         NUMBER       NOT NULL
+, last_update_date        DATE         NOT NULL
+, CONSTRAINT pk_transaction_1          PRIMARY KEY(transaction_id)
+, CONSTRAINT fk_transaction_1          FOREIGN KEY(transaction_type)    REFERENCES common_lookup(common_lookup_id)
+, CONSTRAINT fk_transaction_2          FOREIGN KEY(rental_id)           REFERENCES rental(rental_id)
+, CONSTRAINT fk_transaction_3          FOREIGN KEY(payment_method_type) REFERENCES common_lookup(common_lookup_id)
+, CONSTRAINT fk_transaction_4          FOREIGN KEY(created_by)          REFERENCES system_user(system_user_id)
+, CONSTRAINT fk_transaction_5          FOREIGN KEY(last_updated_by)     REFERENCES system_user(system_user_id));
 
 
 -- ----------------------------------------------------------------------
 --  Step #1 : Create the TRANSACTION sequence.
 -- ----------------------------------------------------------------------
-
-
+CREATE SEQUENCE transaction_s1 START WITH 1;
 
 
 -- ----------------------------------------------------------------------
@@ -97,9 +116,13 @@ ORDER BY 2;
 -- ----------------------------------------------------------------------
 --  Step #1 : Create the NATURAL_KEY index on the TRANSACTION table.
 -- ----------------------------------------------------------------------
-
-
-
+CREATE UNIQUE INDEX natural_key ON transaction
+( rental_id
+, transaction_type
+, transaction_date
+, payment_method_type
+, payment_account_number
+, transaction_account );
 
 
 -- ----------------------------------------------------------------------
@@ -124,9 +147,50 @@ AND      i.index_name = 'NATURAL_KEY';
 -- ----------------------------------------------------------------------
 --  Step #2 : Insert new rows in COMMON_LOOKUP table.
 -- ----------------------------------------------------------------------
+BEGIN
+insert_common_lookup
+( 'TRANSACTION'
+, 'TRANSACTION_TYPE'
+, 'CR'
+, 'CREDIT'
+, 'Credit' );
 
+insert_common_lookup
+( 'TRANSACTION'
+, 'TRANSACTION_TYPE'
+, 'DR'
+, 'DEBIT'
+, 'Debit' );
 
+insert_common_lookup
+( 'TRANSACTION'
+, 'PAYMENT_METHOD_TYPE'
+, ''
+, 'DISCOVER_CARD'
+, 'Discover Card' );
 
+insert_common_lookup
+( 'TRANSACTION'
+, 'PAYMENT_METHOD_TYPE'
+, ''
+, 'VISA_CARD'
+, 'Visa Card' );
+
+insert_common_lookup
+( 'TRANSACTION'
+, 'PAYMENT_METHOD_TYPE'
+, ''
+, 'MASTER_CARD'
+, 'Master Card' );
+
+insert_common_lookup
+( 'TRANSACTION'
+, 'PAYMENT_METHOD_TYPE'
+, ''
+, 'CASH'
+, 'Cash' );
+END;
+/
 
 
 -- ----------------------------------------------------------------------
@@ -165,17 +229,25 @@ END;
 -- ----------------------------------------------------------------------
 --  Step #3a : Create the AIRPORT table.
 -- ----------------------------------------------------------------------
-
-
-
+CREATE TABLE airport
+( airport_id        NUMBER
+, airport_code      VARCHAR2(3)  NOT NULL  
+, airport_city      VARCHAR2(30) NOT NULL  
+, city              VARCHAR2(30) NOT NULL  
+, state_province    VARCHAR2(30) NOT NULL  
+, created_by        NUMBER       NOT NULL
+, creation_date     DATE         NOT NULL
+, last_updated_by   NUMBER       NOT NULL
+, last_update_date  DATE         NOT NULL
+, CONSTRAINT pk_airport_1          PRIMARY KEY(airport_id)
+, CONSTRAINT fk_airport_1          FOREIGN KEY(created_by)          REFERENCES system_user(system_user_id)
+, CONSTRAINT fk_airport_2          FOREIGN KEY(last_updated_by)     REFERENCES system_user(system_user_id));
 
 
 -- ----------------------------------------------------------------------
 --  Step #3a : Create the AIRPORT sequence.
 -- ----------------------------------------------------------------------
-
-
-
+CREATE SEQUENCE airport_s1 START WITH 1001;
 
 
 -- ----------------------------------------------------------------------
@@ -205,9 +277,11 @@ ORDER BY 2;
 -- ----------------------------------------------------------------------
 --  Step #3b : Create natural key index on the AIRPORT table.
 -- ----------------------------------------------------------------------
-
-
-
+CREATE UNIQUE INDEX nk_airport ON airport
+( airport_code
+, airport_city
+, city
+, state_province );
 
 
 -- ----------------------------------------------------------------------
@@ -232,9 +306,44 @@ AND      i.index_name = 'NK_AIRPORT';
 -- ----------------------------------------------------------------------
 --  Step #3c : Insert rows into the AIRPORT table.
 -- ----------------------------------------------------------------------
+BEGIN
+insert_airport
+( 'LAX'
+, 'Los Angeles'
+, 'Los Angeles'
+, 'California' );
 
+insert_airport
+( 'SFO'
+, 'San Francisco'
+, 'San Francisco'
+, 'California' );
 
+insert_airport
+( 'SJC'
+, 'San Jose'
+, 'San Jose'
+, 'California' );
 
+insert_airport
+( 'SJC'
+, 'San Jose'
+, 'San Carlos'
+, 'California' );
+
+insert_airport
+( 'SLC'
+, 'Salt Lake City'
+, 'Provo'
+, 'Utah' );
+
+insert_airport
+( 'SLC'
+, 'Salt Lake City'
+, 'Spanish Fork'
+, 'Utah' );
+END;
+/
 
 
 -- ----------------------------------------------------------------------
@@ -268,17 +377,25 @@ END;
 -- ----------------------------------------------------------------------
 --  Step #3d : Create the ACCOUNT_LIST table.
 -- ----------------------------------------------------------------------
-
-
-
+CREATE TABLE account_list
+( account_list_id   NUMBER
+, account_number    VARCHAR2(10) NOT NULL  
+, consumed_date     DATE
+, consumed_by       NUMBER
+, created_by        NUMBER       NOT NULL
+, creation_date     DATE         NOT NULL
+, last_updated_by   NUMBER       NOT NULL
+, last_update_date  DATE         NOT NULL
+, CONSTRAINT pk_account_list_1          PRIMARY KEY(account_list_id)
+, CONSTRAINT fk_account_list_1          FOREIGN KEY(consumed_by)         REFERENCES system_user(system_user_id)
+, CONSTRAINT fk_account_list_2          FOREIGN KEY(created_by)          REFERENCES system_user(system_user_id)
+, CONSTRAINT fk_account_list_3          FOREIGN KEY(last_updated_by)     REFERENCES system_user(system_user_id));
 
 
 -- ----------------------------------------------------------------------
 --  Step #3d : Create the ACCOUNT_LIST sequence.
 -- ----------------------------------------------------------------------
-
-
-
+CREATE SEQUENCE account_list_s1 START WITH 1001;
 
 
 -- ----------------------------------------------------------------------
@@ -364,7 +481,7 @@ SHOW ERRORS
 SET SERVEROUTPUT ON SIZE 99999
 
 -- Call the nested loop seeding procedure.
-EXECUTE seed_account_list;
+EXECUTE seed_account_list();
 
 -- ----------------------------------------------------------------------
 --  Verify #3e : Verify the values in the ACCOUNT_LIST table.
@@ -380,9 +497,13 @@ ORDER BY 1;
 -- ----------------------------------------------------------------------
 --  Step #3f : Update the ADDRESS table.
 -- ----------------------------------------------------------------------
+UPDATE address
+SET    state_province = 'California'
+WHERE  state_province = 'CA';
 
-
-
+UPDATE address
+SET    state_province = 'Utah'
+WHERE  state_province = 'UT';
 
 
 -- ----------------------------------------------------------------------
@@ -624,10 +745,33 @@ END;
 -- ----------------------------------------------
 --  Step #4 : Create Oracle external table.
 -- ----------------------------------------------
-
-
-
-
+CREATE TABLE transaction_upload
+( account_number          VARCHAR2(10)
+, first_name              VARCHAR2(20)
+, middle_name             VARCHAR2(20)
+, last_name               VARCHAR2(20)
+, check_out_date          DATE
+, return_date             DATE
+, rental_item_type        VARCHAR2(12)
+, transaction_type        VARCHAR2(14)
+, transaction_amount      NUMBER
+, transaction_date        DATE
+, item_id                 NUMBER
+, payment_method_type     VARCHAR2(14)
+, payment_account_number  VARCHAR2(19))
+  ORGANIZATION EXTERNAL
+  ( TYPE oracle_loader
+    DEFAULT DIRECTORY upload
+    ACCESS PARAMETERS
+    ( RECORDS DELIMITED BY NEWLINE CHARACTERSET US7ASCII
+      BADFILE     'UPLOAD':'transaction_upload.bad'
+      DISCARDFILE 'UPLOAD':'transaction_upload.dis'
+      LOGFILE     'UPLOAD':'transaction_upload.log'
+      FIELDS TERMINATED BY ','
+      OPTIONALLY ENCLOSED BY "'"
+      MISSING FIELD VALUES ARE NULL )
+    LOCATION ( 'transaction_upload.csv' ))
+  REJECT LIMIT UNLIMITED;
 
 
 -- ----------------------------------------------
