@@ -19,7 +19,7 @@
 -- ------------------------------------------------------------------
 
 -- Run the prior lab script.
--- @/home/student/Data/cit225/oracle/lab8/apply_oracle_lab8.sql
+@/home/student/Data/cit225/oracle/lab8/apply_oracle_lab8.sql
 
 -- Import my handy-dandy insertion procedures to reduce code duplication and bugs
 @/home/student/Data/cit225/oracle/lab7/create_insert_common_lookup.sql
@@ -147,6 +147,10 @@ AND      i.index_name = 'NATURAL_KEY';
 -- ----------------------------------------------------------------------
 --  Step #2 : Insert new rows in COMMON_LOOKUP table.
 -- ----------------------------------------------------------------------
+-- First enable a 2-character code to fit the transaction_type instructions
+ALTER TABLE common_lookup
+  MODIFY (common_lookup_code VARCHAR2(2));
+
 BEGIN
 insert_common_lookup
 ( 'TRANSACTION'
@@ -207,7 +211,8 @@ SELECT common_lookup_id
 ,      common_lookup_type
 ,      common_lookup_code
 FROM   common_lookup
-WHERE  common_lookup_table IN ('TRANSACTION','RENTAL_ITEM');
+WHERE  common_lookup_table = 'TRANSACTION'
+ORDER BY 2, 3, 4, 5 DESC;
 
 -- ----------------------------------------------------------------------
 --  Step #3a : Create and seed AIRPORT and ACCOUNT_LIST tables.

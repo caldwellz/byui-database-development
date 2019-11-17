@@ -1,0 +1,83 @@
+SQL> 
+SQL> -- Transaction Management Example.
+SQL> CREATE OR REPLACE PROCEDURE insert_common_lookup
+  2  ( pv_cl_table	      VARCHAR2
+  3  , pv_cl_column	      VARCHAR2
+  4  , pv_cl_code	      VARCHAR2
+  5  , pv_cl_type	      VARCHAR2
+  6  , pv_cl_meaning	      VARCHAR2
+  7  , pv_cl_id 	      NUMBER   := NULL
+  8  , pv_created_by	      NUMBER   := NULL
+  9  , pv_creation_date       DATE     := SYSDATE
+ 10  , pv_last_updated_by     NUMBER   := NULL
+ 11  , pv_last_update_date    DATE     := SYSDATE) IS
+ 12  
+ 13  id_common_lookup	      NUMBER   := pv_cl_id;
+ 14  id_created_by	      NUMBER   := pv_created_by;
+ 15  id_last_updated_by       NUMBER   := pv_last_updated_by;
+ 16  
+ 17  BEGIN
+ 18  
+ 19    /* Create a SAVEPOINT as a starting point. */
+ 20    SAVEPOINT starting_point;
+ 21  
+ 22    -- Use sequence nextval if no lookup ID was given
+ 23    IF pv_cl_id IS NULL THEN
+ 24  	 id_common_lookup := common_lookup_s1.nextval;
+ 25    END IF;
+ 26  
+ 27    -- Default to sysadmin if no user ids given
+ 28    IF pv_created_by IS NULL THEN
+ 29  	 SELECT   system_user_id
+ 30  	 INTO	  id_created_by
+ 31  	 FROM	  system_user
+ 32  	 WHERE	  system_user_name = 'SYSADMIN';
+ 33    END IF;
+ 34  
+ 35    IF pv_last_updated_by IS NULL THEN
+ 36  	 SELECT   system_user_id
+ 37  	 INTO	  id_last_updated_by
+ 38  	 FROM	  system_user
+ 39  	 WHERE	  system_user_name = 'SYSADMIN';
+ 40    END IF;
+ 41  
+ 42    /* Insert into the common_lookup table. */
+ 43    INSERT INTO common_lookup
+ 44    ( common_lookup_id
+ 45    , common_lookup_table
+ 46    , common_lookup_column
+ 47    , common_lookup_code
+ 48    , common_lookup_type
+ 49    , common_lookup_meaning
+ 50    , created_by
+ 51    , creation_date
+ 52    , last_updated_by
+ 53    , last_update_date )
+ 54    VALUES
+ 55    ( id_common_lookup
+ 56    , pv_cl_table
+ 57    , pv_cl_column
+ 58    , pv_cl_code
+ 59    , pv_cl_type
+ 60    , pv_cl_meaning
+ 61    , id_created_by
+ 62    , pv_creation_date
+ 63    , id_last_updated_by
+ 64    , pv_last_update_date );
+ 65  
+ 66    /* Commit the insert. */
+ 67    COMMIT;
+ 68  EXCEPTION
+ 69    WHEN OTHERS THEN
+ 70  	 ROLLBACK TO starting_point;
+ 71  	 RETURN;
+ 72  END insert_common_lookup;
+ 73  /
+
+Procedure created.
+
+SQL> 
+SQL> -- ------------------------------------------------------------------
+SQL> --  Close log file.
+SQL> -- ------------------------------------------------------------------
+SQL> SPOOL OFF

@@ -1,0 +1,80 @@
+SQL> 
+SQL> -- Transaction Management Example.
+SQL> CREATE OR REPLACE PROCEDURE insert_airport
+  2  ( pv_airport_code	   VARCHAR2
+  3  , pv_airport_city	   VARCHAR2
+  4  , pv_city		   VARCHAR2
+  5  , pv_state_province   VARCHAR2
+  6  , pv_airport_id	   NUMBER   := NULL
+  7  , pv_created_by	   NUMBER   := NULL
+  8  , pv_creation_date    DATE     := SYSDATE
+  9  , pv_last_updated_by  NUMBER   := NULL
+ 10  , pv_last_update_date DATE     := SYSDATE) IS
+ 11  
+ 12  id_airport 	   NUMBER   := pv_airport_id;
+ 13  id_created_by	   NUMBER   := pv_created_by;
+ 14  id_last_updated_by    NUMBER   := pv_last_updated_by;
+ 15  
+ 16  BEGIN
+ 17  
+ 18    /* Create a SAVEPOINT as a starting point. */
+ 19    SAVEPOINT starting_point;
+ 20  
+ 21    -- Use sequence nextval if no lookup ID was given
+ 22    IF pv_airport_id IS NULL THEN
+ 23  	 id_airport := airport_s1.nextval;
+ 24    END IF;
+ 25  
+ 26    -- Default to sysadmin if no user ids given
+ 27    IF pv_created_by IS NULL THEN
+ 28  	 SELECT   system_user_id
+ 29  	 INTO	  id_created_by
+ 30  	 FROM	  system_user
+ 31  	 WHERE	  system_user_name = 'SYSADMIN';
+ 32    END IF;
+ 33  
+ 34    IF pv_last_updated_by IS NULL THEN
+ 35  	 SELECT   system_user_id
+ 36  	 INTO	  id_last_updated_by
+ 37  	 FROM	  system_user
+ 38  	 WHERE	  system_user_name = 'SYSADMIN';
+ 39    END IF;
+ 40  
+ 41    /* Insert into the airport table. */
+ 42    INSERT INTO airport
+ 43    ( airport_id
+ 44    , airport_code
+ 45    , airport_city
+ 46    , city
+ 47    , state_province
+ 48    , created_by
+ 49    , creation_date
+ 50    , last_updated_by
+ 51    , last_update_date )
+ 52    VALUES
+ 53    ( id_airport
+ 54    , pv_airport_code
+ 55    , pv_airport_city
+ 56    , pv_city
+ 57    , pv_state_province
+ 58    , id_created_by
+ 59    , pv_creation_date
+ 60    , id_last_updated_by
+ 61    , pv_last_update_date );
+ 62  
+ 63    /* Commit the insert. */
+ 64    COMMIT;
+ 65  EXCEPTION
+ 66    WHEN OTHERS THEN
+ 67  	 ROLLBACK TO starting_point;
+ 68  	 RETURN;
+ 69  END insert_airport;
+ 70  /
+
+Warning: Procedure created with compilation errors.
+
+SQL> 
+SQL> -- ------------------------------------------------------------------
+SQL> --  Close log file.
+SQL> -- ------------------------------------------------------------------
+SQL> SPOOL OFF
