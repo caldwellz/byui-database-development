@@ -19,7 +19,7 @@
 -- ------------------------------------------------------------------
 
 -- Run the prior lab script.
--- @/home/student/Data/cit225/oracle/lab9/apply_oracle_lab9.sql
+@/home/student/Data/cit225/oracle/lab9/apply_oracle_lab9.sql
 
 SPOOL apply_oracle_lab10.txt
 
@@ -95,10 +95,10 @@ FROM    (SELECT   DISTINCT
          FROM   member m INNER JOIN transaction_upload tu
          ON     m.account_number = tu.account_number
          INNER JOIN contact c
-         ON     m.member_id = c.member_id LEFT JOIN rental r2
-         ON     c.contact_id = r2.customer_id
-         AND TRUNC(tu.check_out_date) = TRUNC(r2.check_out_date)
-         AND TRUNC(tu.return_date) = TRUNC(r2.return_date)
+         ON     m.member_id = c.member_id LEFT JOIN rental r
+         ON     c.contact_id = r.customer_id
+         AND TRUNC(tu.check_out_date) = TRUNC(r.check_out_date)
+         AND TRUNC(tu.return_date) = TRUNC(r.return_date)
          WHERE  c.first_name = tu.first_name
          AND    NVL(c.middle_name,'x') = NVL(tu.middle_name,'x')
          AND    c.last_name = tu.last_name) r;
@@ -146,7 +146,7 @@ FROM     member m INNER JOIN transaction_upload tu
          ON     m.account_number = tu.account_number
          INNER JOIN contact c
          ON     m.member_id = c.member_id LEFT JOIN rental r
-         ON     c.contact_id = r2.customer_id
+         ON     c.contact_id = r.customer_id
          AND TRUNC(tu.check_out_date) = TRUNC(r.check_out_date)
          AND TRUNC(tu.return_date) = TRUNC(r.return_date)
          LEFT JOIN common_lookup cl
@@ -241,11 +241,11 @@ COLUMN last_updated_by        FORMAT 9999 HEADING "Last|Update|By"
 COLUMN last_update_date       FORMAT A10  HEADING "Last|Updated"
 SELECT   t.transaction_id
 ,        tu.payment_account_number AS transaction_account
-,        cl1.common_lookup_id AS transaction_type
+,        cl4.common_lookup_id AS transaction_type
 ,        TRUNC(tu.transaction_date) AS transaction_date
 ,       (SUM(tu.transaction_amount) / 1.06) AS transaction_amount
 ,        r.rental_id
-,        cl4.common_lookup_id AS payment_method_type
+,        cl3.common_lookup_id AS payment_method_type
 ,        m.credit_card_number AS payment_account_number
 ,        1001 AS created_by
 ,        TRUNC(SYSDATE) AS creation_date
@@ -260,44 +260,44 @@ FROM     member m
            ON     c.contact_id = r.customer_id
            AND TRUNC(tu.check_out_date) = TRUNC(r.check_out_date)
            AND TRUNC(tu.return_date) = TRUNC(r.return_date)
-         LEFT JOIN common_lookup cl
-           ON cl.common_lookup_table = 'RENTAL_ITEM'
-           AND cl.common_lookup_column = 'RENTAL_ITEM_TYPE'
-           AND tu.rental_item_type = cl.common_lookup_type
+         LEFT JOIN common_lookup cl1
+           ON cl1.common_lookup_table = 'RENTAL_ITEM'
+           AND cl1.common_lookup_column = 'RENTAL_ITEM_TYPE'
+           AND cl1.common_lookup_type = tu.rental_item_type
          LEFT JOIN rental_item ri
            ON r.rental_id = ri.rental_id
          LEFT JOIN common_lookup cl2
            ON cl2.common_lookup_table = 'PRICE'
            AND cl2.common_lookup_column = 'PRICE_TYPE'
-           AND cl2.common_lookup_code = cl.common_lookup_code
+           AND cl2.common_lookup_code = cl1.common_lookup_code
          LEFT JOIN price p
            ON p.item_id = tu.item_id
            AND p.price_type = cl2.common_lookup_id
            AND p.active_flag = 'Y'
          LEFT JOIN common_lookup cl3
            ON cl3.common_lookup_table = 'TRANSACTION'
-           AND cl3.common_lookup_column = 'TRANSACTION_TYPE'
-           AND cl3.common_lookup_type = tu.transaction_type
+           AND cl3.common_lookup_column = 'PAYMENT_METHOD_TYPE'
+           AND cl3.common_lookup_type = tu.payment_method_type
          LEFT JOIN common_lookup cl4
            ON cl4.common_lookup_table = 'TRANSACTION'
-           AND cl4.common_lookup_column = 'PAYMENT_METHOD_TYPE'
-           AND cl4.common_lookup_type = tu.payment_method_type
+           AND cl4.common_lookup_column = 'TRANSACTION_TYPE'
+           AND cl4.common_lookup_type = tu.transaction_type
          LEFT JOIN transaction t
-           ON t.transaction_account = tu.account_number
-           AND t.transaction_type = cl3.common_lookup_id
-           AND t.transaction_date = tu.transaction_date
+           ON t.transaction_account = tu.payment_account_number
            AND t.rental_id = r.rental_id
-           AND t.payment_method_type = cl4.common_lookup_id
-           AND t.payment_account_number = tu.payment_account_number
+           AND t.transaction_type = cl4.common_lookup_id
+           AND t.transaction_date = tu.transaction_date
+           AND t.payment_method_type = cl3.common_lookup_id
+           AND t.payment_account_number = m.credit_card_number
          WHERE  c.first_name = tu.first_name
            AND    NVL(c.middle_name,'x') = NVL(tu.middle_name,'x')
            AND    c.last_name = tu.last_name
 GROUP BY t.transaction_id
 ,        tu.payment_account_number
-,        cl1.common_lookup_id
+,        cl4.common_lookup_id
 ,        tu.transaction_date
 ,        r.rental_id
-,        cl2.common_lookup_id
+,        cl3.common_lookup_id
 ,        m.credit_card_number
 ,        1001
 ,        TRUNC(SYSDATE)
@@ -327,17 +327,17 @@ SELECT   NVL(t.transaction_id,transaction_s1.NEXTVAL) transaction_id
 ,        t.last_updated_by
 ,        t.last_update_date
 FROM    (SELECT   t.transaction_id
-         ,        tu.payment_account_number AS transaction_account
-         ,        cl1.common_lookup_id AS transaction_type
-         ,        tu.transaction_date
-         ,       (SUM(tu.transaction_amount) / 1.06) AS transaction_amount
-         ,        r.rental_id
-         ,        cl2.common_lookup_id AS payment_method_type
-         ,        m.credit_card_number AS payment_account_number
-         ,        1001 AS created_by
-         ,        TRUNC(SYSDATE) AS creation_date
-         ,        1001 AS last_updated_by
-         ,        TRUNC(SYSDATE) AS last_update_date
+        ,        tu.payment_account_number AS transaction_account
+        ,        cl4.common_lookup_id AS transaction_type
+        ,        TRUNC(tu.transaction_date) AS transaction_date
+        ,       (SUM(tu.transaction_amount) / 1.06) AS transaction_amount
+        ,        r.rental_id
+        ,        cl3.common_lookup_id AS payment_method_type
+        ,        m.credit_card_number AS payment_account_number
+        ,        1001 AS created_by
+        ,        TRUNC(SYSDATE) AS creation_date
+        ,        1001 AS last_updated_by
+        ,        TRUNC(SYSDATE) AS last_update_date
          FROM     member m
          INNER JOIN transaction_upload tu
            ON     m.account_number = tu.account_number
@@ -347,49 +347,49 @@ FROM    (SELECT   t.transaction_id
            ON     c.contact_id = r.customer_id
            AND TRUNC(tu.check_out_date) = TRUNC(r.check_out_date)
            AND TRUNC(tu.return_date) = TRUNC(r.return_date)
-         LEFT JOIN common_lookup cl
-           ON cl.common_lookup_table = 'RENTAL_ITEM'
-           AND cl.common_lookup_column = 'RENTAL_ITEM_TYPE'
-           AND tu.rental_item_type = cl.common_lookup_type
+         LEFT JOIN common_lookup cl1
+           ON cl1.common_lookup_table = 'RENTAL_ITEM'
+           AND cl1.common_lookup_column = 'RENTAL_ITEM_TYPE'
+           AND cl1.common_lookup_type = tu.rental_item_type
          LEFT JOIN rental_item ri
            ON r.rental_id = ri.rental_id
          LEFT JOIN common_lookup cl2
            ON cl2.common_lookup_table = 'PRICE'
            AND cl2.common_lookup_column = 'PRICE_TYPE'
-           AND cl2.common_lookup_code = cl.common_lookup_code
+           AND cl2.common_lookup_code = cl1.common_lookup_code
          LEFT JOIN price p
            ON p.item_id = tu.item_id
            AND p.price_type = cl2.common_lookup_id
            AND p.active_flag = 'Y'
          LEFT JOIN common_lookup cl3
            ON cl3.common_lookup_table = 'TRANSACTION'
-           AND cl3.common_lookup_column = 'TRANSACTION_TYPE'
-           AND cl3.common_lookup_type = tu.transaction_type
+           AND cl3.common_lookup_column = 'PAYMENT_METHOD_TYPE'
+           AND cl3.common_lookup_type = tu.payment_method_type
          LEFT JOIN common_lookup cl4
            ON cl4.common_lookup_table = 'TRANSACTION'
-           AND cl4.common_lookup_column = 'PAYMENT_METHOD_TYPE'
-           AND cl4.common_lookup_type = tu.payment_method_type
+           AND cl4.common_lookup_column = 'TRANSACTION_TYPE'
+           AND cl4.common_lookup_type = tu.transaction_type
          LEFT JOIN transaction t
-           ON t.transaction_account = tu.account_number
-           AND t.transaction_type = cl3.common_lookup_id
-           AND t.transaction_date = tu.transaction_date
+           ON t.transaction_account = tu.payment_account_number
            AND t.rental_id = r.rental_id
-           AND t.payment_method_type = cl4.common_lookup_id
-           AND t.payment_account_number = tu.payment_account_number
+           AND t.transaction_type = cl4.common_lookup_id
+           AND t.transaction_date = tu.transaction_date
+           AND t.payment_method_type = cl3.common_lookup_id
+           AND t.payment_account_number = m.credit_card_number
          WHERE  c.first_name = tu.first_name
            AND    NVL(c.middle_name,'x') = NVL(tu.middle_name,'x')
            AND    c.last_name = tu.last_name
-         GROUP BY t.transaction_id
-         ,        tu.payment_account_number
-         ,        cl1.common_lookup_id
-         ,        tu.transaction_date
-         ,        r.rental_id
-         ,        cl2.common_lookup_id
-         ,        m.credit_card_number
-         ,        1001
-         ,        TRUNC(SYSDATE)
-         ,        1001
-         ,        TRUNC(SYSDATE)) t;
+        GROUP BY t.transaction_id
+        ,        tu.payment_account_number
+        ,        cl4.common_lookup_id
+        ,        tu.transaction_date
+        ,        r.rental_id
+        ,        cl3.common_lookup_id
+        ,        m.credit_card_number
+        ,        1001
+        ,        TRUNC(SYSDATE)
+        ,        1001
+        ,        TRUNC(SYSDATE)) t;
 
 
 
