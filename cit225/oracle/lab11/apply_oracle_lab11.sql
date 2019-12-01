@@ -19,7 +19,7 @@
 -- ------------------------------------------------------------------
 
 -- Run the prior lab script.
-@/home/student/Data/cit225/oracle/lab9/apply_oracle_lab9.sql
+-- @/home/student/Data/cit225/oracle/lab9/apply_oracle_lab9.sql
 
 -- Spool log file.
 SPOOL apply_oracle_lab11.txt
@@ -346,9 +346,6 @@ FROM    (SELECT COUNT(*) AS rental_count FROM rental) CROSS JOIN
 -- --------------------------------------------------------
 --  Step #5 : Demonstrate aggregation with sorting options.
 -- --------------------------------------------------------
--- Expand line length in environment.
-SET LINESIZE 150
-COLUMN month FORMAT A10 HEADING "MONTH"
 
 -- Query, aggregate, and sort data.
 -- Query for initial counts, should return:
@@ -369,17 +366,34 @@ COLUMN month FORMAT A10 HEADING "MONTH"
 -- DEC-2009        $2,340.48      $2,574.53      $2,808.58        $234.05        $468.10
 -- --------------------------------------------------------------------------------------------
 
-
-
-
-
-
-
-
-
-
-
-
+-- Expand line length in environment.
+SET LINESIZE 150
+SET PAGESIZE 20
+COLUMN month         FORMAT A8 HEADING "Month"
+COLUMN base          FORMAT A11 HEADING "Base|Revenue"
+COLUMN ten_plus_b    FORMAT A11 HEADING "10 Plus|Revenue"
+COLUMN twenty_plus_b FORMAT A11 HEADING "20 Plus|Revenue"
+COLUMN ten_plus      FORMAT A11 HEADING "10 Plus|Difference"
+COLUMN twenty_plus   FORMAT A11 HEADING "20 Plus|Difference"
+SELECT
+    TO_CHAR(TO_DATE(td.mo,'MM'),'MON')
+    || '-' || td.yr AS month,
+    TO_CHAR(td.base, '$99,999.00') AS base
+,   TO_CHAR(td.base + td.tenper, '$99,999.00') AS ten_plus_b
+,   TO_CHAR(td.base + (2 * td.tenper), '$99,999.00') AS twenty_plus_b
+,   TO_CHAR(td.tenper, '$99,999.00') AS ten_plus
+,   TO_CHAR(2 * td.tenper, '$99,999.00') AS twenty_plus
+    FROM (SELECT
+        EXTRACT(MONTH FROM transaction_date) AS mo
+        , EXTRACT(YEAR FROM transaction_date) AS yr
+        , (SUM(transaction_amount) / 1.06) AS base -- Adjust for 6% tax / "interest"
+        , ((SUM(transaction_amount) / 1.06) * 0.1) AS tenper
+        FROM transaction
+        WHERE EXTRACT(YEAR FROM transaction_date) = 2009
+        GROUP BY
+        EXTRACT(YEAR FROM transaction_date)
+,       EXTRACT(MONTH FROM transaction_date)) td
+    ORDER BY td.mo;
 
 
 SPOOL OFF
