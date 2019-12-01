@@ -85,6 +85,7 @@ FROM     rental_item;
 MERGE INTO rental_item target
 USING (SELECT   r.rental_id
        ,        tu.item_id
+       ,        ri.rental_item_id
        ,        1001 AS created_by
        ,        TRUNC(SYSDATE) AS creation_date
        ,        1001 AS last_updated_by
