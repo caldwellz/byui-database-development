@@ -19,7 +19,7 @@
 -- ------------------------------------------------------------------
 
 -- Run the prior lab script.
--- @/home/student/Data/cit225/oracle/lab9/apply_oracle_lab9.sql
+@/home/student/Data/cit225/oracle/lab9/apply_oracle_lab9.sql
 
 -- Spool log file.
 SPOOL apply_oracle_lab11.txt
