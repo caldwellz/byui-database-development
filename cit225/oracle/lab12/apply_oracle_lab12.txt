@@ -1,0 +1,121 @@
+
+PL/SQL procedure successfully completed.
+
+
+Table created.
+
+
+Sequence created.
+
+
+TABLE_NAME       COLUMN_ID COLUMN_NAME            NULLABLE DATA_TYPE            
+---------------- --------- ---------------------- -------- ------------         
+CALENDAR                 1 CALENDAR_ID            NOT NULL NUMBER(22)           
+CALENDAR                 2 CALENDAR_NAME          NOT NULL VARCHAR2(10)         
+CALENDAR                 3 CALENDAR_SHORT_NAME    NOT NULL VARCHAR2(3)          
+CALENDAR                 4 START_DATE             NOT NULL DATE                 
+CALENDAR                 5 END_DATE               NOT NULL DATE                 
+CALENDAR                 6 CREATED_BY             NOT NULL NUMBER(22)           
+CALENDAR                 7 CREATION_DATE          NOT NULL DATE                 
+CALENDAR                 8 LAST_UPDATED_BY        NOT NULL NUMBER(22)           
+CALENDAR                 9 LAST_UPDATE_DATE       NOT NULL DATE                 
+
+9 rows selected.
+
+
+                                                            C                   
+Constraint Name        Search Condition                     T                   
+---------------------- ------------------------------------ -                   
+PK_CALENDAR_1                                               P                   
+SYS_C0023500           "CALENDAR_NAME" IS NOT NULL          C                   
+SYS_C0023501           "CALENDAR_SHORT_NAME" IS NOT NULL    C                   
+SYS_C0023502           "START_DATE" IS NOT NULL             C                   
+SYS_C0023503           "END_DATE" IS NOT NULL               C                   
+SYS_C0023504           "CREATED_BY" IS NOT NULL             C                   
+SYS_C0023505           "CREATION_DATE" IS NOT NULL          C                   
+SYS_C0023506           "LAST_UPDATED_BY" IS NOT NULL        C                   
+SYS_C0023507           "LAST_UPDATE_DATE" IS NOT NULL       C                   
+
+9 rows selected.
+
+
+Constraint Name:                       References:                              
+ Table.Column                           Table.Column                            
+-------------------------------------- ---------------------------------------- 
+FK_CALENDAR_1                          REFERENCES                               
+(CALENDAR.CREATED_BY)                  (SYSTEM_USER.SYSTEM_USER_ID)             
+                                                                                
+FK_CALENDAR_2                          REFERENCES                               
+(CALENDAR.LAST_UPDATED_BY)             (SYSTEM_USER.SYSTEM_USER_ID)             
+                                                                                
+
+
+PL/SQL procedure successfully completed.
+
+
+           Calendar                                                             
+Calendar   Short    Start     End                                               
+Name       Name     Date      Date                                              
+---------- -------- --------- ---------                                         
+January    JAN      01-JAN-09 31-JAN-09                                         
+February   FEB      01-FEB-09 28-FEB-09                                         
+March      MAR      01-MAR-09 31-MAR-09                                         
+April      APR      01-APR-09 30-APR-09                                         
+May        MAY      01-MAY-09 31-MAY-09                                         
+June       JUN      01-JUN-09 30-JUN-09                                         
+July       JUL      01-JUL-09 31-JUL-09                                         
+August     AUG      01-AUG-09 31-AUG-09                                         
+September  SEP      01-SEP-09 30-SEP-09                                         
+October    OCT      01-OCT-09 31-OCT-09                                         
+November   NOV      01-NOV-09 30-NOV-09                                         
+December   DEC      01-DEC-09 31-DEC-09                                         
+
+12 rows selected.
+
+
+Statement                                                                       
+----------------------------------------------                                  
+Conditionally drop TRANSACTION_REVERSAL table.                                  
+
+
+PL/SQL procedure successfully completed.
+
+
+Table created.
+
+
+  COUNT(*)                                                                      
+----------                                                                      
+      1170                                                                      
+
+
+0 rows deleted.
+
+
+1170 rows created.
+
+
+Debit Transactions   Credit Transactions  All Transactions                      
+-------------------- -------------------- --------------------                  
+              4,681                1,170                5,851                   
+
+
+Transaction     Jan                                      Feb                                      Mar                                      F1Q        Apr                                      May                
+--------------- ---------------------------------------- ---------------------------------------- ---------------------------------------- ---------- ---------------------------------------- ----------         
+Jun                                      F2Q        Jul                                      Aug                                      Sep                                      F3Q                                
+---------------------------------------- ---------- ---------------------------------------- ---------------------------------------- ---------------------------------------- ----------                         
+Oct                                      Nov                                      Dec                                      F4Q        YTD                                                                         
+---------------------------------------- ---------------------------------------- ---------------------------------------- ---------- ------------                                                                
+Debit             6,870.00                                16,071.00                                24,717.00                                47,658.00  20,571.00                                 5,589.00         
+  1,992.00                                28,152.00   5,310.00                                 4,767.00                                 4,683.00                                14,760.00                         
+  9,582.00                                 8,937.00                                 6,186.00                                24,705.00 ##########                                                                  
+                                                                                                                                                                                                                  
+Credit             -690.06                                -1,055.76                                -1,405.56                                -3,151.38  -1,192.50                                  -553.32         
+   -298.92                                -2,044.74    -604.20                                  -553.32                                  -581.94                                -1,739.46                         
+   -874.50                                  -833.16                                  -601.02                                -2,308.68  -9,244.26                                                                  
+                                                                                                                                                                                                                  
+Total             6,179.94                                15,015.24                                23,311.44                                44,506.62  19,378.50                                 5,035.68         
+  1,693.08                                26,107.26   4,705.80                                 4,213.68                                 4,101.06                                13,020.54                         
+  8,707.50                                 8,103.84                                 5,584.98                                22,396.32 ##########                                                                  
+                                                                                                                                                                                                                  
+
