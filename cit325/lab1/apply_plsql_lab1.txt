@@ -1,0 +1,36 @@
+
+FULL_NAME            TITLE                        PRODUCT                       
+-------------------- ---------------------------- --------                      
+Sweeney M Ian        Camelot                      DVD                           
+Sweeney M Ian        The Hunt for Red October     DVD                           
+Sweeney Matthew      Camelot                      DVD                           
+Sweeney Matthew      The Hunt for Red October     DVD                           
+Sweeney Meaghan      Camelot                      DVD                           
+Sweeney Meaghan      The Hunt for Red October     DVD                           
+Vizquel Doreen       Camelot                      DVD                           
+Vizquel Doreen       The Hunt for Red October     DVD                           
+Vizquel Oscar        Camelot                      DVD                           
+Vizquel Oscar        The Hunt for Red October     DVD                           
+Winn Brian           Camelot                      DVD                           
+Winn Brian           The Hunt for Red October     DVD                           
+Winn Randi           Camelot                      DVD                           
+Winn Randi           The Hunt for Red October     DVD                           
+
+14 rows selected.
+
+
+TABLE_NAME                                                                      
+------------------------------                                                  
+ADDRESS                                                                         
+COMMON_LOOKUP                                                                   
+CONTACT                                                                         
+ITEM                                                                            
+MEMBER                                                                          
+RENTAL                                                                          
+RENTAL_ITEM                                                                     
+STREET_ADDRESS                                                                  
+SYSTEM_USER                                                                     
+TELEPHONE                                                                       
+
+10 rows selected.
+
