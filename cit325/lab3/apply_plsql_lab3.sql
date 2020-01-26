@@ -42,6 +42,8 @@ BEGIN
             lv_date := TO_DATE(pv_date_in);
           END IF;
         END IF;
+      ELSE
+        lv_date := NULL;
     END CASE;
   END IF;
   /* Return date. */
@@ -82,3 +84,5 @@ BEGIN
   dbms_output.put_line('Record ['||lv_three.xnum||'] ['||lv_three.xstring||'] ['||lv_three.xdate||']');
 END;
 /
+
+QUIT;
