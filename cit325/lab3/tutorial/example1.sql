@@ -3,7 +3,7 @@ DECLARE
   TYPE list IS TABLE OF VARCHAR2(10);
 
   /* Declare a variable of the string collection. */
-  lv_strings  LIST := list();
+  lv_strings  LIST := list('10','Ten','Twelve12');
 BEGIN
   /* Assign values. */
   lv_strings.EXTEND;
