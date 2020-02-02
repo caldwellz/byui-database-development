@@ -12,20 +12,19 @@
 SPOOL apply_plsql_lab4.txt
 
 SET SERVEROUTPUT ON SIZE UNLIMITED
-SET VERIFY OFF
+
+CREATE OR REPLACE
+  TYPE lyric IS OBJECT (
+    day_name  VARCHAR2(8)    
+  , gift_name VARCHAR2(24));
+/
 
 DECLARE
-  TYPE str8_list IS TABLE OF VARCHAR2(8);
-  TYPE lyric IS RECORD (
-    day_name  VARCHAR2(8)  := NULL    
-  , gift_name VARCHAR2(24) := NULL
-  );
+  TYPE str8_list   IS TABLE OF VARCHAR2(8);
   TYPE lyrics_list IS TABLE OF lyric;
-  lv_days   STR8_LIST;
-  lv_lyrics LYRICS_LIST;
-BEGIN
-  lv_days   := str8_list('first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth', 'tenth', 'eleventh', 'twelfth');
-  lv_lyrics := lyrics_list(
+
+  lv_days   STR8_LIST   := str8_list('first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth', 'tenth', 'eleventh', 'twelfth');
+  lv_lyrics LYRICS_LIST := lyrics_list(
     lyric('and a', 'Partridge in a pear tree')
   , lyric('Two', 'Turtle doves')
   , lyric('Three', 'French hens')
@@ -38,7 +37,7 @@ BEGIN
   , lyric('Ten', 'Lords a leaping')
   , lyric('Eleven', 'Pipers piping')
   , lyric('Twelve', 'Drummers drumming'));
-
+BEGIN
   FOR last_day IN 1..lv_days.COUNT LOOP
     dbms_output.put_line('On the '||lv_days(last_day)||' day of Christmas');
     dbms_output.put_line('my true love sent to me:');
