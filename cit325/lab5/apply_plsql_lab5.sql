@@ -5,8 +5,8 @@
 */
 
 -- Call seeding libraries.
--- @$LIB/cleanup_oracle.sql
--- @$LIB/Oracle12cPLSQLCode/Introduction/create_video_store.sql
+@$LIB/cleanup_oracle.sql
+@$LIB/Oracle12cPLSQLCode/Introduction/create_video_store.sql
 
 SET SERVEROUTPUT ON SIZE UNLIMITED
 
@@ -28,9 +28,9 @@ FROM  (SELECT DISTINCT
 -- Create rating_agency structure
 CREATE OR REPLACE
   TYPE rating_agency_type IS OBJECT (
-    rating_agency_id  rating_agency.rating_agency_id%TYPE
-  , rating            rating_agency.rating%TYPE
-  , rating_agency     rating_agency.rating_agency%TYPE);
+    rating_agency_id  NUMBER(38)
+  , rating            VARCHAR2(8)
+  , rating_agency     VARCHAR2(4));
 /
 
 -- Add required column to item table
@@ -45,16 +45,19 @@ DECLARE
 
   TYPE rating_agency_list IS TABLE OF rating_agency_type;
   lv_ra_list RATING_AGENCY_LIST := rating_agency_list();
-  lv_ra_obj  RATING_AGENCY_TYPE;
+
+  lv_rating_agency_id  rating_agency.rating_agency_id%TYPE;
+  lv_rating            rating_agency.rating%TYPE;
+  lv_rating_agency     rating_agency.rating_agency%TYPE;
 BEGIN
   -- Read the cursor into the collection
   OPEN c_ra;
   LOOP
-    FETCH c_ra INTO lv_ra_obj;
+    FETCH c_ra INTO lv_rating_agency_id, lv_rating, lv_rating_agency;
     EXIT WHEN c_ra%NOTFOUND;
 
     lv_ra_list.EXTEND;
-    lv_ra_list(lv_ra_list.COUNT) := lv_ra_obj;
+    lv_ra_list(lv_ra_list.COUNT) := rating_agency_type(lv_rating_agency_id, lv_rating, lv_rating_agency);
   END LOOP;
 
   -- Loop through the collection and update the item table

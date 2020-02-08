@@ -1,0 +1,28 @@
+
+Sequence created.
+
+
+Table created.
+
+
+Type created.
+
+
+Table altered.
+
+
+PL/SQL procedure successfully completed.
+
+
+RATING_AGENCY_ID   COUNT(*)                                                     
+---------------- ----------                                                     
+            1001         26                                                     
+            1002          7                                                     
+            1003          7                                                     
+            1004          3                                                     
+            1005         45                                                     
+            1006          3                                                     
+            1007          2                                                     
+
+7 rows selected.
+
