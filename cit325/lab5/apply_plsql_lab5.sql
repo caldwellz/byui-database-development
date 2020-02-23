@@ -28,7 +28,7 @@ FROM  (SELECT DISTINCT
 -- Create rating_agency structure
 CREATE OR REPLACE
   TYPE rating_agency_type IS OBJECT (
-    rating_agency_id  NUMBER(38)
+    rating_agency_id  NUMBER(22)
   , rating            VARCHAR2(8)
   , rating_agency     VARCHAR2(4));
 /
