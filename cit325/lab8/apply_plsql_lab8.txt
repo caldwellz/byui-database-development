@@ -1,0 +1,69 @@
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+ System System       First         Last                                         
+User ID User Name    Name       MI Name                                         
+------- ------------ ---------- -- ----------                                   
+      6 BONDSB       Barry      L  Bonds                                        
+      7 CURRYW       Wardell    S  Curry                                        
+     -1 ANONYMOUS    <Null>     <N <Null>                                       
+                                ul                                              
+                                l>                                              
+                                                                                
+
+3 rows selected.
+
+
+Package created.
+
+
+Package body created.
+
+
+PL/SQL procedure successfully completed.
+
+
+                         ACCOUNT                                                
+FULL_NAME                NUMBER     ADDRESS                TELEPHONE            
+------------------------ ---------- ---------------------- --------------       
+CREATED_BY                                                                      
+----------                                                                      
+Charlie Brown            SLC-000011 Lehi, Utah             (207) 877-4321       
+         4                                                                      
+                                                                                
+Peppermint Patty         SLC-000011 Lehi, Utah             (207) 877-4321       
+        -1                                                                      
+                                                                                
+Sally Brown              SLC-000011 Lehi, Utah             (207) 877-4321       
+         6                                                                      
+                                                                                
+
+3 rows selected.
+
+
+Package created.
+
+
+Package body created.
+
+
+PL/SQL procedure successfully completed.
+
+
+                    System Account                                              
+Full Name          User ID Number       Address          Telephone              
+------------------ ------- ------------ ---------------- ----------------       
+Shirley Partridge        4 SLC-000012   Lehi, Utah       (207) 877-4321         
+Keith Partridge          6 SLC-000012   Lehi, Utah       (207) 877-4321         
+Laurie Partridge        -1 SLC-000012   Lehi, Utah       (207) 877-4321         
+
+3 rows selected.
+
+No errors.
