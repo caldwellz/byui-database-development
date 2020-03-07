@@ -1,0 +1,311 @@
+/**
+* LAB 9 Example of Concepts
+*
+* Author: Christopher Keers
+*/
+
+
+NOTE: All of these examples are basic terminal commands. Each has many more settings
+and flags that could be added to handle more complex tasks such as working on a file
+not in the current directory or applying the command recursively down to children.
+
+================================================================================
+whoami
+================================================================================
+
+This command will print out what user you are currently. For this lab you need to
+be root in order to change file ownership to the dba user.
+
+
+
+================================================================================
+su
+================================================================================
+
+This is how you switch to the root user. You will be prompted for the root user
+password after pressing enter. In the lab VM the password is cangetin
+
+
+
+================================================================================
+cd
+================================================================================
+
+You are already familiar with this command. Don't forget though that you can
+CD through multiple directories at once like so:
+
+	cd /user/christopher/documents
+
+Use this command to return to your users login directory:
+
+	cd ~
+
+Or this command for your users home directory:
+
+	cd /home
+
+Or this command for the systems root directory:
+
+	cd /
+
+NOTE: When trying to cd to /u01/app/oracle/upload in this lab you must do so from  the
+system root directory! cd / not cd ~
+
+
+
+================================================================================
+pwd
+================================================================================
+
+The pwd command will print the Path to Working Directory for you to see where
+your are in the file system. This is also helpful if you need copy and use the
+path to a directory.
+
+
+
+================================================================================
+cp
+================================================================================
+
+
+The cp command allows copying a file from one place to another. The cp command
+uses your current directory to base its search on! For the following example to
+work you would need to be at the systems root (cd /) or it will fail:
+
+	cp /home/student/Data/cit325/oracle/lib/Oracle12cPLSQLCode/Chapter10/textfiles/Harry*.txt /u01/app/oracle/upload/textfile
+
+
+
+================================================================================
+ls
+================================================================================
+
+ls shows a listing of the current directory. This command will give you a basic
+listing hiding some files:
+
+	ls
+
+To see everything that is actually there type:
+
+	ls -a
+
+NOTE: This will show files you may not have access to with your current user.
+Usually terminals will color the text to specify access level and other
+information. The . means current directory and .. means there is a parent
+directory that you can navigate out to.
+
+You can also list file permissions with:
+
+	ls -tl
+
+NOTE: If your looking for more file and owner permission information you should
+use the ll command and its options instead.
+
+
+
+================================================================================
+chmod
+================================================================================
+
+chmod stands for "change mode" and changes a files access permissions.
+chmod has a range of 000 to 777 or --------- to -rw-rw-rw but this makes more
+sense if you see it in action though: http://chmod-calculator.com/
+
+NOTE: r = read, w = write, and x = execute
+
+So to give a file Owner rw, Group r, and Public r you would do one of the following:
+
+	chmod 644 [file name]
+	chmod -rw-r--r-- [file name]
+
+NOTE: Permissions are set left to right as Owner, Group, and Public. For example 765
+means Owner gets permissions 7, Group gets 6, and Public gets 5. In text this would
+look like: rwxrw-r-x
+
+
+
+================================================================================
+chown
+================================================================================
+
+chown stands for "change owner" and changes a files owner and/or owning group.
+
+You can change the owner and owning group separately based on how you write the
+command. The following command for example only changes the file owner:
+
+	chown [user name] [file name]
+
+To do the same but also change the group you would use:
+
+	chown [user name]:[group name] [file name]
+
+And to only change the group you would use this:
+
+	chown :[group name] [file name]
+
+NOTE: It is recommended that you use the chgrp command if you only want to change
+group ownership without changing the owner. Its safer.
+
+HINT: The following command will help you rename files in bulk if their named the same:
+
+	chown oracle:dba Harry*.txt
+
+
+
+================================================================================
+mkdir
+================================================================================
+
+This command is pretty straight forward. mkdir will attempt to make a directory
+(folder) of the name you provide at the location you provided. This will make
+a new directory called christopher at your current location:
+
+	mkdir christopher
+
+If you need spaces in the name:
+
+	mkdir "christopher keers"
+
+NOTE: Its recommended that you use _ or - instead of spaces in directory and
+files names.
+
+If you would like to set a permission level at the same time:
+
+	mkdir -m 644 christopher
+
+NOTE: You must set permissions using numbers and not permission strings like
+-rw-r--r--
+
+You can also specify the path to the new directory instead of having to cd
+to its location or create the entire path one by one. Assuming the users
+directory doesn't exist this will create it and a christopher one inside it:
+
+	mkdir -p users/christopher
+
+There are many more commands you can use with mkdir. Try the following to view
+all the options you can use when making a new directory:
+
+	mkdir --help
+
+NOTE: You of course need the correct permissions yourself to create directories
+especially when trying to add a new directory by providing a path. If any existing
+directory in that path is not accessible by your user the command will fail.
+
+
+================================================================================
+rmdir
+================================================================================
+
+This command is pretty straight forward. rmdir will attempt to remove a directory
+(folder) of the name you provide at the location you provided. This will remove
+the directory called christopher at your current location:
+
+	rmdir christopher
+
+Most of the same rules apply here as mkdir. Enclose directories in quotes if
+they have spaces in the name and using the correct flags (options) you can
+delete a whole directory path at once. Try the following to view all the options
+you can use when removing a directory:
+
+	rmdir --help
+
+NOTE: You of course need the correct permissions yourself to remove directories
+especially when trying to remove a directory by providing a path. If any existing
+directory in that path is not accessible by your user the command will fail.
+
+
+
+================================================================================
+rm
+================================================================================
+
+The rm command will attempt to remove (delete) the file specified. You must have
+correct permissions for this to work:
+
+	rm christoper
+
+NOTE: rm is for files and will not work on directories.
+
+
+
+================================================================================
+cat, touch + nano, vi, emacs, gedit
+================================================================================
+
+The way to make files on Linux is numerous. Primarily you can use cat:
+
+	cat > [file name and extension]
+
+or you can use touch:
+
+	touch [file name and extension]
+
+You will have to do your own research on which option is better for you. Remember
+though that you can add options to modify or expand these commands.
+
+You can also call a text editor like emacs or gedit and command line editors
+like nano and vi followed by a file name and extension and create a new file that
+way.
+
+NOTE: When using GUI editors you may run into permission problems when opening
+or saving files. Always make sure you have the correct permissions when doing
+work that will rely on specific owner and group permissions.
+
+
+
+================================================================================
+LAB 9 HELP
+================================================================================
+
+-- Login to the database as the system user
+
+	sqlplus system/cangetin
+
+-- Make the database aware of the directory we want to use and grant the student
+-- user permissions to read it in sql.
+
+	CREATE DIRECTORY uploadtext AS '/u01/app/oracle/upload/textfile';
+	GRANT READ, WRITE, EXECUTE ON DIRECTORY uploadtext TO student;
+
+-- NOTE: This is in your lab but it was originally a bit hidden and hard to understand.
+
+
+================================================================================
+LAB 9 SQL CODE CORRECTION
+================================================================================
+
+-- The PREPROCESSOR preproc step was incorrectly referencing list2dir.sh in old
+-- versions of Lab 9. If you get to this step and notice list2dir.sh change it
+-- to dir_list.sh and your code should run.
+
+-- Create file_list external table
+
+	CREATE TABLE file_list
+	( file_name VARCHAR2(60))
+	  ORGANIZATION EXTERNAL
+	  (   TYPE oracle_loader
+	      DEFAULT DIRECTORY uploadtext
+	      ACCESS PARAMETERS
+	      (   RECORDS DELIMITED BY NEWLINE CHARACTERSET US7ASCII
+	          PREPROCESSOR preproc:'dir_list.sh'
+	          BADFILE     'UPLOAD':'dir_list.bad'
+	          DISCARDFILE 'UPLOAD':'dir_list.dis'
+	          LOGFILE     'UPLOAD':'dir_list.log'
+	          FIELDS TERMINATED BY ','
+	          OPTIONALLY ENCLOSED BY "'"
+	          MISSING FIELD VALUES ARE NULL)
+	  LOCATION ('dir_list.sh'))
+	REJECT LIMIT UNLIMITED;
+
+-- The last test case meant to test the procedure you made is named incorrectly.
+-- You should have named it update_text_file not upload_item_description which
+-- the test case attempts to run. Use the correct procedure name:
+
+	EXECUTE update_text_file('Harry Potter');
+
+-- Your Lab 9 instructions many be incorrectly referring to the path /u01/apps/oracle/upload
+-- but it should be /u01/app/oracle/upload notice APP not APPS.
+
+-- Your Lab 9 instructions many be incorrectly referring to the directory_list
+-- table when it means to be referring to the file_list table. Keep an eye out
+-- for this inconstancy.
