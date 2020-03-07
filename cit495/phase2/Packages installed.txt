@@ -1,0 +1,5 @@
+Packages installed:
+
+php-mysql
+default-mysql-server
+php-pear
