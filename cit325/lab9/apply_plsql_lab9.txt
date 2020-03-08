@@ -1,0 +1,119 @@
+
+PL/SQL procedure successfully completed.
+
+
+Table created.
+
+
+Table created.
+
+
+2 rows updated.
+
+
+Table altered.
+
+
+2 rows updated.
+
+
+3 rows updated.
+
+
+2 rows updated.
+
+
+3 rows updated.
+
+
+1 row updated.
+
+
+Procedure created.
+
+Table Name:  [item]                                                             
+Column Name: [item_desc]                                                        
+Primary Key: [item_id]                                                          
+Key Value:   [1022]                                                             
+File Name:   [HarryPotter1.txt]                                                 
+Success!                                                                        
+Table Name:  [item]                                                             
+Column Name: [item_desc]                                                        
+Primary Key: [item_id]                                                          
+Key Value:   [1021]                                                             
+File Name:   [HarryPotter1.txt]                                                 
+Success!                                                                        
+Table Name:  [item]                                                             
+Column Name: [item_desc]                                                        
+Primary Key: [item_id]                                                          
+Key Value:   [1027]                                                             
+File Name:   [HarryPotter2.txt]                                                 
+Success!                                                                        
+Table Name:  [item]                                                             
+Column Name: [item_desc]                                                        
+Primary Key: [item_id]                                                          
+Key Value:   [1024]                                                             
+File Name:   [HarryPotter2.txt]                                                 
+Success!                                                                        
+Table Name:  [item]                                                             
+Column Name: [item_desc]                                                        
+Primary Key: [item_id]                                                          
+Key Value:   [1023]                                                             
+File Name:   [HarryPotter2.txt]                                                 
+Success!                                                                        
+Table Name:  [item]                                                             
+Column Name: [item_desc]                                                        
+Primary Key: [item_id]                                                          
+Key Value:   [1026]                                                             
+File Name:   [HarryPotter3.txt]                                                 
+Success!                                                                        
+Table Name:  [item]                                                             
+Column Name: [item_desc]                                                        
+Primary Key: [item_id]                                                          
+Key Value:   [1025]                                                             
+File Name:   [HarryPotter3.txt]                                                 
+Success!                                                                        
+Table Name:  [item]                                                             
+Column Name: [item_desc]                                                        
+Primary Key: [item_id]                                                          
+Key Value:   [1030]                                                             
+File Name:   [HarryPotter4.txt]                                                 
+Success!                                                                        
+Table Name:  [item]                                                             
+Column Name: [item_desc]                                                        
+Primary Key: [item_id]                                                          
+Key Value:   [1029]                                                             
+File Name:   [HarryPotter4.txt]                                                 
+Success!                                                                        
+Table Name:  [item]                                                             
+Column Name: [item_desc]                                                        
+Primary Key: [item_id]                                                          
+Key Value:   [1028]                                                             
+File Name:   [HarryPotter4.txt]                                                 
+Success!                                                                        
+Table Name:  [item]                                                             
+Column Name: [item_desc]                                                        
+Primary Key: [item_id]                                                          
+Key Value:   [1031]                                                             
+File Name:   [HarryPotter5.txt]                                                 
+Success!                                                                        
+
+PL/SQL procedure successfully completed.
+
+
+ITEM_ID ITEM_TITLE                                   TEXT_SIZE                  
+------- -------------------------------------------- ---------                  
+   1021 Harry Potter and the Sorcerer's Stone            6,737                  
+   1022 Harry Potter and the Sorcerer's Stone            6,737                  
+   1023 Harry Potter and the Chamber of Secrets          7,999                  
+   1024 Harry Potter and the Chamber of Secrets          7,999                  
+   1025 Harry Potter and the Prisoner of Azkaban         5,936                  
+   1026 Harry Potter and the Prisoner of Azkaban         5,936                  
+   1027 Harry Potter and the Chamber of Secrets          7,999                  
+   1028 Harry Potter and the Goblet of Fire              7,721                  
+   1029 Harry Potter and the Goblet of Fire              7,721                  
+   1030 Harry Potter and the Goblet of Fire              7,721                  
+   1031 Harry Potter and the Order of the Phoenix        8,061                  
+
+11 rows selected.
+

@@ -11,11 +11,12 @@
 SPOOL apply_plsql_lab9.txt
 
 
--- Conditionally drop AVENGER table.
+-- Conditionally drop tables from prior runs
 BEGIN
   FOR i IN (SELECT table_name
             FROM   user_tables
-            WHERE  table_name = 'AVENGER') LOOP
+            WHERE  table_name = 'AVENGER'
+            OR     table_name = 'FILE_LIST') LOOP
     EXECUTE IMMEDIATE 'DROP TABLE '||i.table_name||' CASCADE CONSTRAINTS';
   END LOOP;
 END;
