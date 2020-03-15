@@ -12,7 +12,7 @@ SPOOL apply_plsql_lab10.txt
 -- Unconditional drops of objects.
 DROP TABLE logger;
 DROP SEQUENCE logger_s;
-DROP TYPE pear_t FORCE;
+DROP TYPE contact_t FORCE;
 DROP TYPE item_t FORCE;
 DROP TYPE base_t FORCE;
 
@@ -302,18 +302,17 @@ CREATE OR REPLACE
       END IF;
 
       -- Assign inputs to instance variables.  
-      self.contact_id            := 	contact_id;
-      self.contact_barcode       := 	contact_barcode;
-      self.contact_type          := 	contact_type;
-      self.contact_title         := 	contact_title;
-      self.contact_subtitle      := 	contact_subtitle;
-      self.contact_rating        := 	contact_rating;
-      self.contact_rating_agency := 	contact_rating_agency;
-      self.contact_release_date  := 	contact_release_date;
-      self.created_by         := 	created_by;
-      self.creation_date      := 	creation_date;
-      self.last_updated_by    := 	last_updated_by;
-      self.last_update_date   := 	last_update_date;
+      self.contact_id := contact_id;
+      self.member_id := member_id;
+      self.contact_type := contact_type;
+      self.first_name := first_name;
+      self.middle_name := middle_name;
+      self.last_name := last_name;
+      self.created_by := created_by;
+      self.creation_date := creation_date;
+      self.last_updated_by := last_updated_by;
+      self.last_update_date := last_update_date;
+
 
       -- Return an instance of self.
       RETURN;
@@ -339,15 +338,19 @@ INSERT INTO logger
 VALUES
 ( logger_s.NEXTVAL
 , item_t(
-    oname => 'ITEM_T'
-  , name => 'NEW'));
+    'ITEM_T'
+  , 'NEW'
+  , NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL
+  , 1, TRUNC(SYSDATE), 1, TRUNC(SYSDATE)));
   
 INSERT INTO logger
 VALUES
 ( logger_s.NEXTVAL
 , contact_t(
-    oname => 'CONTACT_T'
-  , name => 'NEW'));
+    'CONTACT_T'
+  , 'NEW'
+  , NULL, NULL, NULL, NULL, NULL, NULL
+  , 1, TRUNC(SYSDATE), 1, TRUNC(SYSDATE)));
 
 
 -- Test the two rows inserted into the logger table.
