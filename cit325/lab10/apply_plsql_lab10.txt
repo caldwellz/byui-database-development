@@ -1,0 +1,68 @@
+
+Table dropped.
+
+
+Sequence dropped.
+
+
+Type dropped.
+
+
+Type dropped.
+
+
+Type dropped.
+
+
+Type created.
+
+
+Table created.
+
+
+Sequence created.
+
+
+Type body created.
+
+Default  : [BASE_T]                                                             
+Override : [SUBSTITUTE]                                                         
+
+PL/SQL procedure successfully completed.
+
+
+1 row created.
+
+
+PL/SQL procedure successfully completed.
+
+
+ LOGGER_ID ONAME                GET_NAME             TO_STRING                  
+---------- -------------------- -------------------- --------------------       
+         1 BASE_T               Unset                [BASE_T]                   
+         2 BASE_T               NEW                  [BASE_T]                   
+
+
+Type created.
+
+
+Type body created.
+
+
+Type created.
+
+
+Type body created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+ LOGGER_ID ONAME                GET_NAME             TO_STRING                  
+---------- -------------------- -------------------- --------------------       
+         3 ITEM_T               NEW                  [ITEM_T].[NEW]             
+         4 CONTACT_T            NEW                  [CONTACT_T].[NEW]          
+
