@@ -1,0 +1,7 @@
+BEGIN
+*
+ERROR at line 1:
+ORA-04043: object CONTACT_T does not exist
+ORA-06512: at line 51 
+
+

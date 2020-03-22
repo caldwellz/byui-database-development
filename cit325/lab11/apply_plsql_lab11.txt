@@ -77,6 +77,13 @@ ORA-04088: error during execution of trigger 'STUDENT.ITEM_TRIG'
 
 
 
+ITEM_TITLE      ITEM_SUBTITLE                                                   
+--------------- ---------------                                                 
+Harry Potter    Goblet of Fire                                                  
+
+1 row selected.
+
+
          Old                        New                                         
 Logger  Item                       Item                                         
   ID #  ID # Old Item Title        ID # New Item Title                          

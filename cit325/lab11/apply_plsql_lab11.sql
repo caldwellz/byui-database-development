@@ -508,10 +508,10 @@ CREATE OR REPLACE TRIGGER item_trig
     IF INSERTING THEN
       -- Check for a title colon and split into a subtitle if needed
       IF lv_title_colon_pos > 0 THEN
-        :new.item_title := SUBSTR(:new.item_title, 0, lv_title_colon_pos - 1);
         IF (lv_title_colon_pos + 1) < LENGTH(:new.item_title) THEN
           :new.item_subtitle := SUBSTR(:new.item_title, lv_title_colon_pos + 2);
         END IF;
+        :new.item_title := SUBSTR(:new.item_title, 0, lv_title_colon_pos - 1);
       END IF;
 
       /* Log the insert change to the item table in the logger table. */
@@ -636,7 +636,11 @@ UPDATE item
   WHERE item_id = 1087;
 
 
--- View updated logger table
+-- View updated item and logger table
+COL item_title FORMAT A15
+COL item_subtitle FORMAT A15
+SELECT item_title, item_subtitle FROM item WHERE item_id = 1087;
+
 COL logger_id       FORMAT 9999 HEADING "Logger|ID #"
 COL old_item_id     FORMAT 9999 HEADING "Old|Item|ID #"
 COL old_item_title  FORMAT A20  HEADING "Old Item Title"
