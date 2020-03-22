@@ -6,12 +6,12 @@
 */
 
 -- Run initial lab scripts
--- @/home/student/Data/cit325/lib/cleanup_oracle.sql
--- @/home/student/Data/cit325/lib/Oracle12cPLSQLCode/Introduction/create_video_store.sql
+@/home/student/Data/cit325/lib/cleanup_oracle.sql
+@/home/student/Data/cit325/lib/Oracle12cPLSQLCode/Introduction/create_video_store.sql
 
 
 -- Open log file.
-SPOOL apply_plsql_lab10.txt
+SPOOL apply_plsql_lab11.txt
 
 
 -- Add text_file_name column to the item table and allow null in desc
