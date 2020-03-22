@@ -1,0 +1,347 @@
+Lab 11 Instructional Material
+
+The first step requires that you create an avenger and logging table, which you can do with the following code:
+CREATE TABLE avenger
+( avenger_id    NUMBER
+, avenger_name  VARCHAR2(30));
+
+CREATE SEQUENCE avenger_s;
+
+CREATE TABLE logging
+( logging_id  NUMBER
+, old_avenger_id    NUMBER
+, old_avenger_name  VARCHAR2(30)
+, new_avenger_id    NUMBER
+, new_avenger_name  VARCHAR2(30)
+, CONSTRAINT logging_pk PRIMARY KEY (logging_id));
+
+CREATE SEQUENCE logging_s;
+The second step requires that you verify an avenger and logging table, which you can do with the following scripts:
+COLUMN table_name   FORMAT A14
+COLUMN column_id    FORMAT 9999
+COLUMN column_name  FORMAT A22
+COLUMN data_type    FORMAT A12
+SELECT   table_name
+,        column_id
+,        column_name
+,        CASE
+           WHEN nullable = 'N' THEN 'NOT NULL'
+           ELSE ''
+         END AS nullable
+,        CASE
+           WHEN data_type IN ('CHAR','VARCHAR2','NUMBER') THEN
+             data_type||'('||data_length||')'
+           ELSE
+             data_type
+         END AS data_type
+FROM     user_tab_columns
+WHERE    table_name = 'LOGGING'
+ORDER BY 2;
+
+SELECT   table_name
+,        column_id
+,        column_name
+,        CASE
+           WHEN nullable = 'N' THEN 'NOT NULL'
+           ELSE ''
+         END AS nullable
+,        CASE
+           WHEN data_type IN ('CHAR','VARCHAR2','NUMBER') THEN
+             data_type||'('||data_length||')'
+           ELSE
+             data_type
+         END AS data_type
+FROM     user_tab_columns
+WHERE    table_name = 'AVENGER'
+ORDER BY 2;
+The tables should look like this:
+
+TABLE_NAME     COLUMN_ID COLUMN_NAME			NULLABLE DATA_TYPE
+-------------- --------- ---------------------- -------- ------------
+LOGGING 	   1 		 LOGGING_ID				NOT NULL NUMBER(22)
+LOGGING 	   2		 OLD_AVENGER_ID 		 		 NUMBER(22)
+LOGGING 	   3		 OLD_AVENGER_NAME				 VARCHAR2(30)
+LOGGING 	   4		 NEW_AVENGER_ID 				 NUMBER(22)
+LOGGING 	   5		 NEW_AVENGER_NAME				 VARCHAR2(30)
+
+
+TABLE_NAME     COLUMN_ID COLUMN_NAME			NULLABLE DATA_TYPE
+-------------- --------- ---------------------- -------- ------------
+AVENGER 	       1 	AVENGER_ID			 			 NUMBER(22)
+AVENGER 	       2 	AVENGER_NAME					 VARCHAR2(30)
+The third step requires that write a log_avenger package with overloaded avenger_insert procedures that write new, old and new, and old values from the avenger table:
+CREATE OR REPLACE
+  PACKAGE log_avenger IS
+
+  PROCEDURE avenger_insert
+  ( pv_new_avenger_id    NUMBER
+  , pv_new_avenger_name  VARCHAR2 );
+
+  PROCEDURE avenger_insert
+  ( pv_new_avenger_id    NUMBER
+  , pv_new_avenger_name  VARCHAR2
+  , pv_old_avenger_id    NUMBER
+  , pv_old_avenger_name  VARCHAR2 );
+
+  PROCEDURE avenger_insert
+  ( pv_old_avenger_id    NUMBER
+  , pv_old_avenger_name  VARCHAR2 );
+
+END log_avenger;
+/
+The package definition should look like this when you DESCRIBE it:
+
+PROCEDURE AVENGER_INSERT
+ Argument Name							TYPE			IN/OUT DEFAULT?
+ ------------------------------ ----------------------- ------ --------
+ PV_NEW_AVENGER_ID						NUMBER			IN
+ PV_NEW_AVENGER_NAME					VARCHAR2		IN
+PROCEDURE AVENGER_INSERT
+ Argument Name							TYPE			IN/OUT DEFAULT?
+ ------------------------------ ----------------------- ------ --------
+ PV_NEW_AVENGER_ID						NUMBER			IN
+ PV_NEW_AVENGER_NAME					VARCHAR2		IN
+ PV_OLD_AVENGER_ID						NUMBER			IN
+ PV_OLD_AVENGER_NAME					VARCHAR2		IN
+PROCEDURE AVENGER_INSERT
+ Argument Name							TYPE			IN/OUT DEFAULT?
+ ------------------------------ ----------------------- ------ --------
+ PV_OLD_AVENGER_ID						NUMBER			IN
+ PV_OLD_AVENGER_NAME					VARCHAR2		IN
+You implement the package body like this:
+
+CREATE OR REPLACE
+  PACKAGE BODY log_avenger IS
+
+  PROCEDURE avenger_insert
+  ( pv_new_avenger_id    NUMBER
+  , pv_new_avenger_name  VARCHAR2 ) IS
+
+    /* Set an autonomous transaction. */
+    PRAGMA AUTONOMOUS_TRANSACTION;
+  BEGIN
+    /* Insert log entry for an avenger. */
+    log_avenger.avenger_insert(
+        pv_old_avenger_id => NULL
+      , pv_old_avenger_name => NULL
+      , pv_new_avenger_id => pv_new_avenger_id
+      , pv_new_avenger_name => pv_new_avenger_name);
+  EXCEPTION
+    /* Exception handler. */
+    WHEN OTHERS THEN
+     RETURN;
+  END avenger_insert;
+
+  PROCEDURE avenger_insert
+  ( pv_new_avenger_id    NUMBER
+  , pv_new_avenger_name  VARCHAR2
+  , pv_old_avenger_id    NUMBER
+  , pv_old_avenger_name  VARCHAR2 ) IS
+
+    /* Declare local logging value. */
+    lv_logging_id  NUMBER;
+
+    /* Set an autonomous transaction. */
+    PRAGMA AUTONOMOUS_TRANSACTION;
+  BEGIN
+    /* Get a sequence. */
+    lv_logging_id := logging_s.NEXTVAL;
+
+    /* Set a savepoint. */
+    SAVEPOINT starting;
+
+    /* Insert log entry for an avenger. */
+    INSERT INTO logging
+    ( logging_id
+    , new_avenger_id
+    , new_avenger_name
+    , old_avenger_id
+    , old_avenger_name )
+    VALUES
+    ( lv_logging_id
+    , pv_new_avenger_id
+    , pv_new_avenger_name
+    , pv_old_avenger_id
+    , pv_old_avenger_name );
+
+    /* Commit the independent write. */
+    COMMIT;
+  EXCEPTION
+    /* Exception handler. */
+    WHEN OTHERS THEN
+      ROLLBACK TO starting;
+      RETURN;
+  END avenger_insert;
+
+  PROCEDURE avenger_insert
+  ( pv_old_avenger_id    NUMBER
+  , pv_old_avenger_name  VARCHAR2 ) IS
+
+    /* Set an autonomous transaction. */
+    PRAGMA AUTONOMOUS_TRANSACTION;
+  BEGIN
+    /* Insert log entry for an avenger. */
+    log_avenger.avenger_insert(
+        pv_old_avenger_id => pv_old_avenger_id
+      , pv_old_avenger_name => pv_old_avenger_name
+      , pv_new_avenger_id => NULL
+      , pv_new_avenger_name => NULL);
+  EXCEPTION
+    /* Exception handler. */
+    WHEN OTHERS THEN
+     RETURN;
+  END avenger_insert;
+END log_avenger;
+/
+The fourth step requires that write and test calls to log_avenger package:
+DECLARE
+  /* Define input values. */
+  lv_new_avenger_id    NUMBER        := 1;
+  lv_new_avenger_name  VARCHAR2(30) := 'Thor';
+BEGIN
+  log_avenger.avenger_insert(
+      pv_new_avenger_id => lv_new_avenger_id
+    , pv_new_avenger_name => lv_new_avenger_name );
+END;
+/
+
+DECLARE
+  /* Define input values. */
+  lv_new_avenger_id    NUMBER        := 2;
+  lv_new_avenger_name  VARCHAR2(30) := 'Hulk';
+BEGIN
+  log_avenger.avenger_insert(
+      pv_new_avenger_id => lv_new_avenger_id
+    , pv_new_avenger_name => lv_new_avenger_name );
+END;
+/
+
+DECLARE
+  /* Define input values. */
+  lv_avenger_id        NUMBER       := 3;
+  lv_old_avenger_name  VARCHAR2(30) := 'Thor';
+  lv_new_avenger_name  VARCHAR2(30) := 'King Thor';
+BEGIN
+  log_avenger.avenger_insert(
+      pv_old_avenger_id => lv_avenger_id
+    , pv_old_avenger_name => lv_old_avenger_name
+    , pv_new_avenger_id => lv_avenger_id
+    , pv_new_avenger_name => lv_new_avenger_name );
+END;
+/
+
+DECLARE
+  /* Define input values. */
+  lv_old_avenger_id    NUMBER        := 4;
+  lv_old_avenger_name  VARCHAR2(30) := 'King Thor';
+BEGIN
+  log_avenger.avenger_insert(
+      pv_old_avenger_id => lv_old_avenger_id
+    , pv_old_avenger_name => lv_old_avenger_name );
+END;
+/
+You can check whether the test cases work with the following query:
+
+COL logger_id         FORMAT 999999  HEADING "Logging|ID #"
+COL old_avenger_id    FORMAT 999999  HEADING "Old|Avenger|ID #"
+COL old_avenger_name  FORMAT A25     HEADING "Old Avenger Name"
+COL new_avenger_id    FORMAT 999999  HEADING "New|Avenger|ID #"
+COL new_avenger_name  FORMAT A25     HEADING "New Avenger Name"
+SELECT * FROM logging;
+The tables should look like this:
+
+Old			   				NEW
+			Avenger						Avenger
+LOGGING_ID  ID # 	Old Avenger Name	ID # 	NEW Avenger Name
+---------- ------- -------------------- ------- ------------------------------
+	 1				     					 1 	Thor
+	 2				      					 2 	Hulk
+	 3	 		3 	Thor 		  			 3 	King Thor
+	 4	 		4 	King Thor
+The fifth step requires that write an avenger_trig trigger for insert and update statements:
+CREATE OR REPLACE
+  TRIGGER avenger_trig
+  BEFORE INSERT OR UPDATE OF avenger_name ON avenger
+  FOR EACH ROW
+  DECLARE
+    /* Declare exception. */
+    e EXCEPTION;
+    PRAGMA EXCEPTION_INIT(e,-20001);
+  BEGIN
+    /* Check for an event and log accordingly. */
+    IF INSERTING THEN
+      /* Log the insert change to the item table in the logger table. */
+      log_avenger.avenger_insert(
+          pv_new_avenger_id => :NEW.avenger_id
+        , pv_new_avenger_name => :NEW.avenger_name );
+
+      /* Check for an empty item_id primary key column value,
+         and assign the next sequence value when it is missing. */
+      IF :NEW.avenger_id IS NULL THEN
+        SELECT avenger_s.NEXTVAL
+        INTO   :NEW.avenger_id
+        FROM   dual;
+      END IF;
+    ELSIF UPDATING THEN
+      /* Log the update change to the item table in the logging table. */
+      log_avenger.avenger_insert(
+          pv_new_avenger_id => :NEW.avenger_id
+        , pv_new_avenger_name => :NEW.avenger_name
+        , pv_old_avenger_id => :old.avenger_id
+        , pv_old_avenger_name => :old.avenger_name );
+    END IF;
+  END avenger_trig;
+/
+The sixth step requires that you write an avenger_delete_trig trigger for delete statements:
+CREATE OR REPLACE
+  TRIGGER avenger_delete_trig
+  BEFORE DELETE ON avenger
+  FOR EACH ROW
+  DECLARE
+    /* Declare exception. */
+    e EXCEPTION;
+    PRAGMA EXCEPTION_INIT(e,-20001);
+  BEGIN
+    IF DELETING THEN
+      /* Log the delete change to the item table in the logging table. */
+      log_avenger.avenger_insert(
+          pv_old_avenger_id => :old.avenger_id
+        , pv_old_avenger_name => :old.avenger_name );
+    END IF;
+  END avenger_trig;
+/
+The seventh step requires that write an insert, update, and delete statement:
+INSERT INTO avenger
+( avenger_id
+, avenger_name )
+VALUES
+( avenger_s.NEXTVAL
+,'Captain America');
+
+UPDATE avenger
+SET    avenger_name = 'Captain America "Wanted"'
+WHERE  avenger_name = 'Captain America';
+
+DELETE
+FROM   avenger
+WHERE  avenger_name LIKE 'Captain America%';
+The eighth step requires that write a query to see what was inserted into the logging table:
+COL logger_id         FORMAT 999999  HEADING "Logging|ID #"
+COL old_avenger_id    FORMAT 999999  HEADING "Old|Avenger|ID #"
+COL old_avenger_name  FORMAT A25     HEADING "Old Avenger Name"
+COL new_avenger_id    FORMAT 999999  HEADING "New|Avenger|ID #"
+COL new_avenger_name  FORMAT A25     HEADING "New Avenger Name"
+SELECT * FROM logging;
+You will see the following results:
+
+Old								 New
+			Avenger			     			 Avenger
+LOGGING_ID  ID # 	Old Avenger Name		 ID # 		New Avenger Name
+---------- ------- ------------------------- ------- -------------------------
+	 1					  						   1 Thor
+	 2					  						   2 Hulk
+	 3	 		3 Thor 		   					   3 King Thor
+	 4	 		4 King Thor
+	 5					   						   1 Captain America
+	 6		    1 Captain America		  		   1 Captain America "Wanted"
+	 7	 		1 Captain America "Wanted"

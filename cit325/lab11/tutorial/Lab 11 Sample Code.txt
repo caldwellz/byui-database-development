@@ -1,0 +1,201 @@
+/**
+* LAB 11 Example of Concepts
+*
+* Author: Michael McLaughlin
+* Editor: Christopher Keers
+* Altered from source: http://www.toadworld.com/platforms/oracle/w/wiki/11128.dml-trigger-basics
+*/
+
+SET WRAP OFF
+SET HEADING ON
+SET SERVEROUTPUT ON
+
+BEGIN
+    dbms_output.put_line('===============================');
+    dbms_output.put_line('             PART 0            ');
+    dbms_output.put_line('===============================');
+END;
+/
+
+/** Drop everything we eventually make in this file so its re-runnable. */
+DROP SEQUENCE avenger_s;
+DROP SEQUENCE avenger_log_s;
+DROP TABLE avenger;
+DROP TABLE avenger_log;
+DROP TRIGGER avenger_t1;
+DROP TRIGGER avenger_t2;
+
+BEGIN
+    dbms_output.put_line('===============================');
+    dbms_output.put_line('             PART 1            ');
+    dbms_output.put_line('===============================');
+END;
+/
+
+/**
+* TABLE LEVEL TRIGGER
+*
+* NOTE: DML triggers are either defined as table level or as row level.
+* A table level trigger fires once for each operation on the table, so if you update 30 rows
+* then that is one operation as far as a table trigger is concerned. Table triggers do not
+* have insight into which rows are modified, but can be used to log the fact that an
+* operation was carried out. (Text from a comment on StackOverflow)
+*/
+
+/** Create the avenger table and sequence. */
+CREATE SEQUENCE avenger_s;
+CREATE TABLE avenger
+( avenger_id    NUMBER
+, avenger_name  VARCHAR2(30)
+, first_name    VARCHAR2(20)
+, last_name     VARCHAR2(20));
+
+/** Create the avenger logger table and sequence. */
+CREATE SEQUENCE avenger_log_s;
+CREATE TABLE avenger_log
+( avenger_log_id    NUMBER
+, trigger_name		VARCHAR2(30)
+, trigger_timing  	VARCHAR2(6)
+, trigger_event    	VARCHAR2(6)
+, trigger_type     	VARCHAR2(12));
+
+/** Create a trigger that triggers BEFORE INSERTs on the avenger table. */
+CREATE OR REPLACE TRIGGER avenger_t1
+	BEFORE INSERT ON avenger
+DECLARE
+	/* Declare local trigger-scope variables. */
+	lv_sequence_id    NUMBER := avenger_log_s.NEXTVAL;
+	lv_trigger_name   VARCHAR2(30) := 'AVENGER_T1';
+ 	lv_trigger_event  VARCHAR2(6) := 'INSERT';
+	lv_trigger_type   VARCHAR2(12) := 'STATEMENT';
+	lv_trigger_timing VARCHAR2(6) := 'BEFORE';
+BEGIN
+	/* Log event into the avenger_log table. */
+	INSERT INTO avenger_log
+	( avenger_log_id
+	, trigger_name
+	, trigger_event
+	, trigger_type
+	, trigger_timing)
+	VALUES
+	( lv_sequence_id
+	, lv_trigger_name
+	, lv_trigger_event
+	, lv_trigger_type
+	, lv_trigger_timing);
+END avenger_t1;
+/
+
+/** Test an insert. */
+INSERT INTO avenger VALUES
+( avenger_s.NEXTVAL
+, 'Captain America'
+, 'Steven'
+, 'Rogers');
+
+/** Check the tables. */
+COLUMN avenger_name FORMAT A25
+COLUMN first_name 	FORMAT A20
+COLUMN last_name	FORMAT A20
+SELECT avenger_name
+	 , first_name
+	 , last_name
+	 FROM avenger;
+
+COLUMN trigger_name 	FORMAT A18
+COLUMN trigger_timing 	FORMAT A18
+COLUMN trigger_event	FORMAT A18
+COLUMN trigger_type		FORMAT A18
+SELECT trigger_name
+	 , trigger_timing
+  	 , trigger_event
+	 , trigger_type
+	 FROM avenger_log;
+
+ BEGIN
+ 	dbms_output.put_line('===============================');
+ 	dbms_output.put_line('             PART 2            ');
+ 	dbms_output.put_line('===============================');
+ END;
+ /
+
+ /**
+ * ROW LEVEL TRIGGER
+ */
+
+ /** Create a trigger that triggers BEFORE INSERTs on the avenger table. */
+ CREATE OR REPLACE TRIGGER avenger_t2
+ 	BEFORE INSERT ON avenger
+ 	REFERENCING NEW AS NEW OLD AS OLD
+ 	FOR EACH ROW
+ DECLARE
+ 	/* Declare local trigger-scope variables. */
+ 	lv_sequence_id    NUMBER := avenger_log_s.NEXTVAL;
+ 	lv_trigger_name   VARCHAR2(30) := 'AVENGER_T2';
+  	lv_trigger_event  VARCHAR2(6) := 'INSERT';
+ 	lv_trigger_type   VARCHAR2(12) := 'STATEMENT';
+ 	lv_trigger_timing VARCHAR2(6) := 'BEFORE';
+ BEGIN
+ 	/* Log event into the avenger_log table. */
+ 	INSERT INTO avenger_log
+ 	( avenger_log_id
+ 	, trigger_name
+ 	, trigger_event
+ 	, trigger_type
+ 	, trigger_timing)
+ 	VALUES
+ 	( lv_sequence_id
+ 	, lv_trigger_name
+ 	, lv_trigger_event
+ 	, lv_trigger_type
+ 	, lv_trigger_timing);
+
+ 	/** Change stuff the user was trying to INSERT. */
+ 	:new.first_name := 'Christopher';
+ 	:new.last_name := 'Keers';
+ 	/** Old has no value here. */
+ 	dbms_output.put_line('Name was: '||:old.first_name||' '||:old.last_name);
+ 	dbms_output.put_line('Name now is: '||:new.first_name||' '||:new.last_name);
+ END avenger_t2;
+ /
+
+ /** Test an insert. */
+ INSERT INTO avenger VALUES
+ ( avenger_s.NEXTVAL
+ , 'Captain America'
+ , 'Steven'
+ , 'Rogers');
+
+ /** Check the tables. */
+ COLUMN avenger_name FORMAT A25
+ COLUMN first_name 	FORMAT A20
+ COLUMN last_name	FORMAT A20
+ SELECT avenger_name
+ 	 , first_name
+ 	 , last_name
+ 	 FROM avenger;
+
+ COLUMN trigger_name 	FORMAT A18
+ COLUMN trigger_timing 	FORMAT A18
+ COLUMN trigger_event	FORMAT A18
+ COLUMN trigger_type		FORMAT A18
+ SELECT trigger_name
+ 	 , trigger_timing
+   	 , trigger_event
+ 	 , trigger_type
+ 	 FROM avenger_log;
+
+BEGIN
+	dbms_output.put_line('===============================');
+	dbms_output.put_line('             PART 3            ');
+	dbms_output.put_line('===============================');
+END;
+/
+
+BEGIN
+dbms_output.put_line('1) Read your book.');
+dbms_output.put_line('2) Read and practice: http://www.toadworld.com/platforms/oracle/w/wiki/11128.dml-trigger-basics');
+dbms_output.put_line('3) Read and practice the articles linked at the start of lab 11.');
+dbms_output.put_line('4) Google sqlplus triggers.');
+END;
+/
