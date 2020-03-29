@@ -13,6 +13,7 @@
 SPOOL apply_plsql_lab12.txt
 SET SERVEROUTPUT ON;
 SET PAGESIZE 80;
+SET LINESIZE 70;
 
 
 -- Create item object and collection
@@ -85,8 +86,7 @@ END;
 COLUMN il.title  FORMAT A60
 COLUMN il.rating FORMAT A8
 SELECT il.title, il.rating
-FROM TABLE(item_list(TO_DATE('01/01/2000', 'MM/DD/YYYY'))) il
-ORDER BY 1, 2;
+FROM TABLE(item_list(TO_DATE('01/01/2000', 'MM/DD/YYYY'))) il;
 
 
 -- Close log file.

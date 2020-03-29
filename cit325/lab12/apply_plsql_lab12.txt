@@ -1,0 +1,169 @@
+
+Type created.
+
+
+Type created.
+
+
+Function created.
+
+
+TITLE                          RATING                                 
+------------------------------ --------                               
+Around the World in 80 Days    NR                                     
+Around the World in 80 Days    PG                                     
+Casino Royale                  PG-13                                  
+Casino Royale                  PG-13                                  
+Die Another Day                PG-13                                  
+Die Another Day                PG-13                                  
+Die Another Day                PG-13                                  
+Golden Eye                     PG-13                                  
+Golden Eye                     PG-13                                  
+Tomorrow Never Dies            PG-13                                  
+The World Is Not Enough        PG-13                                  
+The World Is Not Enough        PG-13                                  
+Brave Heart                    R                                      
+Christmas Carol                NR                                     
+Scrooge                        G                                      
+Clear and Present Danger       PG-13                                  
+Harry Potter and the Sorcer's  PG                                     
+Stone                                                                 
+                                                                      
+Harry Potter and the Sorcer's  PG                                     
+Stone                                                                 
+                                                                      
+Harry Potter and the Chamber o PG                                     
+f Secrets                                                             
+                                                                      
+Harry Potter and the Chamber o PG                                     
+f Secrets                                                             
+                                                                      
+Harry Potter and the Prisoner  PG                                     
+of Azkaban                                                            
+                                                                      
+Harry Potter and the Prisoner  PG                                     
+of Azkaban                                                            
+                                                                      
+Harry Potter and the Chamber o PG                                     
+f Secrets                                                             
+                                                                      
+Harry Potter and the Goblet of PG-13                                  
+ Fire                                                                 
+                                                                      
+Harry Potter and the Goblet of PG-13                                  
+ Fire                                                                 
+                                                                      
+Harry Potter and the Goblet of PG-13                                  
+ Fire                                                                 
+                                                                      
+Harry Potter and the Order of  PG-13                                  
+the Phoenix                                                           
+                                                                      
+The Hunt for Red October       PG                                     
+King Arthur - The Director's C R                                      
+ut                                                                    
+                                                                      
+King Arthur                    PG-13                                  
+King Arthur - The Director's C R                                      
+ut                                                                    
+                                                                      
+The Lord of the Rings - Fellow PG-13                                  
+ship of the Ring                                                      
+                                                                      
+The Lord of the Rings - Fellow PG-13                                  
+ship of the Ring                                                      
+                                                                      
+The Lord of the Rings - Fellow PG-13                                  
+ship of the Ring                                                      
+                                                                      
+The Lord of the Rings - Two To PG-13                                  
+wers                                                                  
+                                                                      
+The Lord of the Rings - Two To PG-13                                  
+wers                                                                  
+                                                                      
+The Lord of the Rings - Two To PG-13                                  
+wers                                                                  
+                                                                      
+The Lord of the Rings - The Re PG-13                                  
+turn of the King                                                      
+
+TITLE                          RATING                                 
+------------------------------ --------                               
+                                                                      
+The Lord of the Rings - The Re PG-13                                  
+turn of the King                                                      
+                                                                      
+The Lord of the Rings - The Re PG-13                                  
+turn of the King                                                      
+                                                                      
+The Patriot Games              R                                      
+Pirates of the Caribbean - The PG-13                                  
+ Curse of the Black Pearl                                             
+                                                                      
+Pirates of the Caribbean - The PG-13                                  
+ Curse of the Black Pearl                                             
+                                                                      
+Pirates of the Caribbean - The PG-13                                  
+ Curse of the Black Pearl                                             
+                                                                      
+Pirates of the Caribbean - Dea PG-13                                  
+d Man's Chest                                                         
+                                                                      
+Pirates of the Caribbean - Dea PG-13                                  
+d Man's Chest                                                         
+                                                                      
+Pirates of the Caribbean - At  PG-13                                  
+World's End                                                           
+                                                                      
+Pirates of the Caribbean - At  PG-13                                  
+World's End                                                           
+                                                                      
+Indiana Jones and the Raiders  PG                                     
+of the Lost Ark                                                       
+                                                                      
+Indiana Jones and the Raiders  PG                                     
+of the Lost Ark                                                       
+                                                                      
+Indiana Jones and the Temple o PG                                     
+f Doom                                                                
+                                                                      
+Indiana Jones and the Temple o PG                                     
+f Doom                                                                
+                                                                      
+Indiana Jones and the Last Cru PG-13                                  
+sade                                                                  
+                                                                      
+Indiana Jones and the Last Cru PG-13                                  
+sade                                                                  
+                                                                      
+Spider-Man                     PG-13                                  
+Spider-Man                     PG-13                                  
+Spider-Man 2                   PG-13                                  
+Spider-Man 2                   PG-13                                  
+Spider-Man 3                   PG-13                                  
+Spider-Man 3                   PG-13                                  
+Star Wars - Episode I          PG                                     
+Star Wars - Episode II         PG                                     
+Star Wars - Episode II         PG                                     
+Star Wars - Episode III        PG-13                                  
+Star Wars - Episode III        PG-13                                  
+Star Wars - Episode IV         PG                                     
+Star Wars - Episode IV         PG                                     
+Star Wars - Episode V          PG                                     
+Star Wars - Episode V          PG                                     
+Star Wars - Episode VI         PG                                     
+Star Wars - Episode VI         PG                                     
+The Sum of All Fears           PG-13                                  
+The Patriot                    R                                      
+The Patriot                    NR                                     
+We Were Soldiers               R                                      
+Chronicles of Narnia - The Lio PG                                     
+n, the Witch and the Wardrobe                                         
+                                                                      
+Chronicles of Narnia - The Lio PG                                     
+n, the Witch and the Wardrobe                                         
+                                                                      
+
+77 rows selected.
+
