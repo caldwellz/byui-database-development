@@ -46,3 +46,6 @@ BEGIN
   INSERT INTO tolkien VALUES (tolkien_s.NEXTVAL, goblin_t('The Great Goblin', 'Goblins'));
   INSERT INTO tolkien VALUES (tolkien_s.NEXTVAL, man_t('Aragorn', 'Men'));
 END;
+/
+
+QUIT;
